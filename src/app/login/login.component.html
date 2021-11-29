@@ -1,0 +1,22 @@
+<h3 class="text-center mt-5"> Money Care</h3>
+
+<div class="container-fluid">
+  <div class="row justify-content-center align-items-center mt-3">
+    <div class="col-4 p-2">
+      <form (ngSubmit)="onLogin()">
+        <mat-card class="p-5 text-center">
+         
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Email" [(ngModel)]="loginData.email" [ngModelOptions]="{standalone: true}">
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Password" type="password" [(ngModel)]="loginData.password"
+              [ngModelOptions]="{standalone: true}">
+          </mat-form-field>
+          <button mat-raised-button type="submit" class="btn btn-danger">LOGIN</button>
+        </mat-card>
+      </form>
+    </div>
+  </div>
+</div>
+

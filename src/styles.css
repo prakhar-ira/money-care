@@ -1,0 +1,6 @@
+/* You can add global styles to this file, and also import other style files */
+.no-padding  {
+	 mat-dialog-container {
+        padding: 0 !important;
+    }
+}

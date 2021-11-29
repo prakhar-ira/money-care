@@ -1,0 +1,3979 @@
+<div class="main-content">
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="card">
+				<div class="card-header card-header-danger">
+					<h4 class="card-title ">Health</h4>
+					<!-- <p class="card-category"></p> -->
+				</div>
+				<div class="card-body">
+
+					<mat-tab-group mat-stretch-tabs>
+						<mat-tab label="Mediclaim">
+							<div class="row" *ngIf="update === 'true'">
+								<div class="col-md-6">
+									<mat-form-field class="example-full-width">
+										<mat-label>Select Policy Number</mat-label>
+										<mat-select [(ngModel)]="selectedPolicyNumberMedicliaim">
+											<mat-option *ngFor="let number of allMediclaim; let i = index" [value]="number.policyNumber"
+											(click)="mediClaimSelected(i)">
+											{{number.policyNumber}}
+										</mat-option>
+									</mat-select>
+								</mat-form-field>
+							</div>
+						</div>
+
+						<div class="row mt-4">
+							<div class="col-md-12">
+								<div class="d-flex align-items-center">
+									<p class="font-weight-bold text-secondary ">Type of Insurance:-</p>
+									<p class="text-primary font-weight-bold ml-2">Mediclaim
+									</p>
+								</div>
+							</div>
+						</div>
+
+						<div class="row ">
+
+							<div class="col-md-6">
+								<mat-form-field class="example-full-width">
+									<mat-label>Individual / Family Floater</mat-label>
+									<mat-select [(ngModel)]="mediClaim.individualFamily">
+										<mat-option value="individual">
+											Individual
+										</mat-option>
+										<mat-option value="family">
+											Family Floater
+										</mat-option>
+
+									</mat-select>
+								</mat-form-field>
+							</div>
+
+							<div class="col-md-6">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="S. no" [(ngModel)]="mediClaim.sNo" type="text">
+								</mat-form-field>
+							</div>
+
+							<div class="col-md-6">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Proposer" [(ngModel)]="mediClaim.proposer" type="text">
+								</mat-form-field>
+							</div>
+
+							<div class="col-md-6">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Company" [(ngModel)]="mediClaim.company" type="text">
+								</mat-form-field>
+							</div>
+
+							<div class="col-md-6">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Plan" [(ngModel)]="mediClaim.plan" type="text">
+								</mat-form-field>
+							</div>
+
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Policy Number" [(ngModel)]="mediClaim.policyNumber" type="text">
+								</mat-form-field>
+							</div>
+
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Old Policy Number" [(ngModel)]="mediClaim.oldPolicyNumber" type="text">
+								</mat-form-field>
+							</div>
+
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Policy Period" [(ngModel)]="mediClaim.policyPeriod" type="number">
+								</mat-form-field>
+							</div>
+
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Age Range" [(ngModel)]="mediClaim.ageRange" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+
+						</div>
+
+						<div class="row">
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Occupation" [(ngModel)]="mediClaim.occupation" type="text">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Sum Assured" [(ngModel)]="mediClaim.sumAssured" type="number">
+								</mat-form-field>
+							</div>
+
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<mat-label>Members Insured</mat-label>
+									<mat-select [(ngModel)]="mediClaim.membersInsured" (selectionChange)="getMemberInsuredMediclaim()">
+										<mat-option *ngFor="let member of membersInsured" value="{{member}}">
+											{{member}}
+										</mat-option>
+									</mat-select>
+								</mat-form-field>
+							</div>
+						</div>
+
+						<div class="row" *ngFor="let nub of allMenbersInsuredObject; let i = index">
+
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Member Name" [(ngModel)]="allMenbersInsuredObject[i].memberName"
+									type="text">
+								</mat-form-field>
+							</div>
+
+
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<mat-label>D.O.B</mat-label>
+									<input
+									  matInput
+									  [(ngModel)]="allMenbersInsuredObject[i].dob"
+									  placeholder=" D.O.B"
+									  [matDatepicker]="picker1"
+									/>
+									<mat-datepicker-toggle
+									  matSuffix
+									  [for]="picker1"
+									></mat-datepicker-toggle>
+									<mat-datepicker #picker1></mat-datepicker>
+								  </mat-form-field>
+							</div>
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<mat-label>Sex</mat-label>
+									<mat-select [(ngModel)]="allMenbersInsuredObject[i].sex">
+										<mat-option value="male">
+											Male
+										</mat-option>
+										<mat-option value="female">
+											Female
+										</mat-option>
+									</mat-select>
+								</mat-form-field>
+							</div>
+
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<mat-label>Relation</mat-label>
+									<mat-select [(ngModel)]="allMenbersInsuredObject[i].relation">
+										<mat-option value="spouse">
+											Spouse
+										</mat-option>
+										<mat-option value="children">
+											Children
+										</mat-option>
+										<mat-option value="father">
+											Father
+										</mat-option>
+										<mat-option value="mother">
+											Mother
+										</mat-option>
+										<mat-option value="other">
+											Other
+										</mat-option>
+										<mat-option value="self">
+											Self
+										</mat-option>
+									</mat-select>
+								</mat-form-field>
+							</div>
+
+							<div class="col-md-4" *ngIf="mediClaim.individualFamily === 'individual'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Sum Assured" [(ngModel)]="allMenbersInsuredObject[i].sumAssured"
+									type="Number">
+								</mat-form-field>
+							</div>
+						</div>
+
+
+						<div class="row">
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<mat-label>Risk Start Date</mat-label>
+									<input
+									  matInput
+									  [(ngModel)]="mediClaim.riskStart"
+									  placeholder="Risk Start Date"
+									  [matDatepicker]="picker2"
+									/>
+									<mat-datepicker-toggle
+									  matSuffix
+									  [for]="picker2"
+									></mat-datepicker-toggle>
+									<mat-datepicker #picker2></mat-datepicker>
+								  </mat-form-field>
+							</div>
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<mat-label>Risk End Date</mat-label>
+									<input
+									  matInput
+									  [(ngModel)]="mediClaim.riskEnd"
+									  placeholder="Risk End Date"
+									  [matDatepicker]="picker3"
+									/>
+									<mat-datepicker-toggle
+									  matSuffix
+									  [for]="picker3"
+									></mat-datepicker-toggle>
+									<mat-datepicker #picker3></mat-datepicker>
+								  </mat-form-field>
+							</div>
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="No Claim Bonus" [(ngModel)]="mediClaim.noBonusClaim" type="number">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Bonus Sum Insured" [(ngModel)]="mediClaim.bonusClaimInsured"
+									type="number">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Deductibles Sum Insured" [(ngModel)]="mediClaim.deductiblesSumInsured"
+									type="number">
+								</mat-form-field>
+							</div>
+
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Claim taken in Policy Year" (keyup)="claimDetailsMediclaimMethod()"
+									[(ngModel)]="mediClaim.claimTaken" type="tel">
+								</mat-form-field>
+							</div>
+						</div>
+
+						<div class="row" *ngFor="let num of claimDetailsMediclaim; let i = index">
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<mat-label>Name of Hospital {{i+1}}</mat-label>
+									<input matInput placeholder="Name of Hospital" [(ngModel)]="claimDetailsMediclaim[i].hospitalName"
+									type="text">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<mat-label>Patient Name {{i+1}}</mat-label>
+									<input matInput placeholder="Patient Name" [(ngModel)]="claimDetailsMediclaim[i].patientName"
+									type="text">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<mat-label>Date of Claim {{i+1}}</mat-label>
+									<input
+									  matInput
+									  [(ngModel)]="claimDetailsMediclaim[i].claimDate"
+									  placeholder="Date of Claim"
+									  [matDatepicker]="picker4"
+									/>
+									<mat-datepicker-toggle
+									  matSuffix
+									  [for]="picker4"
+									></mat-datepicker-toggle>
+									<mat-datepicker #picker4></mat-datepicker>
+								  </mat-form-field>
+							</div>
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<mat-label>Diagnosis {{i+1}}</mat-label>
+									<input matInput placeholder="Diagnosis" [(ngModel)]="claimDetailsMediclaim[i].diagnosis"
+									type="text">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<mat-label>Hospitalization/Daycare {{i+1}}</mat-label>
+									<mat-select [(ngModel)]="claimDetailsMediclaim[i].hospitalizedDaycare">
+										<mat-option value="hospitalization">
+											Hospitalization
+										</mat-option>
+										<mat-option value="daycare">
+											Daycare
+										</mat-option>
+									</mat-select>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<mat-label>No. of days Hospitalized {{i+1}}</mat-label>
+									<input matInput placeholder="No. of days Hospitalized"
+									[(ngModel)]="claimDetailsMediclaim[i].numberOfDaysHospitalized" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<mat-label>Claimed Amount {{i+1}}</mat-label>
+									<input matInput placeholder="Claimed Amount" [(ngModel)]="claimDetailsMediclaim[i].clamimedAmount"
+									type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<mat-label>Approved Amount {{i+1}}</mat-label>
+									<input matInput placeholder="Approved Amount" [(ngModel)]="claimDetailsMediclaim[i].approvedAmount"
+									type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Nominee" [(ngModel)]="mediClaim.nominee" type="text">
+								</mat-form-field>
+							</div>
+
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<mat-label>Health Check Up Benefit / Wellness Benefit</mat-label>
+									<mat-select [(ngModel)]="mediClaim.healthCheckupBenefit">
+										<mat-option value="yes">
+											Yes
+										</mat-option>
+										<mat-option value="no">
+											No
+										</mat-option>
+									</mat-select>
+								</mat-form-field>
+							</div>
+
+							<div class="col-md-4" *ngIf="mediClaim.healthCheckupBenefit === 'yes'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Health Check Up Amount" [(ngModel)]="mediClaim.healthCheckupAmount"
+									type="number">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="mediClaim.healthCheckupBenefit === 'yes'">this.data.spouseDob
+								<mat-form-field class="example-full-width">
+									<mat-label>Condition of Health Check</mat-label>
+									<mat-select [(ngModel)]="mediClaim.conditionHealthCheckup">
+										<mat-option value="claimFree">
+											Claim Free
+										</mat-option>
+										<mat-option value="noCondition">
+											No Condition
+										</mat-option>
+									</mat-select>
+								</mat-form-field>
+							</div>
+
+							<div class="col-md-4" *ngIf="mediClaim.healthCheckupBenefit === 'yes'">
+								<mat-form-field class="example-full-width">
+									<mat-label>Health Check Up Waiting Period</mat-label>
+									<mat-select [(ngModel)]="mediClaim.healthCheckupWait">
+										<mat-option value="6months">
+											6 Months
+										</mat-option>
+										<mat-option value="1year">
+											1 Year
+										</mat-option>
+										<mat-option value="2year">
+											2 Years
+										</mat-option>
+										<mat-option value="3year">
+											3 Years
+										</mat-option>
+										<mat-option value="4year">
+											4 Years
+										</mat-option>
+									</mat-select>
+								</mat-form-field>
+							</div>
+
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Policy Year" [(ngModel)]="mediClaim.policyYear" type="number">
+								</mat-form-field>
+							</div>
+
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<mat-label>Status of Policy</mat-label>
+									<mat-select [(ngModel)]="mediClaim.policyStatus">
+										<mat-option value="insured">
+											Insured
+										</mat-option>
+										<mat-option value="notInsured">
+											Not Insured
+										</mat-option>
+									</mat-select>
+								</mat-form-field>
+							</div>
+
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<mat-label>Last Premium Pay Year</mat-label>
+									<input
+									  matInput
+									  [(ngModel)]="mediClaim.lastPremiumPayYear"
+									  placeholder="Last Premium Pay Year"
+									  [matDatepicker]="picker5"
+									/>
+									<mat-datepicker-toggle
+									  matSuffix
+									  [for]="picker5"
+									></mat-datepicker-toggle>
+									<mat-datepicker #picker5></mat-datepicker>
+								  </mat-form-field>
+							</div>
+
+								<!-- <div class="col-md-4">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Family Age at Last Premium Pay Year" [(ngModel)]="mediClaim.familyAgeLastPremium" type="text">
+									</mat-form-field>
+								</div>-->
+
+								<div class="col-md-4">
+									<mat-form-field class="example-full-width">
+										<mat-label>Tax section 80 d </mat-label>
+										<mat-select [(ngModel)]="mediClaim.taxSection">
+											<mat-option value="applicable">
+												Applicable
+											</mat-option>
+											<mat-option value="notApplicable">
+												Not Applicable
+											</mat-option>
+										</mat-select>
+									</mat-form-field>
+								</div>
+
+								<div class="col-md-4">
+									<mat-form-field class="example-full-width">
+										<mat-label>Pre-Policy Check Up Attended</mat-label>
+										<mat-select [(ngModel)]="mediClaim.prePolicyCheckup">
+											<mat-option value="yes">
+												Yes
+											</mat-option>
+											<mat-option value="no">
+												No
+											</mat-option>
+										</mat-select>
+									</mat-form-field>
+								</div>
+
+								<div class="col-md-4" *ngIf="mediClaim.prePolicyCheckup === 'yes'">
+									<mat-form-field class="example-full-width">
+										<mat-label>Any Kind of Loading</mat-label>
+										<mat-select [(ngModel)]="mediClaim.anyLoading">
+											<mat-option value="yes">
+												Yes
+											</mat-option>
+											<mat-option value="no">
+												No
+											</mat-option>
+										</mat-select>
+									</mat-form-field>
+								</div>
+
+								<div class="col-md-4" *ngIf="mediClaim.prePolicyCheckup === 'yes' && mediClaim.anyLoading === 'yes'">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Reason of Loading " [(ngModel)]="mediClaim.reasonLoading" type="text">
+									</mat-form-field>
+								</div>
+
+								<div class="col-md-4" *ngIf="mediClaim.prePolicyCheckup === 'yes' && mediClaim.anyLoading === 'yes'">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Amount of Loading " [(ngModel)]="mediClaim.amountLoading"
+										type="number">
+									</mat-form-field>
+								</div>
+
+								<div class="col-md-4" *ngIf="mediClaim.prePolicyCheckup === 'yes'">
+									<mat-form-field class="example-full-width">
+										<mat-label>Any Specific Exclusion Given by Company</mat-label>
+										<mat-select [(ngModel)]="mediClaim.anyExclusion">
+											<mat-option value="yes">
+												Yes
+											</mat-option>
+											<mat-option value="no">
+												No
+											</mat-option>
+										</mat-select>
+									</mat-form-field>
+								</div>
+
+								<div class="col-md-4" *ngIf="mediClaim.prePolicyCheckup === 'yes' && mediClaim.anyExclusion === 'yes'">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Waiting period for exclusion"
+										[(ngModel)]="mediClaim.waitPeriodExclusion" type="text">
+									</mat-form-field>
+								</div>
+
+								<div class="col-md-4" *ngIf="mediClaim.prePolicyCheckup === 'yes' && mediClaim.anyExclusion === 'yes'">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Description of exclusion" [(ngModel)]="mediClaim.exclusionDescription"
+										type="text">
+									</mat-form-field>
+								</div>
+
+								<div class="col-md-4">
+									<mat-form-field class="example-full-width">
+										<mat-label>Declaration of Health Status to Company</mat-label>
+										<mat-select [(ngModel)]="mediClaim.declarationHealthStatus">
+											<mat-option value="yes">
+												Yes
+											</mat-option>
+											<mat-option value="no">
+												No
+											</mat-option>
+										</mat-select>
+									</mat-form-field>
+								</div>
+
+								<div class="col-md-4" *ngIf="mediClaim.declarationHealthStatus === 'yes'">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="How many Declaration" (keyup)="openDeclarationFields()"
+										[(ngModel)]="mediClaim.totalDeclaration" type="tel" numbersOnly>
+									</mat-form-field>
+								</div>
+							</div>
+							<div class="row" *ngFor="let num of declarationMediclaim; let i = index">
+								<div class="col-md-4">
+									<mat-form-field class="example-full-width">
+										<mat-label>Date of Declaration</mat-label>
+										<input
+										  matInput
+										  [(ngModel)]="declarationMediclaim[i].declarationDate"
+										  placeholder="Date of Declaration"
+										  [matDatepicker]="picker11"
+										/>
+										<mat-datepicker-toggle
+										  matSuffix
+										  [for]="picker11"
+										></mat-datepicker-toggle>
+										<mat-datepicker #picker11></mat-datepicker>
+									  </mat-form-field>
+								</div>
+
+								<div class="col-md-4">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Member Name" [(ngModel)]="declarationMediclaim[i].memberName"
+										type="text">
+									</mat-form-field>
+								</div>
+
+								<div class="col-md-4">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Diagnosis" [(ngModel)]="declarationMediclaim[i].diagnosis"
+										type="text">
+									</mat-form-field>
+								</div>
+
+								<div class="col-md-4">
+									<mat-form-field class="example-full-width">
+										<mat-label>Acceptance by Company</mat-label>
+										<mat-select [(ngModel)]="declarationMediclaim[i].companyAcceptance">
+											<mat-option value="yes">
+												Yes
+											</mat-option>
+											<mat-option value="no">
+												No
+											</mat-option>
+										</mat-select>
+									</mat-form-field>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-4">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Cashless Hospital Link" [(ngModel)]="mediClaim.cashlessHospitalLink"
+										type="text">
+									</mat-form-field>
+								</div>
+
+								<div class="col-md-4">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Contact us link" [(ngModel)]="mediClaim.contactUsLink" type="text">
+									</mat-form-field>
+								</div>
+
+								<div class="col-md-4">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Toll free number" [(ngModel)]="mediClaim.tollFreeNumber" type="tel"
+										numbersOnly>
+									</mat-form-field>
+								</div>
+
+								<div class="col-md-4">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Branch Locator" [(ngModel)]="mediClaim.branchLocator" type="text">
+									</mat-form-field>
+								</div>
+
+								<div class="col-md-4">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Claim Procedure" [(ngModel)]="mediClaim.claimProcedure" type="text">
+									</mat-form-field>
+								</div>
+
+								<div class="col-md-4">
+									<mat-form-field class="example-full-width">
+										<mat-label>Policy Purchased via</mat-label>
+										<mat-select [(ngModel)]="mediClaim.purchasedVia">
+											<mat-option value="agent">
+												Agent
+											</mat-option>
+											<mat-option value="online">
+												Online
+											</mat-option>
+											<mat-option value="bank">
+												Bank
+											</mat-option>
+										</mat-select>
+									</mat-form-field>
+								</div>
+
+								<div class="col-md-4" *ngIf="mediClaim.purchasedVia !== 'online'">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Agent / Bank contact Name" [(ngModel)]="mediClaim.agentCompanyName"
+										type="text">
+									</mat-form-field>
+								</div>
+
+
+								<div class="col-md-4" *ngIf="mediClaim.purchasedVia !== 'online'">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Agent / Bank contact number"
+										[(ngModel)]="mediClaim.agentCompanyContact" type="tel" numbersOnly>
+									</mat-form-field>
+								</div>
+
+								<div class="col-md-4">
+									<p class="form-sub-heading font-weight-bold text-secondary">Health Card</p>
+									<input type="file" accept="application/pdf" (change)="healthCardMedicliam($event)">
+								</div>
+
+								<div class="col-md-4">
+									<p class="form-sub-heading font-weight-bold text-secondary">Client Policy</p>
+									<input type="file" accept="application/pdf" (change)="clientPolicyMedicliam($event)">
+								</div>
+
+								<div class="col-md-4">
+									<p class="form-sub-heading font-weight-bold text-secondary">Policy Wording</p>
+									<input type="file" accept="application/pdf" (change)="policyWordingUploadMedicliam($event)">
+								</div>
+
+
+								<div class="col-md-4" *ngIf="mediClaim.validDrivingLicense === 'yes'">
+									<p class="form-sub-heading font-weight-bold text-secondary">Upload Driving License
+									</p>
+									<input type="file" accept="application/pdf" (change)="drivingLicence($event)">
+								</div>
+
+							</div> <!-- end row -->
+
+								<h3>Policy Features</h3>
+
+							<div class="row">
+								<div class="col-md-4">
+									<p>Doctor's Fees</p>
+									<mat-radio-group [(ngModel)]="mediClaim.doctorFee">
+										<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+											{{option.text}} &nbsp;
+										</mat-radio-button>
+									</mat-radio-group>
+								</div>
+								<div class="col-md-4" *ngIf="mediClaim.doctorFee === 'covered'">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Description" [(ngModel)]="mediClaim.doctorFeeDescription" type="text">
+									</mat-form-field>
+								</div>
+								<div class="col-md-4" *ngIf="mediClaim.doctorFee === 'covered'">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Max Limit" [(ngModel)]="mediClaim.doctorFeeMaxLimit" type="tel"
+										numbersOnly>
+									</mat-form-field>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-4">
+									<p>Diagnostic Test</p>
+									<mat-radio-group [(ngModel)]="mediClaim.diagnosticTest">
+										<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+											{{option.text}} &nbsp;
+										</mat-radio-button>
+									</mat-radio-group>
+								</div>
+								<div class="col-md-4" *ngIf="mediClaim.diagnosticTest === 'covered'">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Description" [(ngModel)]="mediClaim.diagnosticTestDescription"
+										type="text">
+									</mat-form-field>
+								</div>
+								<div class="col-md-4" *ngIf="mediClaim.diagnosticTest === 'covered'">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Max Limit" [(ngModel)]="mediClaim.diagnosticTestMaxLimit" type="tel"
+										numbersOnly>
+									</mat-form-field>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-4">
+									<p>Medicine/drug/consumables</p>
+									<mat-radio-group [(ngModel)]="mediClaim.medicine">
+										<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+											{{option.text}} &nbsp;
+										</mat-radio-button>
+									</mat-radio-group>
+								</div>
+								<div class="col-md-4" *ngIf="mediClaim.medicine === 'covered'">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Description" [(ngModel)]="mediClaim.medicineDescription" type="text">
+									</mat-form-field>
+								</div>
+								<div class="col-md-4" *ngIf="mediClaim.medicine === 'covered'">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Max Limit" [(ngModel)]="mediClaim.medicineMaxLimit" type="tel"
+										numbersOnly>
+									</mat-form-field>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-4">
+									<p>Intravenous fluids ,Blood Transfusion,injection administration charges</p>
+									<mat-radio-group [(ngModel)]="mediClaim.intravenousCharges">
+										<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+											{{option.text}} &nbsp;
+										</mat-radio-button>
+									</mat-radio-group>
+								</div>
+								<div class="col-md-4" *ngIf="mediClaim.intravenousCharges === 'covered'">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Description" [(ngModel)]="mediClaim.intravenousChargesDescription"
+										type="text">
+									</mat-form-field>
+								</div>
+								<div class="col-md-4" *ngIf="mediClaim.intravenousCharges === 'covered'">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Max Limit" [(ngModel)]="mediClaim.intravenousChargesMaxLimit"
+										type="tel" numbersOnly>
+									</mat-form-field>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-4">
+									<p>Hospital Accomodation(Room,Boarding,Nursing expenses)</p>
+									<mat-radio-group [(ngModel)]="mediClaim.hospitalAccomodation">
+										<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+											{{option.text}} &nbsp;
+										</mat-radio-button>
+									</mat-radio-group>
+								</div>
+								<div class="col-md-4" *ngIf="mediClaim.hospitalAccomodation === 'covered'">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Description" [(ngModel)]="mediClaim.hospitalAccomodationDescription"
+										type="text">
+									</mat-form-field>
+								</div>
+								<div class="col-md-4" *ngIf="mediClaim.hospitalAccomodation === 'covered'">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Max Limit" [(ngModel)]="mediClaim.hospitalAccomodationMaxLimit"
+										type="tel" numbersOnly>
+									</mat-form-field>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-4">
+									<p>Operation Theatre charges</p>
+									<mat-radio-group [(ngModel)]="mediClaim.operationTheatreCharges">
+										<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+											{{option.text}} &nbsp;
+										</mat-radio-button>
+									</mat-radio-group>
+								</div>
+								<div class="col-md-4" *ngIf="mediClaim.operationTheatreCharges === 'covered'">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Description" [(ngModel)]="mediClaim.operationTheatreChargesDescription"
+										type="text">
+									</mat-form-field>
+								</div>
+								<div class="col-md-4" *ngIf="mediClaim.operationTheatreCharges === 'covered'">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Max Limit" [(ngModel)]="mediClaim.operationTheatreChargesMaxLimit"
+										type="tel" numbersOnly>
+									</mat-form-field>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-4">
+									<p>Cost of prosthetics and other devices or surgical operation</p>
+									<mat-radio-group [(ngModel)]="mediClaim.prostheticsCost">
+										<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+											{{option.text}} &nbsp;
+										</mat-radio-button>
+									</mat-radio-group>
+								</div>
+								<div class="col-md-4" *ngIf="mediClaim.prostheticsCost === 'covered'">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Description" [(ngModel)]="mediClaim.prostheticsCostDescription"
+										type="text">
+									</mat-form-field>
+								</div>
+								<div class="col-md-4" *ngIf="mediClaim.prostheticsCost === 'covered'">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Max Limit" [(ngModel)]="mediClaim.prostheticsCostMaxLimit" type="tel"
+										numbersOnly>
+									</mat-form-field>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-4">
+									<p>Intensive care unit charges</p>
+									<mat-radio-group [(ngModel)]="mediClaim.intensiveCareUnitCharges">
+										<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+											{{option.text}} &nbsp;
+										</mat-radio-button>
+									</mat-radio-group>
+								</div>
+								<div class="col-md-4" *ngIf="mediClaim.intensiveCareUnitCharges === 'covered'">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Description"
+										[(ngModel)]="mediClaim.intensiveCareUnitChargesDescription" type="text">
+									</mat-form-field>
+								</div>
+								<div class="col-md-4" *ngIf="mediClaim.intensiveCareUnitCharges === 'covered'">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Max Limit" [(ngModel)]="mediClaim.intensiveCareUnitChargesMaxLimit"
+										type="tel" numbersOnly>
+									</mat-form-field>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-4">
+									<p>Pre Hospitalization (including doctors fee , diagnostic tests,medicines,drugs and
+									consumables )</p>
+									<mat-radio-group [(ngModel)]="mediClaim.preHospitalization">
+										<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+											{{option.text}} &nbsp;
+										</mat-radio-button>
+									</mat-radio-group>
+								</div>
+								<div class="col-md-4" *ngIf="mediClaim.preHospitalization === 'covered'">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Description" [(ngModel)]="mediClaim.preHospitalizationDescription"
+										type="text">
+									</mat-form-field>
+								</div>
+								<div class="col-md-4" *ngIf="mediClaim.preHospitalization === 'covered'">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Max Limit" [(ngModel)]="mediClaim.preHospitalizationMaxLimit"
+										type="tel" numbersOnly>
+									</mat-form-field>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-4">
+									<p>post Hospitalization (including doctors fee , diagnostic tests,medicines,drugs
+									and consumables )</p>
+									<mat-radio-group [(ngModel)]="mediClaim.postHospitalization">
+										<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+											{{option.text}} &nbsp;
+										</mat-radio-button>
+									</mat-radio-group>
+								</div>
+								<div class="col-md-4" *ngIf="mediClaim.postHospitalization === 'covered'">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Description" [(ngModel)]="mediClaim.postHospitalizationDescription"
+										type="text">
+									</mat-form-field>
+								</div>
+								<div class="col-md-4" *ngIf="mediClaim.postHospitalization === 'covered'">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Max Limit" [(ngModel)]="mediClaim.postHospitalizationMaxLimit"
+										type="tel" numbersOnly>
+									</mat-form-field>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-4">
+									<p>Day Care Procedure</p>
+									<mat-radio-group [(ngModel)]="mediClaim.dayCareProcedure">
+										<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+											{{option.text}} &nbsp;
+										</mat-radio-button>
+									</mat-radio-group>
+								</div>
+								<div class="col-md-4" *ngIf="mediClaim.dayCareProcedure === 'covered'">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Description" [(ngModel)]="mediClaim.dayCareProcedureDescription"
+										type="text">
+									</mat-form-field>
+								</div>
+								<div class="col-md-4" *ngIf="mediClaim.dayCareProcedure === 'covered'">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Max Limit" [(ngModel)]="mediClaim.dayCareProcedureMaxLimit" type="tel"
+										numbersOnly>
+									</mat-form-field>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-4">
+									<p>Maternity & New Born Baby Cover</p>
+									<mat-radio-group [(ngModel)]="mediClaim.maternity">
+										<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+											{{option.text}} &nbsp;
+										</mat-radio-button>
+									</mat-radio-group>
+								</div>
+								<div class="col-md-4" *ngIf="mediClaim.maternity === 'covered'">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Description" [(ngModel)]="mediClaim.maternityDescription" type="text">
+									</mat-form-field>
+								</div>
+								<div class="col-md-4" *ngIf="mediClaim.maternity === 'covered'">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Max Limit" [(ngModel)]="mediClaim.maternityMaxLimit" type="tel"
+										numbersOnly>
+									</mat-form-field>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-4">
+									<p>Emergency Ambulance ROAD</p>
+									<mat-radio-group [(ngModel)]="mediClaim.emergencyAmbulanceROAD">
+										<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+											{{option.text}} &nbsp;
+										</mat-radio-button>
+									</mat-radio-group>
+								</div>
+								<div class="col-md-4" *ngIf="mediClaim.emergencyAmbulanceROAD === 'covered'">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Description" [(ngModel)]="mediClaim.emergencyAmbulanceROADDescription"
+										type="text">
+									</mat-form-field>
+								</div>
+								<div class="col-md-4" *ngIf="mediClaim.emergencyAmbulanceROAD === 'covered'">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Max Limit" [(ngModel)]="mediClaim.emergencyAmbulanceROADMaxLimit"
+										type="tel" numbersOnly>
+									</mat-form-field>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-4">
+									<p>AIR AMBULANCE</p>
+									<mat-radio-group [(ngModel)]="mediClaim.airAmbulance">
+										<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+											{{option.text}} &nbsp;
+										</mat-radio-button>
+									</mat-radio-group>
+								</div>
+								<div class="col-md-4" *ngIf="mediClaim.airAmbulance === 'covered'">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Description" [(ngModel)]="mediClaim.airAmbulanceDescription"
+										type="text">
+									</mat-form-field>
+								</div>
+								<div class="col-md-4" *ngIf="mediClaim.airAmbulance === 'covered'">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Max Limit" [(ngModel)]="mediClaim.airAmbulanceMaxLimit" type="tel"
+										numbersOnly>
+									</mat-form-field>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-4">
+									<p>Domiciliary Treatment (RESIDENCE TREATMENT)</p>
+									<mat-radio-group [(ngModel)]="mediClaim.domiciliaryTreatment">
+										<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+											{{option.text}} &nbsp;
+										</mat-radio-button>
+									</mat-radio-group>
+								</div>
+								<div class="col-md-4" *ngIf="mediClaim.domiciliaryTreatment === 'covered'">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Description" [(ngModel)]="mediClaim.domiciliaryTreatmentDescription"
+										type="text">
+									</mat-form-field>
+								</div>
+								<div class="col-md-4" *ngIf="mediClaim.domiciliaryTreatment === 'covered'">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Max Limit" [(ngModel)]="mediClaim.domiciliaryTreatmentMaxLimit"
+										type="tel" numbersOnly>
+									</mat-form-field>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-4">
+									<p>AYURVEDIC/YOGA/UNANI/SIDDHA/HOMEOPATHY</p>
+									<mat-radio-group [(ngModel)]="mediClaim.ayurvedic">
+										<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+											{{option.text}} &nbsp;
+										</mat-radio-button>
+									</mat-radio-group>
+								</div>
+								<div class="col-md-4" *ngIf="mediClaim.ayurvedic === 'covered'">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Description" [(ngModel)]="mediClaim.ayurvedicDescription" type="text">
+									</mat-form-field>
+								</div>
+								<div class="col-md-4" *ngIf="mediClaim.ayurvedic === 'covered'">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Max Limit" [(ngModel)]="mediClaim.ayurvedicMaxLimit" type="tel"
+										numbersOnly>
+									</mat-form-field>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-4">
+									<p>RESTORATION OF SUM INSURED</p>
+									<mat-radio-group [(ngModel)]="mediClaim.restorationSumInsured">
+										<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+											{{option.text}} &nbsp;
+										</mat-radio-button>
+									</mat-radio-group>
+								</div>
+								<div class="col-md-4" *ngIf="mediClaim.restorationSumInsured === 'covered'">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Description" [(ngModel)]="mediClaim.restorationSumInsuredDescription"
+										type="text">
+									</mat-form-field>
+								</div>
+								<div class="col-md-4" *ngIf="mediClaim.restorationSumInsured === 'covered'">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Max Limit" [(ngModel)]="mediClaim.restorationSumInsuredMaxLimit"
+										type="tel" numbersOnly>
+									</mat-form-field>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-4">
+									<p>PRE EXISTING DISEASE</p>
+									<mat-radio-group [(ngModel)]="mediClaim.preExistingDisease">
+										<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+											{{option.text}} &nbsp;
+										</mat-radio-button>
+									</mat-radio-group>
+								</div>
+								<div class="col-md-4" *ngIf="mediClaim.preExistingDisease === 'covered'">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Description" [(ngModel)]="mediClaim.preExistingDiseaseDescription"
+										type="text">
+									</mat-form-field>
+								</div>
+								<div class="col-md-4" *ngIf="mediClaim.preExistingDisease === 'covered'">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Max Limit" [(ngModel)]="mediClaim.preExistingDiseaseMaxLimit"
+										type="tel" numbersOnly>
+									</mat-form-field>
+								</div>
+							</div>
+
+							<!-- <div class="row">
+	<div class="col-md-4">
+		<p>24 months / 36 months / 48 months</p>
+		<mat-radio-group [(ngModel)]="mediClaim.featureMonths">
+			<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+				{{option.text}} &nbsp;
+			</mat-radio-button>
+		</mat-radio-group>
+	</div>
+	<div class="col-md-4" *ngIf="mediClaim.featureMonths === 'covered'">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="Description" [(ngModel)]="mediClaim.featureMonthsDescription" type="text">
+		</mat-form-field>
+	</div>
+	<div class="col-md-4" *ngIf="mediClaim.featureMonths === 'covered'">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="Max Limit" [(ngModel)]="mediClaim.featureMonthsMaxLimit" type="tel" numbersOnly>
+		</mat-form-field>
+	</div>
+</div>
+-->
+							<!-- <div class="row">
+	<div class="col-md-4">
+		<p>Type of disease + Coverd after mentioned year</p>
+		<mat-radio-group [(ngModel)]="mediClaim.typeOfDiesease">
+			<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+				{{option.text}} &nbsp;
+			</mat-radio-button>
+		</mat-radio-group>
+	</div>
+	<div class="col-md-4" *ngIf="mediClaim.typeOfDiesease === 'covered'">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="Description" [(ngModel)]="mediClaim.typeOfDieseaseDescription" type="text">
+		</mat-form-field>
+	</div>
+	<div class="col-md-4" *ngIf="mediClaim.typeOfDiesease === 'covered'">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="Max Limit" [(ngModel)]="mediClaim.typeOfDieseaseMaxLimit" type="tel" numbersOnly>
+		</mat-form-field>
+	</div>
+</div>
+-->
+<div class="row">
+	<div class="col-md-4">
+		<p>WAITING PERIOD FOR SPECIFIC DISEASES </p>
+		<mat-radio-group [(ngModel)]="mediClaim.watingPeriodSpecificDisease">
+			<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+				{{option.text}} &nbsp;
+			</mat-radio-button>
+		</mat-radio-group>
+	</div>
+
+	<div class="col-md-4">
+		Waiting period attachent
+		<input type="file" (change)="waitingPeriodUpload($event)">
+	</div>
+	<div class="col-md-4" *ngIf="mediClaim.watingPeriodSpecificDisease === 'covered'">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="Description"
+			[(ngModel)]="mediClaim.watingPeriodSpecificDiseaseDescription" type="text">
+		</mat-form-field>
+	</div>
+	<div class="col-md-4" *ngIf="mediClaim.watingPeriodSpecificDisease === 'covered'">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="Max Limit" [(ngModel)]="mediClaim.watingPeriodSpecificDiseaseMaxLimit"
+			type="tel" numbersOnly>
+		</mat-form-field>
+	</div>
+</div>
+
+
+<div class="row">
+	<div class="col-md-4">
+		<p>OPD CONSULTATION</p>
+		<mat-radio-group [(ngModel)]="mediClaim.opdConsulation">
+			<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+				{{option.text}} &nbsp;
+			</mat-radio-button>
+		</mat-radio-group>
+	</div>
+	<div class="col-md-4" *ngIf="mediClaim.opdConsulation === 'covered'">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="Description" [(ngModel)]="mediClaim.opdConsulationDescription"
+			type="text">
+		</mat-form-field>
+	</div>
+	<div class="col-md-4" *ngIf="mediClaim.opdConsulation === 'covered'">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="Max Limit" [(ngModel)]="mediClaim.opdConsulationMaxLimit" type="tel"
+			numbersOnly>
+		</mat-form-field>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-4">
+		<p>DEDUCTIBLE WITH SUM ASSURED</p>
+		<mat-radio-group [(ngModel)]="mediClaim.deductibleSumAssured">
+			<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+				{{option.text}} &nbsp;
+			</mat-radio-button>
+		</mat-radio-group>
+	</div>
+	<div class="col-md-4" *ngIf="mediClaim.deductibleSumAssured === 'covered'">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="Description" [(ngModel)]="mediClaim.deductibleSumAssuredDescription"
+			type="text">
+		</mat-form-field>
+	</div>
+	<div class="col-md-4" *ngIf="mediClaim.deductibleSumAssured === 'covered'">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="Max Limit" [(ngModel)]="mediClaim.deductibleSumAssuredMaxLimit"
+			type="tel" numbersOnly>
+		</mat-form-field>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-4">
+		<p>Voluntary Deductible</p>
+		<mat-radio-group [(ngModel)]="mediClaim.voluntaryDeductible">
+			<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+				{{option.text}} &nbsp;
+			</mat-radio-button>
+		</mat-radio-group>
+	</div>
+	<div class="col-md-4" *ngIf="mediClaim.voluntaryDeductible === 'covered'">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="Description" [(ngModel)]="mediClaim.voluntaryDeductibleDescription"
+			type="text">
+		</mat-form-field>
+	</div>
+	<div class="col-md-4" *ngIf="mediClaim.voluntaryDeductible === 'covered'">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="Max Limit" [(ngModel)]="mediClaim.voluntaryDeductibleMaxLimit"
+			type="tel" numbersOnly>
+		</mat-form-field>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-4">
+		<p>Compulsary Deductible</p>
+		<mat-radio-group [(ngModel)]="mediClaim.compulsaryDeductible">
+			<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+				{{option.text}} &nbsp;
+			</mat-radio-button>
+		</mat-radio-group>
+	</div>
+	<div class="col-md-4" *ngIf="mediClaim.compulsaryDeductible === 'covered'">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="Description" [(ngModel)]="mediClaim.compulsaryDeductibleDescription"
+			type="text">
+		</mat-form-field>
+	</div>
+	<div class="col-md-4" *ngIf="mediClaim.compulsaryDeductible === 'covered'">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="Max Limit" [(ngModel)]="mediClaim.compulsaryDeductibleMaxLimit"
+			type="tel" numbersOnly>
+		</mat-form-field>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-4">
+		<p>Cost Sharing - co pay</p>
+		<mat-radio-group [(ngModel)]="mediClaim.costSharingpay">
+			<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+				{{option.text}} &nbsp;
+			</mat-radio-button>
+		</mat-radio-group>
+	</div>
+	<div class="col-md-4" *ngIf="mediClaim.costSharingpay === 'covered'">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="Description" [(ngModel)]="mediClaim.costSharingpayDescription"
+			type="text">
+		</mat-form-field>
+	</div>
+	<div class="col-md-4" *ngIf="mediClaim.costSharingpay === 'covered'">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="Max Limit" [(ngModel)]="mediClaim.costSharingpayMaxLimit" type="tel"
+			numbersOnly>
+		</mat-form-field>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-4">
+		<p>Cost Sharing - geographical</p>
+		<mat-radio-group [(ngModel)]="mediClaim.costSharingGeographical">
+			<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+				{{option.text}} &nbsp;
+			</mat-radio-button>
+		</mat-radio-group>
+	</div>
+	<div class="col-md-4" *ngIf="mediClaim.costSharingGeographical === 'covered'">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="Description" [(ngModel)]="mediClaim.costSharingGeographicalDescription"
+			type="text">
+		</mat-form-field>
+	</div>
+	<div class="col-md-4" *ngIf="mediClaim.costSharingGeographical === 'covered'">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="Max Limit" [(ngModel)]="mediClaim.costSharingGeographicalMaxLimit"
+			type="tel" numbersOnly>
+		</mat-form-field>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-4">
+		<p>WORLDWIDE EMERGENCY COVER</p>
+		<mat-radio-group [(ngModel)]="mediClaim.emergencyCover">
+			<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+				{{option.text}} &nbsp;
+			</mat-radio-button>
+		</mat-radio-group>
+	</div>
+	<div class="col-md-4" *ngIf="mediClaim.emergencyCover === 'covered'">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="Description" [(ngModel)]="mediClaim.emergencyCoverDescription"
+			type="text">
+		</mat-form-field>
+	</div>
+	<div class="col-md-4" *ngIf="mediClaim.emergencyCover === 'covered'">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="Max Limit" [(ngModel)]="mediClaim.preExistingDiseaseMaxLimit"
+			type="tel" numbersOnly>
+		</mat-form-field>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-4">
+		<p>CRITICAL ILLNESS COVERAGE</p>
+		<mat-radio-group [(ngModel)]="mediClaim.criticalIllnessCoverage">
+			<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+				{{option.text}} &nbsp;
+			</mat-radio-button>
+		</mat-radio-group>
+	</div>
+	<div class="col-md-4">
+		<mat-form-field>
+			<mat-label>List of Rider</mat-label>
+			<mat-select [(ngModel)]="mediClaim.riderList" multiple>
+				<mat-option *ngFor="let option of criticalIllnessList" [value]="option">
+				{{option}}</mat-option>
+				<mat-option value="other">
+					Other (if any)
+				</mat-option>
+			</mat-select>
+		</mat-form-field>
+	</div>
+	<div class="col-md-4" *ngIf="mediClaim.riderList.includes('other')">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="Other Rider" [(ngModel)]="mediClaim.riderListOther" type="text">
+		</mat-form-field>
+	</div>
+	<div class="col-md-4" *ngIf="mediClaim.criticalIllnessCoverage === 'covered'">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="Description" [(ngModel)]="mediClaim.criticalIllnessCoverageDescription"
+			type="text">
+		</mat-form-field>
+	</div>
+	<div class="col-md-4" *ngIf="mediClaim.criticalIllnessCoverage === 'covered'">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="Max Limit" [(ngModel)]="mediClaim.criticalIllnessCoverageMaxLimit"
+			type="tel" numbersOnly>
+		</mat-form-field>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-4">
+		<p>CRITICAL ADVANTAGE RIDER</p>
+		<mat-radio-group [(ngModel)]="mediClaim.criticalAdvantageRider">
+			<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+				{{option.text}} &nbsp;
+			</mat-radio-button>
+		</mat-radio-group>
+	</div>
+
+	<div class="col-md-4" *ngIf="mediClaim.criticalAdvantageRider === 'covered'">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="Name" [(ngModel)]="mediClaim.criticalAdvantageRiderName" type="text">
+		</mat-form-field>
+	</div>
+	<div class="col-md-4" *ngIf="mediClaim.criticalAdvantageRider === 'covered'">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="Amount" [(ngModel)]="mediClaim.criticalAdvantageAmount" type="tel"
+			numbersOnly>
+		</mat-form-field>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-4">
+		<mat-form-field>
+			<mat-label>GEOGROPHICAL COVERAGE</mat-label>
+			<mat-select [(ngModel)]="mediClaim.geographicalCoverage">
+				<mat-option value="Global">
+					Global
+				</mat-option>
+				<mat-option value="India">
+					India
+				</mat-option>
+			</mat-select>
+		</mat-form-field>
+	</div>
+	<div class="col-md-4" *ngIf="mediClaim.geographicalCoverage === 'covered'">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="Global" [(ngModel)]="mediClaim.geographicalCoverageGlobal" type="text">
+		</mat-form-field>
+	</div>
+	<div class="col-md-4" *ngIf="mediClaim.geographicalCoverage === 'covered'">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="India" [(ngModel)]="mediClaim.geographicalCoverageIndia" type="text">
+		</mat-form-field>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-4">
+		<p>AMOUNT IN US DOLLARS</p>
+		<mat-radio-group [(ngModel)]="mediClaim.amountUSDollars">
+			<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+				{{option.text}} &nbsp;
+			</mat-radio-button>
+		</mat-radio-group>
+	</div>
+	<div class="col-md-4" *ngIf="mediClaim.amountUSDollars === 'covered'">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="Description" [(ngModel)]="mediClaim.amountUSDollarsDescription"
+			type="text">
+		</mat-form-field>
+	</div>
+	<div class="col-md-4" *ngIf="mediClaim.amountUSDollars === 'covered'">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="Max Limit" [(ngModel)]="mediClaim.amountUSDollarsMaxLimit" type="tel"
+			numbersOnly>
+		</mat-form-field>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-4">
+		<p>PORTABILITY OPTION AVAILABLE</p>
+		<mat-radio-group [(ngModel)]="mediClaim.portabilityOption">
+			<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+				{{option.text}} &nbsp;
+			</mat-radio-button>
+		</mat-radio-group>
+	</div>
+	<div class="col-md-4" *ngIf="mediClaim.portabilityOption === 'covered'">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="Description" [(ngModel)]="mediClaim.portabilityOptionDescription"
+			type="text">
+		</mat-form-field>
+	</div>
+	<div class="col-md-4" *ngIf="mediClaim.portabilityOption === 'covered'">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="Max Limit" [(ngModel)]="mediClaim.portabilityOptionMaxLimit" type="tel"
+			numbersOnly>
+		</mat-form-field>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-4">
+		<p>NCB PROTECTOR</p>
+		<mat-radio-group [(ngModel)]="mediClaim.ncbProtector">
+			<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+				{{option.text}} &nbsp;
+			</mat-radio-button>
+		</mat-radio-group>
+	</div>
+	<div class="col-md-4" *ngIf="mediClaim.ncbProtector === 'covered'">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="Description" [(ngModel)]="mediClaim.ncbProtectorDescription"
+			type="text">
+		</mat-form-field>
+	</div>
+	<div class="col-md-4" *ngIf="mediClaim.ncbProtector === 'covered'">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="Max Limit" [(ngModel)]="mediClaim.ncbProtectorMaxLimit" type="tel"
+			numbersOnly>
+		</mat-form-field>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-4">
+		<p>NON PAYABLE ITEMS PROTECTOR</p>
+		<mat-radio-group [(ngModel)]="mediClaim.noPayableItem">
+			<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+				{{option.text}} &nbsp;
+			</mat-radio-button>
+		</mat-radio-group>
+	</div>
+	<div class="col-md-4" *ngIf="mediClaim.noPayableItem === 'covered'">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="Description" [(ngModel)]="mediClaim.noPayableItemDescription"
+			type="text">
+		</mat-form-field>
+	</div>
+	<div class="col-md-4" *ngIf="mediClaim.noPayableItem === 'covered'">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="Max Limit" [(ngModel)]="mediClaim.noPayableItemMaxLimit" type="tel"
+			numbersOnly>
+		</mat-form-field>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-4">
+		<p>CUMULATIVE BONUS PROTECTOR</p>
+		<mat-radio-group [(ngModel)]="mediClaim.cumulativeBonus">
+			<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+				{{option.text}} &nbsp;
+			</mat-radio-button>
+		</mat-radio-group>
+	</div>
+	<div class="col-md-4" *ngIf="mediClaim.cumulativeBonus === 'covered'">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="Description" [(ngModel)]="mediClaim.cumulativeBonusDescription"
+			type="text">
+		</mat-form-field>
+	</div>
+	<div class="col-md-4" *ngIf="mediClaim.cumulativeBonus === 'covered'">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="Max Limit" [(ngModel)]="mediClaim.cumulativeBonusMaxLimit" type="tel"
+			numbersOnly>
+		</mat-form-field>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-4">
+		<p>CO - PAY PROTECTOR</p>
+		<mat-radio-group [(ngModel)]="mediClaim.coPayProtector">
+			<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+				{{option.text}} &nbsp;
+			</mat-radio-button>
+		</mat-radio-group>
+	</div>
+	<div class="col-md-4" *ngIf="mediClaim.coPayProtector === 'covered'">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="Description" [(ngModel)]="mediClaim.coPayProtectorDescription"
+			type="text">
+		</mat-form-field>
+	</div>
+	<div class="col-md-4" *ngIf="mediClaim.coPayProtector === 'covered'">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="Max Limit" [(ngModel)]="mediClaim.coPayProtectorMaxLimit" type="tel"
+			numbersOnly>
+		</mat-form-field>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-4">
+		<p>SUM INSURED PROTECTOR</p>
+		<mat-radio-group [(ngModel)]="mediClaim.sumInsuredProtector">
+			<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+				{{option.text}} &nbsp;
+			</mat-radio-button>
+		</mat-radio-group>
+	</div>
+	<div class="col-md-4" *ngIf="mediClaim.sumInsuredProtector === 'covered'">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="Description" [(ngModel)]="mediClaim.sumInsuredProtectorDescription"
+			type="text">
+		</mat-form-field>
+	</div>
+	<div class="col-md-4" *ngIf="mediClaim.sumInsuredProtector === 'covered'">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="Max Limit" [(ngModel)]="mediClaim.sumInsuredProtectorMaxLimit"
+			type="tel" numbersOnly>
+		</mat-form-field>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-4">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="Add On Feature 1" [(ngModel)]="mediClaim.addonOne" type="text">
+		</mat-form-field>
+	</div>
+	<div class="col-md-4">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="Description" [(ngModel)]="mediClaim.addonOneDescription" type="text">
+		</mat-form-field>
+	</div>
+	<div class="col-md-4">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="Max Limit" [(ngModel)]="mediClaim.addonOneMaxLimit" type="tel"
+			numbersOnly>
+		</mat-form-field>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-4">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="Add On Feature 2" [(ngModel)]="mediClaim.addonThree" type="text">
+		</mat-form-field>
+	</div>
+	<div class="col-md-4">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="Description" [(ngModel)]="mediClaim.addonThreeDescription"
+			type="text">
+		</mat-form-field>
+	</div>
+	<div class="col-md-4">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="Max Limit" [(ngModel)]="mediClaim.addonThreeMaxLimit" type="tel"
+			numbersOnly>
+		</mat-form-field>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-4">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="Add On Feature 3" [(ngModel)]="mediClaim.addonThree" type="text">
+		</mat-form-field>
+	</div>
+	<div class="col-md-4">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="Description" [(ngModel)]="mediClaim.addonThreeDescription"
+			type="text">
+		</mat-form-field>
+	</div>
+	<div class="col-md-4">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="Max Limit" [(ngModel)]="mediClaim.addonThreeMaxLimit" type="tel"
+			numbersOnly>
+		</mat-form-field>
+	</div>
+</div>
+
+
+<div class="text-center d-flex justify-content-center" *ngIf="update === 'false'">
+	<button mat-raised-button class="btn btn-danger pull-right" (click)="submitMediclaim()">Save</button>
+</div>
+
+<div class="text-center d-flex justify-content-center" *ngIf="update === 'true'">
+	<button mat-raised-button class="btn btn-danger pull-right" (click)="editMediclaim()">EDIT</button>
+</div>
+
+</mat-tab> <!-- end mediclaim -->
+<mat-tab label="Critical Illness">
+
+	<div class="row" *ngIf="update === 'true'">
+		<div class="col-md-6">
+			<mat-form-field class="example-full-width">
+				<mat-label>Select Policy Number</mat-label>
+				<mat-select [(ngModel)]="selectedPolicyNumberCritical">
+					<mat-option *ngFor="let number of allCriticalIllness; let i = index" [value]="number.policyNumber"
+					(click)="criticalIllnessSelected(i)">
+					{{number.policyNumber}}
+				</mat-option>
+			</mat-select>
+		</mat-form-field>
+	</div>
+</div>
+
+<div class="row ">
+	<div class="col-md-12">
+		<div class="d-flex align-items-center">
+			<p class="font-weight-bold text-secondary ">Type of Insurance :-</p>
+			<p class="text-primary font-weight-bold ml-2">Critical Illness
+			</p>
+		</div>
+	</div>
+</div>
+
+<div class="row ">
+	<div class="col-md-4">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="Proposer" [(ngModel)]="criticalIllness.proposer" type="text">
+		</mat-form-field>
+	</div>
+	<div class="col-md-4">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="Company" [(ngModel)]="criticalIllness.company" type="text">
+		</mat-form-field>
+	</div>
+
+	<div class="col-md-6">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="S. no" [(ngModel)]="criticalIllness.sNo" type="text">
+		</mat-form-field>
+	</div>
+
+	<div class="col-md-4">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="Plan" [(ngModel)]="criticalIllness.plan" type="text">
+		</mat-form-field>
+	</div>
+	<div class="col-md-4">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="Policy Number" [(ngModel)]="criticalIllness.policyNumber" type="text">
+		</mat-form-field>
+	</div>
+	<div class="col-md-4">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="Policy Period" [(ngModel)]="criticalIllness.policyPeriod"
+			type="number">
+		</mat-form-field>
+	</div>
+	<div class="col-md-4">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="Sum Assured" [(ngModel)]="criticalIllness.sumAssured" type="number">
+		</mat-form-field>
+	</div>
+
+	<div class="col-md-4">
+		<mat-form-field class="example-full-width">
+			<mat-label>Members Insured</mat-label>
+			<mat-select [(ngModel)]="criticalIllness.membersInsured" (selectionChange)="getMemberInsuredIllness()">
+				<mat-option *ngFor="let member of membersInsured" value="{{member}}">
+					{{member}}
+				</mat-option>
+			</mat-select>
+		</mat-form-field>
+	</div>
+</div>
+
+
+
+<div class="row" *ngFor="let nub of allMenbersInsuredCriticalObject; let i = index">
+
+<div class="col-md-4">
+	<mat-form-field class="example-full-width">
+		<input matInput placeholder="Member Name" [(ngModel)]="allMenbersInsuredCriticalObject[i].memberName"
+		type="text">
+	</mat-form-field>
+</div>
+
+
+<div class="col-md-4">
+	<mat-form-field class="example-full-width">
+		<mat-label>D.O.B</mat-label>
+		<input
+		  matInput
+		  [(ngModel)]="allMenbersInsuredCriticalObject[i].dob"
+		  placeholder=" D.O.B"
+		  [matDatepicker]="picker1"
+		/>
+		<mat-datepicker-toggle
+		  matSuffix
+		  [for]="picker1"
+		></mat-datepicker-toggle>
+		<mat-datepicker #picker1></mat-datepicker>
+	  </mat-form-field>
+</div>
+<div class="col-md-4">
+	<mat-form-field class="example-full-width">
+		<mat-label>Sex</mat-label>
+		<mat-select [(ngModel)]="allMenbersInsuredCriticalObject[i].sex">
+			<mat-option value="male">
+				Male
+			</mat-option>
+			<mat-option value="female">
+				Female
+			</mat-option>
+		</mat-select>
+	</mat-form-field>
+</div>
+
+<div class="col-md-4">
+	<mat-form-field class="example-full-width">
+		<mat-label>Relation</mat-label>
+		<mat-select [(ngModel)]="allMenbersInsuredCriticalObject[i].relation">
+			<mat-option value="spouse">
+				Spouse
+			</mat-option>
+			<mat-option value="children">
+				Children
+			</mat-option>
+			<mat-option value="father">
+				Father
+			</mat-option>
+			<mat-option value="mother">
+				Mother
+			</mat-option>
+			<mat-option value="other">
+				Other
+			</mat-option>
+			<mat-option value="self">
+				Self
+			</mat-option>
+		</mat-select>
+	</mat-form-field>
+</div>
+</div>
+
+<div class="row">
+
+	<div class="col-md-4">
+		<mat-form-field class="example-full-width">
+			<mat-label>Risk Start Date</mat-label>
+			<input
+			  matInput
+			  [(ngModel)]="criticalIllness.riskStart"
+			  placeholder="Risk Start Date"
+			  [matDatepicker]="picker16"
+			/>
+			<mat-datepicker-toggle
+			  matSuffix
+			  [for]="picker16"
+			></mat-datepicker-toggle>
+			<mat-datepicker #picker16></mat-datepicker>
+		  </mat-form-field>
+	</div>
+	<div class="col-md-4">
+		<mat-form-field class="example-full-width">
+			<mat-label>Risk End Date</mat-label>
+			<input
+			  matInput
+			  [(ngModel)]="criticalIllness.riskEnd"
+			  placeholder="Risk End Date"
+			  [matDatepicker]="picker125"
+			/>
+			<mat-datepicker-toggle
+			  matSuffix
+			  [for]="picker125"
+			></mat-datepicker-toggle>
+			<mat-datepicker #picker125></mat-datepicker>
+		  </mat-form-field>
+	</div>
+	<div class="col-md-4">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="No Claim Bonus" [(ngModel)]="criticalIllness.noBonusClaim"
+			type="number">
+		</mat-form-field>
+	</div>
+	<div class="col-md-4">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="Bonus Sum Insured" [(ngModel)]="criticalIllness.bonusClaimInsured"
+			type="number">
+		</mat-form-field>
+	</div>
+	<div class="col-md-4">
+		<mat-form-field class="example-full-width">
+			<input matInput placeholder="Deductibles Sum Insured"
+			[(ngModel)]="criticalIllness.declarationHealthStatus" type="number">
+		</mat-form-field>
+	</div>
+								<div class="col-md-4">
+									<mat-form-field class="example-full-width">
+										<mat-label>Health Check Up Benefit / Wellness Benefit</mat-label>
+										<mat-select [(ngModel)]="criticalIllness.healthCheckupBenefit">
+											<mat-option value="yes">
+												Yes
+											</mat-option>
+											<mat-option value="no">
+												No
+											</mat-option>
+										</mat-select>
+									</mat-form-field>
+								</div>
+								<div class="col-md-4" *ngIf="criticalIllness.healthCheckupBenefit === 'yes'">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Health Check Up Amount"
+											[(ngModel)]="criticalIllness.healthCheckupAmount" type="number">
+									</mat-form-field>
+								</div>
+								<div class="col-md-4" *ngIf="criticalIllness.healthCheckupBenefit === 'yes'">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Health Check Up Link" [(ngModel)]="criticalIllness.healthCheckupLink"
+											type="text">
+									</mat-form-field>
+								</div>
+								<div class="col-md-4" *ngIf="criticalIllness.healthCheckupBenefit === 'yes'">
+									<mat-form-field class="example-full-width">
+										<mat-label>Health Check Up Waiting Period</mat-label>
+										<mat-select [(ngModel)]="criticalIllness.healthCheckupWaitingPeriod">
+											<mat-option value="6months">
+												6 Months
+											</mat-option>
+											<mat-option value="1year">
+												1 Year
+											</mat-option>
+											<mat-option value="2year">
+												2 Years
+											</mat-option>
+											<mat-option value="3year">
+												3 Years
+											</mat-option>
+											<mat-option value="4year">
+												4 Years
+											</mat-option>
+										</mat-select>
+									</mat-form-field>
+								</div>
+								<div class="col-md-4">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Policy Year" [(ngModel)]="criticalIllness.policyYear" type="number">
+									</mat-form-field>
+								</div>
+
+								<div class="col-md-4">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Status of Policy" [(ngModel)]="criticalIllness.policyStatus"
+										type="text">
+									</mat-form-field>
+								</div>
+								<div class="col-md-4">
+									<mat-form-field class="example-full-width">
+										<mat-label>Tax section 80 d </mat-label>
+										<mat-select [(ngModel)]="criticalIllness.taxSection">
+											<mat-option value="applicable">
+												Applicable
+											</mat-option>
+											<mat-option value="notApplicable">
+												Not Applicable
+											</mat-option>
+										</mat-select>
+									</mat-form-field>
+								</div>
+								<div class="col-md-4">
+									<mat-form-field class="example-full-width">
+										<mat-label>Pre-Policy Check Up Attended</mat-label>
+										<mat-select [(ngModel)]="criticalIllness.prePolicyCheckup">
+											<mat-option value="yes">
+												Yes
+											</mat-option>
+											<mat-option value="no">
+												No
+											</mat-option>
+										</mat-select>
+									</mat-form-field>
+								</div>
+								<div class="col-md-4" *ngIf="criticalIllness.prePolicyCheckup === 'yes'">
+									<mat-form-field class="example-full-width">
+										<mat-label>Any Kind of Loading</mat-label>
+										<mat-select [(ngModel)]="criticalIllness.anyLoading">
+											<mat-option value="yes">
+												Yes
+											</mat-option>
+											<mat-option value="no">
+												No
+											</mat-option>
+										</mat-select>
+									</mat-form-field>
+								</div>
+								<div class="col-md-4"
+								*ngIf="criticalIllness.prePolicyCheckup === 'yes' && criticalIllness.anyLoading === 'yes'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Reason & Amount of Loading"
+									[(ngModel)]="criticalIllness.reasonAmountLoading" type="text">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Contact us link" [(ngModel)]="criticalIllness.contactUsLink"
+									type="text">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Toll free Number" [(ngModel)]="criticalIllness.tollFreeNumber"
+									type="text">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Branch Locator" [(ngModel)]="criticalIllness.branchLocator"
+									type="text">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Claim Procedure" [(ngModel)]="criticalIllness.claimProcedure"
+									type="text">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4">
+								<p class="form-sub-heading font-weight-bold text-secondary">Policy Wording</p>
+								<input type="file" accept="application/pdf" (change)="policyWordingUploadIllness($event)">
+							</div>
+
+							<div class="col-md-4">
+								<p class="form-sub-heading font-weight-bold text-secondary">Client Policy</p>
+								<input type="file" accept="application/pdf" (change)="policyUpload($event)">
+							</div>
+						</div>
+
+						<div class="row">
+
+							<div class="col-md-4">
+								<p>Alzheimer’s Disease</p>
+								<mat-radio-group [(ngModel)]="criticalIllness.alzheimerDisease">
+									<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+										{{option.text}} &nbsp;
+									</mat-radio-button>
+								</mat-radio-group>
+							</div>
+
+							<div class="col-md-4" *ngIf="criticalIllness.alzheimerDisease === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Description" [(ngModel)]="criticalIllness.alzheimerDiseaseDescription"
+									type="text">
+								</mat-form-field>
+							</div>
+
+							<div class="col-md-4" *ngIf="criticalIllness.alzheimerDisease === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Max Limit" [(ngModel)]="criticalIllness.alzheimerDiseaseMaxLimit"
+									type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+
+							<div class="col-md-4" *ngIf="criticalIllness.alzheimerDisease === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Waiting Period (in months)"
+									[(ngModel)]="criticalIllness.alzheimerDiseaseWaitingPeriod" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+
+							<div class="col-md-4" *ngIf="criticalIllness.alzheimerDisease === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Survival Period (in days)"
+									[(ngModel)]="criticalIllness.alzheimerDiseaseSurvival" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-4">
+								<p>Apallic Syndrome</p>
+								<mat-radio-group [(ngModel)]="criticalIllness.apallicSyndrome">
+									<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+										{{option.text}} &nbsp;
+									</mat-radio-button>
+								</mat-radio-group>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.apallicSyndrome === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Description" [(ngModel)]="criticalIllness.apallicSyndromeDescription"
+									type="text">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.apallicSyndrome === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Max Limit" [(ngModel)]="criticalIllness.apallicSyndromeMaxLimit"
+									type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.apallicSyndrome === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Waiting Period (in months)"
+									[(ngModel)]="criticalIllness.apallicSyndromeWaitingPeriod" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.apallicSyndrome === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Survival Period (in days)"
+									[(ngModel)]="criticalIllness.apallicSyndromeSurvival" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-4">
+								<p>Aplastic Anaemia</p>
+								<mat-radio-group [(ngModel)]="criticalIllness.aplasticAnaemia">
+									<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+										{{option.text}} &nbsp;
+									</mat-radio-button>
+								</mat-radio-group>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.aplasticAnaemia === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Description" [(ngModel)]="criticalIllness.aplasticAnaemiaDescription"
+									type="text">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.aplasticAnaemia === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Max Limit" [(ngModel)]="criticalIllness.aplasticAnaemiaMaxLimit"
+									type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.aplasticAnaemia === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Waiting Period (in months)"
+									[(ngModel)]="criticalIllness.aplasticAnaemiaWaitingPeriod" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.aplasticAnaemia === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Survival Period (in days)"
+									[(ngModel)]="criticalIllness.aplasticAnaemiaSurvival" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-4">
+								<p>Aorta Graft Surgery</p>
+								<mat-radio-group [(ngModel)]="criticalIllness.aortaGraftSurgery">
+									<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+										{{option.text}} &nbsp;
+									</mat-radio-button>
+								</mat-radio-group>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.aortaGraftSurgery === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Description" [(ngModel)]="criticalIllness.aortaGraftSurgeryDescription"
+									type="text">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.aortaGraftSurgery === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Max Limit" [(ngModel)]="criticalIllness.aortaGraftSurgeryMaxLimit"
+									type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.aortaGraftSurgery === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Waiting Period (in months)"
+									[(ngModel)]="criticalIllness.aortaGraftSurgeryWaitingPeriod" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.aortaGraftSurgery === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Survival Period (in days)"
+									[(ngModel)]="criticalIllness.aortaGraftSurgerySurvival" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-4">
+								<p>Bacterial Meningitis</p>
+								<mat-radio-group [(ngModel)]="criticalIllness.bacterialMeningitis">
+									<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+										{{option.text}} &nbsp;
+									</mat-radio-button>
+								</mat-radio-group>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.bacterialMeningitis === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Description"
+									[(ngModel)]="criticalIllness.bacterialMeningitisDescription" type="text">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.bacterialMeningitis === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Max Limit" [(ngModel)]="criticalIllness.bacterialMeningitisMaxLimit"
+									type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.bacterialMeningitis === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Waiting Period (in months)"
+									[(ngModel)]="criticalIllness.bacterialMeningitisWaitingPeriod" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.bacterialMeningitis === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Survival Period (in days)"
+									[(ngModel)]="criticalIllness.bacterialMeningitisSurvival" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-4">
+								<p>Blindness</p>
+								<mat-radio-group [(ngModel)]="criticalIllness.blindness">
+									<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+										{{option.text}} &nbsp;
+									</mat-radio-button>
+								</mat-radio-group>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.blindness === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Description" [(ngModel)]="criticalIllness.blindnessDescription"
+									type="text">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.blindness === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Max Limit" [(ngModel)]="criticalIllness.blindnessMaxLimit" type="tel"
+									numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.blindness === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Waiting Period (in months)"
+									[(ngModel)]="criticalIllness.blindnessWaitingPeriod" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.blindness === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Survival Period (in days)"
+									[(ngModel)]="criticalIllness.blindnessSurvival" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-4">
+								<p>Benign Brain Tumor</p>
+								<mat-radio-group [(ngModel)]="criticalIllness.benignBrainTumor">
+									<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+										{{option.text}} &nbsp;
+									</mat-radio-button>
+								</mat-radio-group>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.benignBrainTumor === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Description" [(ngModel)]="criticalIllness.benignBrainTumorDescription"
+									type="text">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.benignBrainTumor === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Max Limit" [(ngModel)]="criticalIllness.benignBrainTumorMaxLimit"
+									type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.benignBrainTumor === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Waiting Period (in months)"
+									[(ngModel)]="criticalIllness.benignBrainTumorWaitingPeriod" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.benignBrainTumor === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Survival Period (in days)"
+									[(ngModel)]="criticalIllness.benignBrainTumorSurvival" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-4">
+								<p>Brain Surgery</p>
+								<mat-radio-group [(ngModel)]="criticalIllness.brainSurgery">
+									<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+										{{option.text}} &nbsp;
+									</mat-radio-button>
+								</mat-radio-group>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.brainSurgery === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Description" [(ngModel)]="criticalIllness.brainSurgeryDescription"
+									type="text">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.brainSurgery === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Max Limit" [(ngModel)]="criticalIllness.brainSurgeryMaxLimit"
+									type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.brainSurgery === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Waiting Period (in months)"
+									[(ngModel)]="criticalIllness.brainSurgeryWaitingPeriod" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.brainSurgery === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Survival Period (in days)"
+									[(ngModel)]="criticalIllness.brainSurgerySurvivSurvival" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-4">
+								<p>Brain Tumor</p>
+								<mat-radio-group [(ngModel)]="criticalIllness.brainTumor">
+									<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+										{{option.text}} &nbsp;
+									</mat-radio-button>
+								</mat-radio-group>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.brainTumor === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Description" [(ngModel)]="criticalIllness.brainTumorDescription"
+									type="text">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.brainTumor === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Max Limit" [(ngModel)]="criticalIllness.brainTumorMaxLimit"
+									type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.brainTumor === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Waiting Period (in months)"
+									[(ngModel)]="criticalIllness.brainTumorWaitingPeriod" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.brainTumor === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Survival Period (in days)"
+									[(ngModel)]="criticalIllness.brainTumorSurvivSurvival" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-4">
+								<p>Chronic kidney Disease</p>
+								<mat-radio-group [(ngModel)]="criticalIllness.chronicKidney">
+									<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+										{{option.text}} &nbsp;
+									</mat-radio-button>
+								</mat-radio-group>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.chronicKidney === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Description" [(ngModel)]="criticalIllness.chronicKidneyDescription"
+									type="text">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.chronicKidney === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Max Limit" [(ngModel)]="criticalIllness.chronicKidneyMaxLimit" type="tel"
+									numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.chronicKidney === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Waiting Period (in months)"
+									[(ngModel)]="criticalIllness.chronicKidneyWaitingPeriod" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.chronicKidney === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Survival Period (in days)" [(ngModel)]="criticalIllness.chronicKidneySurvival"
+									type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+						</div>
+
+
+						<div class="row">
+							<div class="col-md-4">
+								<p>Cancer</p>
+								<mat-radio-group [(ngModel)]="criticalIllness.cancer">
+									<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+										{{option.text}} &nbsp;
+									</mat-radio-button>
+								</mat-radio-group>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.cancer === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Description" [(ngModel)]="criticalIllness.cancerDescription"
+									type="text">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.cancer === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Max Limit" [(ngModel)]="criticalIllness.cancerMaxLimit" type="tel"
+									numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.cancer === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Waiting Period (in months)"
+									[(ngModel)]="criticalIllness.cancerWaitingPeriod" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.cancer === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Survival Period (in days)" [(ngModel)]="criticalIllness.cancerSurvival"
+									type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-4">
+								<p>Cardiomyopathy</p>
+								<mat-radio-group [(ngModel)]="criticalIllness.cardiomyopathy">
+									<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+										{{option.text}} &nbsp;
+									</mat-radio-button>
+								</mat-radio-group>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.cardiomyopathy === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Description" [(ngModel)]="criticalIllness.cardiomyopathyDescription"
+									type="text">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.cardiomyopathy === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Max Limit" [(ngModel)]="criticalIllness.cardiomyopathyMaxLimit"
+									type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.cardiomyopathy === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Waiting Period (in months)"
+									[(ngModel)]="criticalIllness.cardiomyopathyWaitingPeriod" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.cardiomyopathy === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Survival Period (in days)"
+									[(ngModel)]="criticalIllness.cardiomyopathySurvival" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+						</div>
+
+
+						<div class="row">
+							<div class="col-md-4">
+								<p>Creutzfeldt-Jakob Disease (CJD)</p>
+								<mat-radio-group [(ngModel)]="criticalIllness.creutzfeldtJakobDisease">
+									<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+										{{option.text}} &nbsp;
+									</mat-radio-button>
+								</mat-radio-group>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.creutzfeldtJakobDisease === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Description"
+									[(ngModel)]="criticalIllness.creutzfeldtJakobDiseaseDescription" type="text">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.creutzfeldtJakobDisease === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Max Limit"
+									[(ngModel)]="criticalIllness.creutzfeldtJakobDiseaseMaxLimit" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.creutzfeldtJakobDisease === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Waiting Period (in months)"
+									[(ngModel)]="criticalIllness.creutzfeldtJakobDiseaseWaitingPeriod" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.creutzfeldtJakobDisease === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Survival Period (in days)"
+									[(ngModel)]="criticalIllness.creutzfeldtJakobDiseaseSurvival" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-4">
+								<p>Coma of Specified Severity</p>
+								<mat-radio-group [(ngModel)]="criticalIllness.comaSpecifiedSeverity">
+									<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+										{{option.text}} &nbsp;
+									</mat-radio-button>
+								</mat-radio-group>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.comaSpecifiedSeverity === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Description"
+									[(ngModel)]="criticalIllness.comaSpecifiedSeverityDescription" type="text">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.comaSpecifiedSeverity === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Max Limit" [(ngModel)]="criticalIllness.comaSpecifiedSeverityMaxLimit"
+									type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.comaSpecifiedSeverity === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Waiting Period (in months)"
+									[(ngModel)]="criticalIllness.comaSpecifiedSeverityWaitingPeriod" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.comaSpecifiedSeverity === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Survival Period (in days)"
+									[(ngModel)]="criticalIllness.comaSpecifiedSeveritySurvival" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-4">
+								<p>Coronary Artery Bypass Surgery</p>
+								<mat-radio-group [(ngModel)]="criticalIllness.coronaryArteryBypassSurgery">
+									<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+										{{option.text}} &nbsp;
+									</mat-radio-button>
+								</mat-radio-group>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.coronaryArteryBypassSurgery === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Description"
+									[(ngModel)]="criticalIllness.coronaryArteryBypassSurgeryDescription" type="text">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.coronaryArteryBypassSurgery === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Max Limit"
+									[(ngModel)]="criticalIllness.coronaryArteryBypassSurgeryMaxLimit" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.coronaryArteryBypassSurgery === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Waiting Period (in months)"
+									[(ngModel)]="criticalIllness.coronaryArteryBypassSurgeryWaitingPeriod" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.coronaryArteryBypassSurgery === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Survival Period (in days)"
+									[(ngModel)]="criticalIllness.coronaryArteryBypassSurgerySurvival" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+						</div>
+
+
+						<div class="row">
+							<div class="col-md-4">
+								<p>End Stage Lung disease</p>
+								<mat-radio-group [(ngModel)]="criticalIllness.endLungDisease">
+									<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+										{{option.text}} &nbsp;
+									</mat-radio-button>
+								</mat-radio-group>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.endLungDisease === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Description" [(ngModel)]="criticalIllness.endLungDiseaseDescription"
+									type="text">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.endLungDisease === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Max Limit" [(ngModel)]="criticalIllness.endLungDiseaseMaxLimit" type="tel"
+									numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.endLungDisease === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Waiting Period (in months)"
+									[(ngModel)]="criticalIllness.endLungDiseaseWaitingPeriod" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.endLungDisease === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Survival Period (in days)"
+									[(ngModel)]="criticalIllness.endLungDiseaseSurvival" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-4">
+								<p>End Stage renal failure</p>
+								<mat-radio-group [(ngModel)]="criticalIllness.renalFailure">
+									<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+										{{option.text}} &nbsp;
+									</mat-radio-button>
+								</mat-radio-group>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.renalFailure === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Description" [(ngModel)]="criticalIllness.renalFailureDescription"
+									type="text">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.renalFailure === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Max Limit" [(ngModel)]="criticalIllness.renalFailureMaxLimit"
+									type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.renalFailure === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Waiting Period (in months)"
+									[(ngModel)]="criticalIllness.renalFailureWaitingPeriod" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.renalFailure === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Survival Period (in days)"
+									[(ngModel)]="criticalIllness.renalFailureSurvival" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+						</div>
+
+
+						<div class="row">
+							<div class="col-md-4">
+								<p>End Stage Lung Failure</p>
+								<mat-radio-group [(ngModel)]="criticalIllness.lungFailure">
+									<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+										{{option.text}} &nbsp;
+									</mat-radio-button>
+								</mat-radio-group>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.lungFailure === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Description" [(ngModel)]="criticalIllness.lungFailureDescription"
+									type="text">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.lungFailure === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Max Limit" [(ngModel)]="criticalIllness.lungFailureMaxLimit" type="tel"
+									numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.lungFailure === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Waiting Period (in months)"
+									[(ngModel)]="criticalIllness.lungFailureWaitingPeriod" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.lungFailure === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Survival Period (in days)"
+									[(ngModel)]="criticalIllness.lungFailureSurvival" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-4">
+								<p>End Stage Liver Failure</p>
+								<mat-radio-group [(ngModel)]="criticalIllness.liverFailure">
+									<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+										{{option.text}} &nbsp;
+									</mat-radio-button>
+								</mat-radio-group>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.liverFailure === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Description" [(ngModel)]="criticalIllness.liverFailureDescription"
+									type="text">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.liverFailure === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Max Limit" [(ngModel)]="criticalIllness.liverFailureMaxLimit"
+									type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.liverFailure === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Waiting Period (in months)"
+									[(ngModel)]="criticalIllness.liverFailureWaitingPeriod" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.liverFailure === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Survival Period (in days)"
+									[(ngModel)]="criticalIllness.liverFailureSurvival" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-4">
+								<p>Goodpasture`s Syndrome</p>
+								<mat-radio-group [(ngModel)]="criticalIllness.goodpastureSyndrome">
+									<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+										{{option.text}} &nbsp;
+									</mat-radio-button>
+								</mat-radio-group>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.goodpastureSyndrome === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Description"
+									[(ngModel)]="criticalIllness.goodpastureSyndromeDescription" type="text">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.goodpastureSyndrome === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Max Limit" [(ngModel)]="criticalIllness.goodpastureSyndromeMaxLimit"
+									type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.goodpastureSyndrome === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Waiting Period (in months)"
+									[(ngModel)]="criticalIllness.goodpastureSyndromeWaitingPeriod" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.goodpastureSyndrome === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Survival Period (in days)"
+									[(ngModel)]="criticalIllness.goodpastureSyndromeSurvival" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-4">
+								<p>heart valve replacement</p>
+								<mat-radio-group [(ngModel)]="criticalIllness.heartValveReplacement">
+									<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+										{{option.text}} &nbsp;
+									</mat-radio-button>
+								</mat-radio-group>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.heartValveReplacement === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Description"
+									[(ngModel)]="criticalIllness.heartValveReplacementDescription" type="text">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.heartValveReplacement === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Max Limit" [(ngModel)]="criticalIllness.heartValveReplacementMaxLimit"
+									type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.heartValveReplacement === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Waiting Period (in months)"
+									[(ngModel)]="criticalIllness.heartValveReplacementWaitingPeriod" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.heartValveReplacement === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Survival Period (in days)"
+									[(ngModel)]="criticalIllness.heartValveReplacementSurvival" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-4">
+								<p>Kidney Failure</p>
+								<mat-radio-group [(ngModel)]="criticalIllness.kidneyFailure">
+									<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+										{{option.text}} &nbsp;
+									</mat-radio-button>
+								</mat-radio-group>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.kidneyFailure === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Description" [(ngModel)]="criticalIllness.kidneyFailureDescription"
+									type="text">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.kidneyFailure === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Max Limit" [(ngModel)]="criticalIllness.kidneyFailureMaxLimit"
+									type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.kidneyFailure === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Waiting Period (in months)"
+									[(ngModel)]="criticalIllness.kidneyFailureWaitingPeriod" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.kidneyFailure === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Survival Period (in days)"
+									[(ngModel)]="criticalIllness.kidneyFailureSurvival" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-4">
+								<p>Kidney Failure requiring Regular Dialysis</p>
+								<mat-radio-group [(ngModel)]="criticalIllness.kidneyFailureRegularAnalysisSurvival">
+									<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+										{{option.text}} &nbsp;
+									</mat-radio-button>
+								</mat-radio-group>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.kidneyFailureRegularAnalysis === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Description" [(ngModel)]="criticalIllness.kidneyFailureRegularAnalysisDescription"
+									type="text">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.kidneyFailureRegularAnalysis === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Max Limit" [(ngModel)]="criticalIllness.kidneyFailureRegularAnalysisMaxLimit"
+									type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.kidneyFailureRegularAnalysis === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Waiting Period (in months)"
+									[(ngModel)]="criticalIllness.kidneyFailureRegularAnalysisWaitingPeriod" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.kidneyFailureRegularAnalysis === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Survival Period (in days)"
+									[(ngModel)]="criticalIllness.kidneyFailureRegularAnalysisSurvival" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+						</div>
+
+
+						<div class="row">
+							<div class="col-md-4">
+								<p>Major Head Trauma</p>
+								<mat-radio-group [(ngModel)]="criticalIllness.majorHeadTrauma">
+									<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+										{{option.text}} &nbsp;
+									</mat-radio-button>
+								</mat-radio-group>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.majorHeadTrauma === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Description" [(ngModel)]="criticalIllness.majorHeadTraumaDescription"
+									type="text">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.majorHeadTrauma === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Max Limit" [(ngModel)]="criticalIllness.majorHeadTraumaMaxLimit"
+									type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.majorHeadTrauma === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Waiting Period (in months)"
+									[(ngModel)]="criticalIllness.majorHeadTraumaWaitingPeriod" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.majorHeadTrauma === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Survival Period (in days)"
+									[(ngModel)]="criticalIllness.majorHeadTraumaSurvival" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-4">
+								<p>Major organ transplant</p>
+								<mat-radio-group [(ngModel)]="criticalIllness.majorOrganTransplant">
+									<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+										{{option.text}} &nbsp;
+									</mat-radio-button>
+								</mat-radio-group>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.majorOrganTransplant === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Description"
+									[(ngModel)]="criticalIllness.majorOrganTransplantDescription" type="text">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.majorOrganTransplant === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Max Limit" [(ngModel)]="criticalIllness.majorOrganTransplantMaxLimit"
+									type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.majorOrganTransplant === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Waiting Period (in months)"
+									[(ngModel)]="criticalIllness.majorOrganTransplantWaitingPeriod" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.majorOrganTransplant === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Survival Period (in days)"
+									[(ngModel)]="criticalIllness.majorOrganTransplantSurvival" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-4">
+								<p>Multiple Sclerosis with Persisting Symptoms</p>
+								<mat-radio-group [(ngModel)]="criticalIllness.multipleSclerosisPersistingSymptoms">
+									<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+										{{option.text}} &nbsp;
+									</mat-radio-button>
+								</mat-radio-group>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.multipleSclerosisPersistingSymptoms === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Description"
+									[(ngModel)]="criticalIllness.multipleSclerosisPersistingSymptomsDescription" type="text">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.multipleSclerosisPersistingSymptoms === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Max Limit"
+									[(ngModel)]="criticalIllness.multipleSclerosisPersistingSymptomsMaxLimit" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.multipleSclerosisPersistingSymptoms === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Waiting Period (in months)"
+									[(ngModel)]="criticalIllness.multipleSclerosisPersistingSymptomsWaitingPeriod" type="tel"
+									numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.multipleSclerosisPersistingSymptoms === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Survival Period (in days)"
+									[(ngModel)]="criticalIllness.multipleSclerosisPersistingSymptomsSurvival" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+						</div>
+
+
+						<div class="row">
+							<div class="col-md-4">
+								<p>Myocardinal Infraction (First Heart Attack Of Specific Severity)</p>
+								<mat-radio-group [(ngModel)]="criticalIllness.myocardinalInfraction">
+									<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+										{{option.text}} &nbsp;
+									</mat-radio-button>
+								</mat-radio-group>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.myocardinalInfraction === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Description"
+									[(ngModel)]="criticalIllness.myocardinalInfractionDescription" type="text">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.myocardinalInfraction === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Max Limit" [(ngModel)]="criticalIllness.myocardinalInfractionMaxLimit"
+									type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.myocardinalInfraction === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Waiting Period (in months)"
+									[(ngModel)]="criticalIllness.myocardinalInfractionWaitingPeriod" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.myocardinalInfraction === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Survival Period (in days)"
+									[(ngModel)]="criticalIllness.myocardinalInfractionSurvival" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-4">
+								<p>Motor Neuron Disease with Permanent Symptoms</p>
+								<mat-radio-group [(ngModel)]="criticalIllness.motorNeutron">
+									<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+										{{option.text}} &nbsp;
+									</mat-radio-button>
+								</mat-radio-group>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.motorNeutron === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Description" [(ngModel)]="criticalIllness.motorNeutronDescription"
+									type="text">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.motorNeutron === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Max Limit" [(ngModel)]="criticalIllness.motorNeutronMaxLimit"
+									type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.motorNeutron === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Waiting Period (in months)"
+									[(ngModel)]="criticalIllness.motorNeutronWaitingPeriod" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.motorNeutron === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Survival Period (in days)"
+									[(ngModel)]="criticalIllness.motorNeutronSurvival" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-4">
+								<p>Multiple System Atrophy</p>
+								<mat-radio-group [(ngModel)]="criticalIllness.multipleSystemAtrophy">
+									<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+										{{option.text}} &nbsp;
+									</mat-radio-button>
+								</mat-radio-group>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.multipleSystemAtrophy === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Description"
+									[(ngModel)]="criticalIllness.multipleSystemAtrophyDescription" type="text">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.multipleSystemAtrophy === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Max Limit" [(ngModel)]="criticalIllness.multipleSystemAtrophyMaxLimit"
+									type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.multipleSystemAtrophy === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Waiting Period (in months)"
+									[(ngModel)]="criticalIllness.multipleSystemAtrophyWaitingPeriod" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.multipleSystemAtrophy === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Survival Period (in days)"
+									[(ngModel)]="criticalIllness.multipleSystemAtrophySurvival" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-4">
+								<p>Progressive Scleroderma</p>
+								<mat-radio-group [(ngModel)]="criticalIllness.progressiveScleroderma">
+									<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+										{{option.text}} &nbsp;
+									</mat-radio-button>
+								</mat-radio-group>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.progressiveScleroderma === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Description"
+									[(ngModel)]="criticalIllness.progressiveSclerodermaDescription" type="text">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.progressiveScleroderma === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Max Limit" [(ngModel)]="criticalIllness.progressiveSclerodermaMaxLimit"
+									type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.progressiveScleroderma === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Waiting Period (in months)"
+									[(ngModel)]="criticalIllness.progressiveSclerodermaWaitingPeriod" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.progressiveScleroderma === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Survival Period (in days)"
+									[(ngModel)]="criticalIllness.cancerSpecifiedSeveritySurvival" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-4">
+								<p>Permanent Paralysis of Limbs</p>
+								<mat-radio-group [(ngModel)]="criticalIllness.permanentParalysis">
+									<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+										{{option.text}} &nbsp;
+									</mat-radio-button>
+								</mat-radio-group>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.permanentParalysis === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Description"
+									[(ngModel)]="criticalIllness.permanentParalysisDescription" type="text">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.permanentParalysis === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Max Limit" [(ngModel)]="criticalIllness.permanentParalysisMaxLimit"
+									type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.permanentParalysis === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Waiting Period (in months)"
+									[(ngModel)]="criticalIllness.permanentParalysisWaitingPeriod" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.permanentParalysis === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Survival Period (in days)"
+									[(ngModel)]="criticalIllness.permanentParalysisSurvival" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-4">
+								<p>Primary (idiopathic) Pulmonary Hypertension</p>
+								<mat-radio-group [(ngModel)]="criticalIllness.pulmonayHypertension">
+									<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+										{{option.text}} &nbsp;
+									</mat-radio-button>
+								</mat-radio-group>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.pulmonayHypertension === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Description"
+									[(ngModel)]="criticalIllness.pulmonayHypertensionDescription" type="text">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.pulmonayHypertension === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Max Limit" [(ngModel)]="criticalIllness.pulmonayHypertensionMaxLimit"
+									type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.pulmonayHypertension === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Waiting Period (in months)"
+									[(ngModel)]="criticalIllness.pulmonayHypertensionWaitingPeriod" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.pulmonayHypertension === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Survival Period (in days)"
+									[(ngModel)]="criticalIllness.pulmonayHypertensionSurvival" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+						</div>
+
+
+						<div class="row">
+							<div class="col-md-4">
+								<p>Primary Parkinsons disease</p>
+								<mat-radio-group [(ngModel)]="criticalIllness.primaryParkinsonsDisease">
+									<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+										{{option.text}} &nbsp;
+									</mat-radio-button>
+								</mat-radio-group>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.primaryParkinsonsDisease === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Description"
+									[(ngModel)]="criticalIllness.primaryParkinsonsDiseaseDescription" type="text">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.primaryParkinsonsDisease === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Max Limit"
+									[(ngModel)]="criticalIllness.primaryParkinsonsDiseaseMaxLimit" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.primaryParkinsonsDisease === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Waiting Period (in months)"
+									[(ngModel)]="criticalIllness.primaryParkinsonsDiseaseWaitingPeriod" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.primaryParkinsonsDisease === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Survival Period (in days)"
+									[(ngModel)]="criticalIllness.primaryParkinsonsDiseaseSurvival" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-4">
+								<p>Pulmonary Artery Graft Surgery</p>
+								<mat-radio-group [(ngModel)]="criticalIllness.pulmonaryArteryGraftSurgery">
+									<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+										{{option.text}} &nbsp;
+									</mat-radio-button>
+								</mat-radio-group>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.pulmonaryArteryGraftSurgery === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Description"
+									[(ngModel)]="criticalIllness.pulmonaryArteryGraftSurgeryDescription" type="text">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.pulmonaryArteryGraftSurgery === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Max Limit"
+									[(ngModel)]="criticalIllness.pulmonaryArteryGraftSurgeryMaxLimit" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.pulmonaryArteryGraftSurgery === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Waiting Period (in months)"
+									[(ngModel)]="criticalIllness.pulmonaryArteryGraftSurgeryWaitingPeriod" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.pulmonaryArteryGraftSurgery === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Survival Period (in days)"
+									[(ngModel)]="criticalIllness.pulmonaryArteryGraftSurgerySurvival" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-4">
+								<p>Pneumonectomy</p>
+								<mat-radio-group [(ngModel)]="criticalIllness.pneumonectomy">
+									<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+										{{option.text}} &nbsp;
+									</mat-radio-button>
+								</mat-radio-group>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.pneumonectomy === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Description" [(ngModel)]="criticalIllness.pneumonectomyDescription"
+									type="text">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.pneumonectomy === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Max Limit" [(ngModel)]="criticalIllness.pneumonectomyMaxLimit"
+									type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.pneumonectomy === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Waiting Period (in months)"
+									[(ngModel)]="criticalIllness.pneumonectomyWaitingPeriod" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.pneumonectomy === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Survival Period (in days)"
+									[(ngModel)]="criticalIllness.pneumonectomySurvival" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+						</div>
+
+
+						<div class="row">
+							<div class="col-md-4">
+								<p>Systemic Lupus Erythematosis</p>
+								<mat-radio-group [(ngModel)]="criticalIllness.systemicLupusErythematosis">
+									<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+										{{option.text}} &nbsp;
+									</mat-radio-button>
+								</mat-radio-group>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.systemicLupusErythematosis === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Description"
+									[(ngModel)]="criticalIllness.systemicLupusErythematosisDescription" type="text">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.systemicLupusErythematosis === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Max Limit"
+									[(ngModel)]="criticalIllness.systemicLupusErythematosisMaxLimit" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.systemicLupusErythematosis === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Waiting Period (in months)"
+									[(ngModel)]="criticalIllness.systemicLupusErythematosisWaitingPeriod" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.systemicLupusErythematosis === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Survival Period (in days)"
+									[(ngModel)]="criticalIllness.systemicLupusErythematosisSurvival" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-4">
+								<p>Stroke resulting in Permanent Symptoms</p>
+								<mat-radio-group [(ngModel)]="criticalIllness.strokeResulting">
+									<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+										{{option.text}} &nbsp;
+									</mat-radio-button>
+								</mat-radio-group>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.strokeResulting === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Description" [(ngModel)]="criticalIllness.strokeResultingDescription"
+									type="text">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.strokeResulting === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Max Limit" [(ngModel)]="criticalIllness.strokeResultingMaxLimit"
+									type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.strokeResulting === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Waiting Period (in months)"
+									[(ngModel)]="criticalIllness.strokeResultingWaitingPeriod" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.strokeResulting === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Survival Period (in days)"
+									[(ngModel)]="criticalIllness.strokeResultingSurvival" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+						</div>
+
+
+						<div class="row">
+							<div class="col-md-4">
+								<p>Third Degree Burns</p>
+								<mat-radio-group [(ngModel)]="criticalIllness.thirdDegreeBurns">
+									<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+										{{option.text}} &nbsp;
+									</mat-radio-button>
+								</mat-radio-group>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.thirdDegreeBurns === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Description" [(ngModel)]="criticalIllness.thirdDegreeBurnsDescription"
+									type="text">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.thirdDegreeBurns === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Max Limit" [(ngModel)]="criticalIllness.thirdDegreeBurnsMaxLimit"
+									type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.thirdDegreeBurns === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Waiting Period (in months)"
+									[(ngModel)]="criticalIllness.thirdDegreeBurnsWaitingPeriod" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4" *ngIf="criticalIllness.thirdDegreeBurns === 'covered'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Survival Period (in days)"
+									[(ngModel)]="criticalIllness.thirdDegreeBurnsSurvival" type="tel" numbersOnly>
+								</mat-form-field>
+							</div>
+						</div>
+
+
+						<div class="text-center d-flex justify-content-center" *ngIf="update === 'false'">
+							<button mat-raised-button class="btn btn-danger pull-right"
+							(click)="submitCriticalIllness()">Save</button>
+						</div>
+						<div class="text-center d-flex justify-content-cente	r" *ngIf="update === 'true'">
+							<button mat-raised-button class="btn btn-danger pull-right"
+							(click)="editCriticalIllness()">EDIT</button>
+						</div>
+					</mat-tab>
+
+
+					<mat-tab label="Personal Accidental">
+
+						<div class="row" *ngIf="update === 'true'">
+							<div class="col-md-6">
+								<mat-form-field class="example-full-width">
+									<mat-label>Select Policy Number</mat-label>
+									<mat-select [(ngModel)]="selectedPolicyNumberPersonal">
+										<mat-option *ngFor="let number of allPersonalAccidental; let i = index"
+										[value]="number.policyNumber" (click)="personalAccidentalSelected(i)">
+										{{number.policyNumber}}
+									</mat-option>
+								</mat-select>
+							</mat-form-field>
+						</div>
+					</div>
+
+					<div class="row mt-4">
+						<div class="col-md-12">
+							<div class="d-flex align-items-center">
+								<p class="font-weight-bold text-secondary ">Type of Insurance :-</p>
+								<p class="text-primary font-weight-bold ml-2">Personal Accidental
+								</p>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+
+
+						<div class="col-md-4">
+							<mat-form-field class="example-full-width">
+								<mat-label>Type of Policy</mat-label>
+								<mat-select [(ngModel)]="personalAccidental.policyType">
+									<mat-option value="individual">
+										Individual
+									</mat-option>
+									<mat-option value="familyFloater">
+										Family Floater
+									</mat-option>
+								</mat-select>
+							</mat-form-field>
+						</div>
+
+						<div class="col-md-4">
+							<mat-form-field class="example-full-width">
+								<mat-label>Status of Policy</mat-label>
+								<mat-select [(ngModel)]="personalAccidental.policyStatus">
+									<mat-option value="insured">
+										Insured
+									</mat-option>
+									<mat-option value="notInsured">
+										Not Insured
+									</mat-option>
+								</mat-select>
+							</mat-form-field>
+						</div>
+
+						<div class="col-md-4">
+							<mat-form-field class="example-full-width">
+								<input matInput placeholder="Proposer" [(ngModel)]="personalAccidental.proposer" type="text">
+							</mat-form-field>
+						</div>
+
+						<div class="col-md-4">
+							<mat-form-field class="example-full-width">
+								<input matInput placeholder="Company" [(ngModel)]="personalAccidental.company" type="text">
+							</mat-form-field>
+						</div>
+
+						<div class="col-md-4">
+							<mat-form-field class="example-full-width">
+								<input matInput placeholder="Plan" [(ngModel)]="personalAccidental.plan" type="text">
+							</mat-form-field>
+						</div>
+
+						<div class="col-md-4">
+							<mat-form-field class="example-full-width">
+								<input matInput placeholder="Premium" [(ngModel)]="personalAccidental.premium" type="text">
+							</mat-form-field>
+						</div>
+
+						<div class="col-md-4">
+							<mat-form-field class="example-full-width">
+								<mat-label>D.O.C</mat-label>
+								<input
+								  matInput
+								  [(ngModel)]="personalAccidental.doc"
+								  placeholder="D.O.C"
+								  [matDatepicker]="picker15"
+								/>
+								<mat-datepicker-toggle
+								  matSuffix
+								  [for]="picker15"
+								></mat-datepicker-toggle>
+								<mat-datepicker #picker15></mat-datepicker>
+							  </mat-form-field>
+						</div>
+
+						<div class="col-md-4">
+							<mat-form-field class="example-full-width">
+								<input matInput placeholder="Policy Number" [(ngModel)]="personalAccidental.policyNumber"
+								type="text">
+							</mat-form-field>
+						</div>
+
+						<div class="col-md-4">
+							<mat-form-field class="example-full-width">
+								<input matInput placeholder="Policy Period" [(ngModel)]="personalAccidental.policyPeriod"
+								type="number">
+							</mat-form-field>
+						</div>
+
+						<div class="col-md-4">
+							<mat-form-field class="example-full-width">
+								<mat-label>Risk Start Date</mat-label>
+								<input
+								  matInput
+								  [(ngModel)]="personalAccidental.riskStart"
+								  placeholder="Risk Start Date"
+								  [matDatepicker]="picker20"
+								/>
+								<mat-datepicker-toggle
+								  matSuffix
+								  [for]="picker20"
+								></mat-datepicker-toggle>
+								<mat-datepicker #picker20></mat-datepicker>
+							  </mat-form-field>
+						</div>
+
+						<div class="col-md-4">
+							<mat-form-field class="example-full-width">
+								<mat-label>Risk End Date</mat-label>
+								<input
+								  matInput
+								  [(ngModel)]="personalAccidental.riskEnd"
+								  placeholder="Risk End Date"
+								  [matDatepicker]="picker19"
+								/>
+								<mat-datepicker-toggle
+								  matSuffix
+								  [for]="picker19"
+								></mat-datepicker-toggle>
+								<mat-datepicker #picker19></mat-datepicker>
+							  </mat-form-field>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-4">
+							<mat-form-field class="example-full-width">
+								<mat-label>Members Insured</mat-label>
+								<mat-select [(ngModel)]="personalAccidental.membersInsured"
+								(selectionChange)="getMemberInsuredPersonalAccidental()">
+								<mat-option *ngFor="let member of membersInsured" value="{{member}}">
+									{{member}}
+								</mat-option>
+							</mat-select>
+						</mat-form-field>
+					</div>
+				</div>
+
+
+				<div class="row" *ngFor="let num of allMemberInsuredObjectPersonalAccidental; let i = index">
+
+					<div class="col-md-4">
+						<mat-form-field class="example-full-width">
+							<input matInput placeholder="Member Name"
+							[(ngModel)]="allMemberInsuredObjectPersonalAccidental[i].memberName" type="text">
+						</mat-form-field>
+					</div>
+
+
+					<div class="col-md-4">
+						<mat-form-field class="example-full-width">
+							<mat-label>D.O.B</mat-label>
+							<input
+							  matInput
+							  [(ngModel)]="allMemberInsuredObjectPersonalAccidental[i].dob"
+							  placeholder="D.O.B"
+							  [matDatepicker]="picker18"
+							/>
+							<mat-datepicker-toggle
+							  matSuffix
+							  [for]="picker18"
+							></mat-datepicker-toggle>
+							<mat-datepicker #picker18></mat-datepicker>
+						  </mat-form-field>
+					</div>
+					<div class="col-md-4">
+						<mat-form-field class="example-full-width">
+							<mat-label>Sex</mat-label>
+							<mat-select [(ngModel)]="allMemberInsuredObjectPersonalAccidental[i].sex">
+								<mat-option value="male">
+									Male
+								</mat-option>
+								<mat-option value="female">
+									Female
+								</mat-option>
+							</mat-select>
+						</mat-form-field>
+					</div>
+
+					<div class="col-md-4">
+						<mat-form-field class="example-full-width">
+							<mat-label>Relation</mat-label>
+							<mat-select [(ngModel)]="allMemberInsuredObjectPersonalAccidental[i].relation">
+								<mat-option value="spouse">
+									Spouse
+								</mat-option>
+								<mat-option value="children">
+									Children
+								</mat-option>
+								<mat-option value="father">
+									Father
+								</mat-option>
+								<mat-option value="mother">
+									Mother
+								</mat-option>
+								<mat-option value="other">
+									Other
+								</mat-option>
+							</mat-select>
+						</mat-form-field>
+					</div>
+
+					<div class="col-md-4" *ngIf="personalAccidental.policyType === 'individual'">
+						<mat-form-field class="example-full-width">
+							<input matInput placeholder="Sum Assured"
+							[(ngModel)]="allMemberInsuredObjectPersonalAccidental[i].sumAssured" type="number">
+						</mat-form-field>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-4">
+						<mat-form-field class="example-full-width">
+							<input matInput placeholder="Policy Year" [(ngModel)]="personalAccidental.policyYear" type="number">
+						</mat-form-field>
+					</div>
+
+					<div class="col-md-4">
+						<mat-form-field class="example-full-width">
+							<mat-label>Status of Policy</mat-label>
+							<mat-select [(ngModel)]="personalAccidental.policyStatus">
+								<mat-option value="insured">
+									Insured
+								</mat-option>
+								<mat-option value="notInsured">
+									Not Insured
+								</mat-option>
+							</mat-select>
+						</mat-form-field>
+					</div>
+
+					<div class="col-md-4">
+						<mat-form-field class="example-full-width">
+							<input matInput placeholder="Any kind of loading" [(ngModel)]="personalAccidental.anyLoading"
+							type="text">
+						</mat-form-field>
+					</div>
+
+					<div class="col-md-4">
+						<mat-form-field class="example-full-width">
+							<input matInput placeholder="Reason/Amount of loading" [(ngModel)]="personalAccidental.reasonAmountLoading"
+							type="text">
+						</mat-form-field>
+					</div>
+
+
+					<div class="col-md-4">
+						<mat-form-field class="example-full-width">
+							<input matInput placeholder="No Claim Bonus" [(ngModel)]="personalAccidental.noBonusClaim"
+							type="number">
+						</mat-form-field>
+					</div>
+
+					<div class="col-md-4">
+						<mat-form-field class="example-full-width">
+							<input matInput placeholder="Bonus Sum Insured" [(ngModel)]="personalAccidental.bonusClaimInsured"
+							type="number">
+						</mat-form-field>
+					</div>
+
+					<div class="col-md-4">
+						<mat-form-field class="example-full-width">
+							<input matInput placeholder="Cashless Hospital Link"
+							[(ngModel)]="personalAccidental.cashlessHospitalLink" type="text">
+						</mat-form-field>
+					</div>
+
+					<div class="col-md-4">
+						<mat-form-field class="example-full-width">
+							<input matInput placeholder="Toll Free Number" [(ngModel)]="personalAccidental.tollFreeNumber"
+							type="text">
+						</mat-form-field>
+					</div>
+
+					<div class="col-md-4">
+						<mat-form-field class="example-full-width">
+							<input matInput placeholder="Branch Locator" [(ngModel)]="personalAccidental.branchLocator"
+							type="text">
+						</mat-form-field>
+					</div>
+
+					<div class="col-md-4">
+						<mat-form-field class="example-full-width">
+							<input matInput placeholder="Claim Procedure" [(ngModel)]="personalAccidental.claimProcedure"
+							type="text">
+						</mat-form-field>
+					</div>
+
+					<div class="col-md-4">
+						<p class="form-sub-heading font-weight-bold text-secondary">Policy Wording</p>
+						<input type="file" accept="application/pdf" (change)="policyWordingUploadAccidental($event)">
+					</div>
+
+
+					<div class="col-md-4">
+						<p class="form-sub-heading font-weight-bold text-secondary">Accidental Card Upload
+						</p>
+						<input type="file" accept="application/pdf" (change)="accidentalCardUpload($event)">
+					</div>
+
+					<div class="col-md-4">
+						<p class="form-sub-heading font-weight-bold text-secondary">Policy Upload</p>
+						<input type="file" accept="application/pdf" (change)="policyUploadAccidental($event)">
+					</div>
+				</div>
+
+				<div class="row" *ngFor="let list of allPersonalAccidentalList; let i = index">
+					<div class="col-md-4">
+						<p>{{list.text}} {{list.id}}</p>
+						<mat-radio-group [(ngModel)]="personalAccidental[list.value]">
+							<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+								{{option.text}} &nbsp;
+							</mat-radio-button>
+						</mat-radio-group>
+					</div>
+					<div class="row-md-4" *ngIf="list.value === 'ppd'">
+
+					</div>
+					<div class="col-md-4" *ngIf="personalAccidental[list.value] === 'covered'">
+						<mat-form-field class="example-full-width">
+							<input matInput placeholder="Description"
+							[(ngModel)]="personalAccidental[list.value + 'Description']" type="text">
+						</mat-form-field>
+					</div>
+					<div class="col-md-4" *ngIf="personalAccidental[list.value] === 'covered'">
+						<mat-form-field class="example-full-width">
+							<input matInput placeholder="Max Limit" [(ngModel)]="personalAccidental[list.value + 'MaxLimit']"
+							type="tel" numbersOnly>
+						</mat-form-field>
+					</div>
+					<div class="col-md-4" *ngIf="personalAccidental[list.value] === 'covered'">
+						<mat-form-field class="example-full-width">
+							<input matInput placeholder="Waiting Period (in months)"
+							[(ngModel)]="personalAccidental[list.value + 'WaitingPeriod']" type="tel" numbersOnly>
+						</mat-form-field>
+					</div>
+					<div class="col-md-4" *ngIf="personalAccidental[list.value] === 'covered'">
+						<mat-form-field class="example-full-width">
+							<input matInput placeholder="Survival Period (in days)"
+							[(ngModel)]="personalAccidental[list.value + 'Survival']" type="tel" numbersOnly>
+						</mat-form-field>
+					</div>
+				</div>
+
+							<!-- <div class="row">
+		<div class="col-md-4">
+			<p>Loan Secure</p>
+			<mat-radio-group [(ngModel)]="personalAccidental.loanSecure ">
+				<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+					{{option.text}} &nbsp;
+				</mat-radio-button>
+			</mat-radio-group>
+		</div>
+		<div class="col-md-4" *ngIf="personalAccidental.loanSecure === 'covered'">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Description" [(ngModel)]="personalAccidental.loanSecureDescription" type="text">
+			</mat-form-field>
+		</div>
+		<div class="col-md-4" *ngIf="personalAccidental.loanSecure === 'covered'">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Max Limit" [(ngModel)]="personalAccidental.loanSecureMaxLimit" type="tel" numbersOnly>
+			</mat-form-field>
+		</div>
+		<div class="col-md-4" *ngIf="personalAccidental.loanSecure === 'covered'">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Waiting Period (in months)" [(ngModel)]="personalAccidental.loanSecureWaitingPeriod" type="tel" numbersOnly>
+			</mat-form-field>
+		</div>
+		<div class="col-md-4" *ngIf="personalAccidental.loanSecure === 'covered'">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Survival Period (in days)" [(ngModel)]="personalAccidental.loanSecureSurvival" type="tel" numbersOnly>
+			</mat-form-field>
+		</div>
+	</div> -->
+
+	<div class="row">
+		<div class="col-md-4">
+			<p>Permanent Total Disablement [PTD]</p>
+			<mat-radio-group [(ngModel)]="personalAccidental.ptd">
+				<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+					{{option.text}} &nbsp;
+				</mat-radio-button>
+			</mat-radio-group>
+		</div>
+		<div class="col-md-4" *ngIf="personalAccidental.ptd === 'covered'">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Description" [(ngModel)]="personalAccidental.ptdDescription"
+				type="text">
+			</mat-form-field>
+		</div>
+		<div class="col-md-4" *ngIf="personalAccidental.ptd === 'covered'">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Max Limit" [(ngModel)]="personalAccidental.ptdMaxLimit" type="tel"
+				numbersOnly>
+			</mat-form-field>
+		</div>
+		<div class="col-md-4" *ngIf="personalAccidental.ptd === 'covered'">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Waiting Period (in months)"
+				[(ngModel)]="personalAccidental.ptdWaitingPeriod" type="tel" numbersOnly>
+			</mat-form-field>
+		</div>
+		<div class="col-md-4" *ngIf="personalAccidental.ptd === 'covered'">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Survival Period (in days)" [(ngModel)]="personalAccidental.ptdSurvival"
+				type="tel" numbersOnly>
+			</mat-form-field>
+		</div>
+	</div>
+
+	
+
+	<div class="row">
+		<div class="col-md-4">
+			<p>Temporary Total Disablement [TTD]</p>
+			<mat-radio-group [(ngModel)]="personalAccidental.ttd">
+				<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+					{{option.text}} &nbsp;
+				</mat-radio-button>
+			</mat-radio-group>
+		</div>
+		<div class="col-md-4" *ngIf="personalAccidental.ttd === 'covered'">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Description" [(ngModel)]="personalAccidental.ttdDescription" type="text">
+			</mat-form-field>
+		</div>
+		<div class="col-md-4" *ngIf="personalAccidental.ttd === 'covered'">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Max Limit" [(ngModel)]="personalAccidental.ttdMaxLimit" type="tel" numbersOnly>
+			</mat-form-field>
+		</div>
+		<div class="col-md-4" *ngIf="personalAccidental.ttd === 'covered'">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Waiting Period (in months)" [(ngModel)]="personalAccidental.ttdWaitingPeriod" type="tel" numbersOnly>
+			</mat-form-field>
+		</div>
+		<div class="col-md-4" *ngIf="personalAccidental.ttd === 'covered'">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Survival Period (in days)" [(ngModel)]="personalAccidental.ttdSurvival" type="tel" numbersOnly>
+			</mat-form-field>
+		</div>
+	</div>
+
+	<!-- <div class="row">
+		<div class="col-md-4">
+			<p>Emergency Road Ambulance Charges</p>
+			<mat-radio-group [(ngModel)]="personalAccidental.emergencyRoadAmbulace">
+				<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+					{{option.text}} &nbsp;
+				</mat-radio-button>
+			</mat-radio-group>
+		</div>
+		<div class="col-md-4" *ngIf="personalAccidental.emergencyRoadAmbulace === 'covered'">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Description" [(ngModel)]="personalAccidental.emergencyRoadAmbulaceDescription" type="text">
+			</mat-form-field>
+		</div>
+		<div class="col-md-4" *ngIf="personalAccidental.emergencyRoadAmbulace === 'covered'">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Max Limit" [(ngModel)]="personalAccidental.emergencyRoadAmbulaceMaxLimit" type="tel" numbersOnly>
+			</mat-form-field>
+		</div>
+		<div class="col-md-4" *ngIf="personalAccidental.emergencyRoadAmbulace === 'covered'">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Waiting Period (in months)" [(ngModel)]="personalAccidental.emergencyRoadAmbulaceWaitingPeriod" type="tel" numbersOnly>
+			</mat-form-field>
+		</div>
+		<div class="col-md-4" *ngIf="personalAccidental.emergencyRoadAmbulace === 'covered'">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Survival Period (in days)" [(ngModel)]="personalAccidental.emergencyRoadAmbulaceSurvival" type="tel" numbersOnly>
+			</mat-form-field>
+		</div>
+	</div> -->
+
+	<!-- <div class="row">
+		<div class="col-md-4">
+			<p>Emergency Air Ambulance Carges</p>
+			<mat-radio-group [(ngModel)]="personalAccidental.emegencyAirAmbulance">
+				<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+					{{option.text}} &nbsp;
+				</mat-radio-button>
+			</mat-radio-group>
+		</div>
+		<div class="col-md-4" *ngIf="personalAccidental.emegencyAirAmbulance === 'covered'">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Description" [(ngModel)]="personalAccidental.emegencyAirAmbulanceDescription" type="text">
+			</mat-form-field>
+		</div>
+		<div class="col-md-4" *ngIf="personalAccidental.emegencyAirAmbulance === 'covered'">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Max Limit" [(ngModel)]="personalAccidental.emegencyAirAmbulanceMaxLimit" type="tel" numbersOnly>
+			</mat-form-field>
+		</div>
+		<div class="col-md-4" *ngIf="personalAccidental.emegencyAirAmbulance === 'covered'">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Waiting Period (in months)" [(ngModel)]="personalAccidental.emegencyAirAmbulanceWaitingPeriod" type="tel" numbersOnly>
+			</mat-form-field>
+		</div>
+		<div class="col-md-4" *ngIf="personalAccidental.emegencyAirAmbulance === 'covered'">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Survival Period (in days)" [(ngModel)]="personalAccidental.emegencyAirAmbulanceSurvival" type="tel" numbersOnly>
+			</mat-form-field>
+		</div>
+	</div> -->
+
+	<!-- <div class="row">
+		<div class="col-md-4">
+			<p>Adventure Sport [ADS]</p>
+			<mat-radio-group [(ngModel)]="personalAccidental.adventureSports">
+				<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+					{{option.text}} &nbsp;
+				</mat-radio-button>
+			</mat-radio-group>
+		</div>
+		<div class="col-md-4" *ngIf="personalAccidental.adventureSports === 'covered'">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Description" [(ngModel)]="personalAccidental.adventureSportsDescription" type="text">
+			</mat-form-field>
+		</div>
+		<div class="col-md-4" *ngIf="personalAccidental.adventureSports === 'covered'">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Max Limit" [(ngModel)]="personalAccidental.adventureSportsMaxLimit" type="tel" numbersOnly>
+			</mat-form-field>
+		</div>
+		<div class="col-md-4" *ngIf="personalAccidental.adventureSports === 'covered'">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Waiting Period (in months)" [(ngModel)]="personalAccidental.adventureSportsWaitingPeriod" type="tel" numbersOnly>
+			</mat-form-field>
+		</div>
+		<div class="col-md-4" *ngIf="personalAccidental.adventureSports === 'covered'">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Survival Period (in days)" [(ngModel)]="personalAccidental.adventureSportsSurvival" type="tel" numbersOnly>
+			</mat-form-field>
+		</div>
+	</div> -->
+
+	<!-- <div class="row">
+		<div class="col-md-4">
+			<p>Impatient Hospitalisation</p>
+			<mat-radio-group [(ngModel)]="personalAccidental.impatientHospitalisation">
+				<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+					{{option.text}} &nbsp;
+				</mat-radio-button>
+			</mat-radio-group>
+		</div>
+		<div class="col-md-4" *ngIf="personalAccidental.impatientHospitalisation === 'covered'">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Description" [(ngModel)]="personalAccidental.impatientHospitalisationDescription" type="text">
+			</mat-form-field>
+		</div>
+		<div class="col-md-4" *ngIf="personalAccidental.impatientHospitalisation === 'covered'">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Max Limit" [(ngModel)]="personalAccidental.impatientHospitalisationMaxLimit" type="tel" numbersOnly>
+			</mat-form-field>
+		</div>
+		<div class="col-md-4" *ngIf="personalAccidental.impatientHospitalisation === 'covered'">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Waiting Period (in months)" [(ngModel)]="personalAccidental.impatientHospitalisationWaitingPeriod" type="tel" numbersOnly>
+			</mat-form-field>
+		</div>
+		<div class="col-md-4" *ngIf="personalAccidental.impatientHospitalisation === 'covered'">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Survival Period (in days)" [(ngModel)]="personalAccidental.impatientHospitalisationSurvival" type="tel" numbersOnly>
+			</mat-form-field>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-4">
+			<p>Impatient Hospitalisation with restore benefits</p>
+			<mat-radio-group [(ngModel)]="personalAccidental.impatientHospitalisationRestoreBenefits">
+				<mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+					{{option.text}} &nbsp;
+				</mat-radio-button>
+			</mat-radio-group>
+		</div>
+		<div class="col-md-4" *ngIf="personalAccidental.impatientHospitalisationRestoreBenefits === 'covered'">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Description" [(ngModel)]="personalAccidental.impatientHospitalisationRestoreBenefitsDescription" type="text">
+			</mat-form-field>
+		</div>
+		<div class="col-md-4" *ngIf="personalAccidental.impatientHospitalisationRestoreBenefits === 'covered'">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Max Limit" [(ngModel)]="personalAccidental.impatientHospitalisationRestoreBenefitsMaxLimit" type="tel" numbersOnly>
+			</mat-form-field>
+		</div>
+		<div class="col-md-4" *ngIf="personalAccidental.impatientHospitalisationRestoreBenefits === 'covered'">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Waiting Period (in months)" [(ngModel)]="personalAccidental.impatientHospitalisationRestoreBenefitsWaitingPeriod" type="tel" numbersOnly>
+			</mat-form-field>
+		</div>
+		<div class="col-md-4" *ngIf="personalAccidental.impatientHospitalisationRestoreBenefits === 'covered'">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Survival Period (in days)" [(ngModel)]="personalAccidental.impatientHospitalisationRestoreBenefitsSurvival" type="tel" numbersOnly>
+			</mat-form-field>
+		</div>
+	</div> -->
+
+<div class="text-center d-flex justify-content-center" *ngIf="update === 'false'">
+	<button mat-raised-button class="btn btn-danger pull-right"
+	(click)="submitPersonalAccidental()">Save</button>
+</div>
+<div class="text-center d-flex justify-content-center" *ngIf="update === 'true'">
+	<button mat-raised-button class="btn btn-danger pull-right"
+	(click)="editPersonalAccidental()">EDIT</button>
+</div>
+
+</mat-tab>
+</mat-tab-group>
+
+</div>
+</div>
+</div>
+</div>
+
+</div>

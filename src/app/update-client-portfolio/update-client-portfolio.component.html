@@ -1,0 +1,98 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">Update Client Portfolio</h4>
+                        <p class="card-category"> List of User</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <th>
+                                        Sr No.
+                                    </th>
+                                    <th>
+                                        Name
+                                    </th>
+                                    <th>
+                                        Email Id
+                                    </th>
+                                    <th>
+                                        Phone No.
+                                    </th>
+                                    <th>
+                                        Annual Income
+                                    </th>
+                                    <th>
+                                        Action
+                                    </th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let data of userList; let i = index">
+                                        <td>
+                                            {{i + 1}}
+                                        </td>
+                                        <td>
+                                            {{data.firstName}}
+                                        </td>
+                                        <td>
+                                            {{data.email}}
+                                        </td>
+                                        <td>
+                                            {{data.contactNumber}}
+                                        </td>
+                                        <td class="text-primary">
+                                            {{data.annualIncome}}
+                                        </td>
+                                        <td>
+                                            <div class="">
+                                                <button type="button" class="btn btn-danger dropdown-toggle action-btn"
+                                                    data-toggle="dropdown">
+                                                    Update
+                                                </button>
+                                                <ul class="dropdown-menu takespace" role="menu">
+                                                    <li><button class="btn btn-block btn-success"
+                                                            (click)="goToViewProfile(data.id)">Update
+                                                            Profile</button></li>
+                                                    <li><button class="btn btn-block btn-success"
+                                                            (click)="goToSelectTab(data.id)">Add Portfolio</button>
+                                                    </li>
+
+                                                    <li><button class="btn btn-block btn-success"
+                                                            (click)="goToPage('/life-insurance',data.id)">Edit LI</button>
+                                                    </li>
+
+                                                    <li><button class="btn btn-block btn-success"
+                                                            (click)="goToPage('/health',data.id)">Edit Health</button>
+                                                    </li>
+                                                    <li><button class="btn btn-block btn-success"
+                                                            (click)="goToPage('/corporate',data.id)">Edit Corporate</button>
+                                                    </li>
+                                                    <li><button class="btn btn-block btn-success"
+                                                            (click)="goToPage('/mf-equity',data.id)">Edit MF and
+                                                            Equity</button>
+                                                    </li>
+                                                    <li><button class="btn btn-block btn-success"
+                                                            (click)="goToPage('/vehicle',data.id)">Edit Vehicle</button>
+                                                    </li>
+                                                    <li><button class="btn btn-block btn-success"
+                                                            (click)="goToPage('/others',data.id)">Edit Others</button>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

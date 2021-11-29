@@ -1,0 +1,1363 @@
+<div class="main-content">
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="card">
+				<div class="card-header card-header-danger">
+					<h4 class="card-title ">OTHERS</h4>
+					<!-- <p class="card-category"> Here is a subtitle for this table</p> -->
+				</div>
+				<div class="card-body">
+
+					<mat-tab-group mat-stretch-tabs>
+						<mat-tab label="Bond">
+							<div class="row" *ngIf="update === 'true'">
+								<div class="col-md-6">
+									<mat-form-field class="example-full-width">
+										<mat-label>Select Company Name</mat-label>
+										<mat-select>
+											<mat-option *ngFor="let number of allBonds; let i = index" (click)="bondSelected(i)">
+												{{number.companyName}}
+											</mat-option>
+										</mat-select>
+									</mat-form-field>
+								</div>
+							</div>
+
+							<div class="row mt-4">
+
+								<div class="col-md-6">
+								<!-- <mat-form-field class="example-full-width">
+									<input matInput placeholder="Name of First Holder" type="text"
+										[(ngModel)]="bond.firstHolder">
+									</mat-form-field> -->
+
+									<mat-form-field class="example-full-width">
+										<input matInput [(ngModel)]="bond.firstHolder" autocomplete="false" placeholder="Name of First Holder"  (keyup)="valuechangeFamily($event,'firstHolder')" type="text">
+									</mat-form-field>
+									<div class="dropdown-angular"   *ngIf="familyList.length != 0">
+										<p *ngFor="let x of familyList"  (click)="selectDropdownFamily(x,'firstHolder')"> {{x}}</p>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<mat-radio-group aria-label="Select an option" class="d-flex  justify-content-between"
+									[(ngModel)]="bond.minorMajor" name="status">
+
+									<mat-radio-button value="minor" name="minor">Minor</mat-radio-button>
+									<mat-radio-button value="major" name="major">Major</mat-radio-button>
+								</mat-radio-group>
+							</div>
+							<div class="col-md-6" *ngIf="bond.minorMajor == 'minor'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Name of Second Holder" type="text" [(ngModel)]="bond.secondHolder">
+								</mat-form-field>
+
+								<!-- <div class="dropdown-angular"   *ngIf="secondFamilyList.length != 0">
+									<p *ngFor="let x of secondFamilyList"  (click)="selectDropdownFamily(x,'secondHolder')">{{x}}</p>
+								</div> -->
+							</div>
+
+							<div class="col-md-6">
+								<mat-form-field class="example-full-width">
+									<mat-label>Account type</mat-label>
+									<mat-select [(ngModel)]="bond.accountType">
+										<mat-option value="single">
+											Single
+										</mat-option>
+										<mat-option value="joint">
+											Joint
+										</mat-option>
+										<mat-option value="anyoneSurvivor">
+											Anyone or Survivor
+										</mat-option>
+										<mat-option value="minorWithMajor">
+											Minor with a Major
+										</mat-option>
+									</mat-select>
+								</mat-form-field>
+							</div>
+
+							<div class="col-md-4" *ngIf="bond.accountType !== 'single'"> 
+								<mat-form-field class="example-full-width">0
+									<mat-label>Number of Holder</mat-label>
+									<mat-select [(ngModel)]="bond.totalHolders" (selectionChange)="setTotalHoldersBond()">
+										<mat-option value="1">
+											+1
+										</mat-option>
+										<mat-option value="2">
+											+2
+										</mat-option>
+									</mat-select>
+								</mat-form-field>
+							</div>
+						</div>
+
+						<div class="row" *ngFor="let num of allHolders; let i = index">
+							<div class="col-md-3">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Holder {{i+2}}" type="text" [(ngModel)]="allHolders[i].nomineeHolder">
+								</mat-form-field>  
+							</div>
+
+
+							<div class="col-md-3">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Allocation" type="text" [(ngModel)]="allHolders[i].holderAllocation">
+								</mat-form-field>
+							</div>
+
+							<div class="col-md-3">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="PAN Number" type="text" [(ngModel)]="allHolders[i].PanNumber">
+								</mat-form-field>
+							</div>
+
+							<div class="col-md-3">
+								<mat-form-field class="example-full-width">
+									<mat-label>KYC Status</mat-label>
+									<mat-select [(ngModel)]="allHolders[i].kyc">
+										<mat-option value="registered">
+											Registered
+										</mat-option>
+										<mat-option value="notRegistered">
+											Not Registered
+										</mat-option>
+									</mat-select>
+								</mat-form-field>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder=" Company Name" [(ngModel)]="bond.companyName"
+									type="text">
+								</mat-form-field>
+							</div>
+
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Scheme Name" [(ngModel)]="bond.schemeName"
+									type="text">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<mat-label>Guaranteed/Market Linked</mat-label>
+									<mat-select [(ngModel)]="bond.guaranteed">
+
+										<mat-option value="Guaranteed">
+											Guaranteed
+										</mat-option>
+										<mat-option value="Market Linked">
+											Market Linked
+										</mat-option>
+
+
+									</mat-select>
+								</mat-form-field>
+							</div>
+
+
+
+
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder=" Registered Folio No." type="text"
+									[(ngModel)]="bond.folioNo">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder=" Unit Certification No." type="text"
+									[(ngModel)]="bond.certification">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder=" Distincitive No." type="text"
+									[(ngModel)]="bond.distinctive">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="No. of Units" type="text"
+									[(ngModel)]="bond.unitNumber">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Date of Issuance" type="date"
+									[(ngModel)]="bond.issuance">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Term" type="number" [(ngModel)]="bond.term">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Paying Term"  
+									[(ngModel)]="bond.payingTerm">
+								</mat-form-field>
+							</div>
+
+							<!-- <div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<mat-label>Mode of Payment</mat-label>
+									<mat-select [(ngModel)]="bond.paymnetMode">
+										<mat-option value="monthly">
+											Monthly
+										</mat-option>
+										<mat-option value="quarterly">
+											Quarterly
+										</mat-option>
+										<mat-option value="quarterly">
+											Annualy
+										</mat-option>
+
+									</mat-select>
+								</mat-form-field>
+							</div> -->
+
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Maturity Date" type="date"
+									[(ngModel)]="bond.maturityDate">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4">
+
+
+								<div class="row">
+									<div class="col-1 d-flex ">
+										<span class="addon d-flex align-items-end">₹</span>                
+									</div>
+									<div class="col-10">
+										<mat-form-field class="example-full-width">
+											
+											<input matInput   [(ngModel)]="bond.tenureInvestment" placeholder="Total Investment in Tenure" type="number">
+										</mat-form-field>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-md-4">
+								<div class="row">
+									<div class="col-1 d-flex ">
+										<span class="addon d-flex align-items-end">₹</span>                
+									</div>
+									<div class="col-10">
+										<mat-form-field class="example-full-width">
+											<input matInput   [(ngModel)]="bond.surrenderAmount" placeholder="Surrender Amount" type="number">
+										</mat-form-field>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-4">
+								<mat-form-field>
+									<mat-label>Number of Buy Backs</mat-label>
+									<mat-select [(ngModel)]="bond.numberOfMoneyback" (selectionChange)="getBuyBackNumber()">
+										<mat-option value="1">
+											1
+										</mat-option>
+										<mat-option value="2">
+											2
+										</mat-option>
+										<mat-option value="3">
+											3
+										</mat-option>
+										<mat-option value="4">
+											4
+										</mat-option>
+										<mat-option value="5">
+											5
+										</mat-option>
+									</mat-select>
+								</mat-form-field>
+							</div>
+						</div>
+
+						<div class="row" *ngFor="let number of buyBacksBond; let i = index">
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Buy Back date" [(ngModel)]="buyBacksBond[i].date"
+									type="date">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Buy Back amount" type="number"
+									[(ngModel)]="buyBacksBond[i].amount">
+								</mat-form-field>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Maturity Value" type="number"
+									[(ngModel)]="bond.maturityValue">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Nominee Name" [(ngModel)]="bond.nomineeName"
+									type="text">
+								</mat-form-field>
+							</div>
+
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<mat-label>Tax Benefits</mat-label>
+									<mat-select (selectionChange)="bondTaxBenefits($event)">
+										<mat-option value="yes">
+											Yes
+										</mat-option>
+										<mat-option value="no">
+											No
+										</mat-option>
+									</mat-select>
+								</mat-form-field>
+							</div>
+
+							<div class="col-md-4" *ngIf="showSectionNameBond">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder=" Section Name" type="text" [(ngModel)]="bond.taxBenefits">
+								</mat-form-field>
+							</div>
+
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<mat-label>Maturity</mat-label>
+									<mat-select [(ngModel)]="bond.maturity">
+										<mat-option value="Tax Free">
+											Tax Free
+										</mat-option>
+										<mat-option value="Taxable">
+											Taxable
+										</mat-option>
+
+
+									</mat-select>
+								</mat-form-field>
+							</div>
+
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<mat-label>User Issuer</mat-label>
+									<mat-select [(ngModel)]="bond.bank">
+										<mat-option value="Bank">
+											Bank
+										</mat-option>
+										<mat-option value=" Govt Body">
+											Govt Body
+										</mat-option>
+										<mat-option value="Private sector Name">
+											Private sector Name
+										</mat-option>
+									</mat-select>
+								</mat-form-field>
+							</div>
+
+							<div class="col-md-4">
+								<p class="form-sub-heading font-weight-bold text-secondary">
+								Bank NEFT Details</p>
+								<mat-radio-group aria-label="Select an option" class="d-flex  justify-content-between" [(ngModel)]="bond.bankAssigned">
+									<mat-radio-button value="yes">Yes</mat-radio-button>
+									<mat-radio-button value="no">No</mat-radio-button>
+								</mat-radio-group>
+							</div>
+						</div>
+
+						<div class="row" *ngIf="bond.bankAssigned === 'yes'">
+
+							<div class="col-md-3">
+								<mat-form-field class="example-full-width">
+									<input matInput [(ngModel)]="bond.bankName" placeholder="Bank Name"
+									(keyup)="valuechange($event)" type="text">
+								</mat-form-field>
+								<div class="dropdown-angular" *ngIf="bankList.length != 0">
+									<p *ngFor="let x of bankList" (click)="selectDropdown(x.name, 'bond')">
+									{{x.name}}</p>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<mat-form-field class="example-full-width">
+									<input matInput [(ngModel)]="term.bankAccountHolder" placeholder="Bank Account Holder Name"
+									type="text">
+								</mat-form-field>
+							</div>
+							<div class="col-md-3">
+								<mat-form-field class="example-full-width">
+									<mat-label>Bank Account Type</mat-label>
+									<mat-select [(ngModel)]="bond.bankAccountType">
+										<mat-option value="saving">
+											Saving
+										</mat-option>
+										<mat-option value="current">
+											Current
+										</mat-option>
+										<mat-option>
+											NRE/NRO
+										</mat-option>
+									</mat-select>
+								</mat-form-field>
+							</div>
+							<div class="col-md-3">
+								<mat-form-field class="example-full-width">
+									<input matInput [(ngModel)]="bond.bankAccountNumber" placeholder="Bank Account Number"
+									type="text">
+								</mat-form-field>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<mat-label>Payout Mode</mat-label>
+									<mat-select [(ngModel)]="bond.payoutMode">
+										<mat-option value="monthly">
+											Monthly
+										</mat-option>
+										<mat-option value="quarterly">
+											Quarterly
+										</mat-option>
+
+										<mat-option value="half">
+											Half yearly
+										</mat-option>
+
+										<mat-option value="annual">
+											Annual
+										</mat-option>
+										<mat-option value="annual">
+											Lumpsum
+										</mat-option>
+									</mat-select>
+								</mat-form-field>
+							</div>
+
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Status" type="text" [(ngModel)]="bond.status">
+								</mat-form-field>
+							</div>
+
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Last Pay Year" type="date"
+
+									[(ngModel)]="bond.lastPayYear">
+								</mat-form-field>
+							</div>
+
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Family age at Last Pay Year" type="number"
+									[(ngModel)]="bond.familyAgePayYear">
+								</mat-form-field>
+							</div>
+
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder=" Financial Year on purchase" type="text"
+									[(ngModel)]="bond.financialYearOnPurchase">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<mat-label>Current fianacial year</mat-label>
+									<input matInput placeholder="yyyy-yy" type="text"
+									[(ngModel)]="bond.financialYear">
+								</mat-form-field>
+							</div>
+
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Toll Free Number" type="text"
+									[(ngModel)]="bond.tollFreeNumber">
+								</mat-form-field>
+							</div>
+
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder=" Branch Locator" type="text"
+									[(ngModel)]="bond.branchLocator ">
+								</mat-form-field>
+							</div>
+
+						</div>
+
+
+						<div class="d-flex justify-content-center" *ngIf="update !== 'true'">
+							<button mat-raised-button class="btn btn-success pull-right" (click)="bondSubmit()">Save</button>
+						</div>
+
+						<div class="d-flex justify-content-center" *ngIf="update === 'true'">
+							<button mat-raised-button class="btn btn-success " (click)="bondEdit()">Edit</button>
+						</div>
+
+					</mat-tab>
+					<mat-tab label="Government Scheme">
+
+						<div class="row" *ngIf="update === 'true'">
+							<div class="col-md-6">
+								<mat-form-field class="example-full-width">
+									<mat-label>Select Company Name</mat-label>
+									<mat-select>
+										<mat-option *ngFor="let number of allGovtScheme; let i = index" (click)="schemeSelected(i)">
+											{{number.companyName}}
+										</mat-option>
+									</mat-select>
+								</mat-form-field>
+							</div>
+						</div>
+
+						<div class="row mt-4">
+							<div class="col-md-6">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Name of First Holder" type="text"
+									[(ngModel)]="scheme.firstHolder">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4">
+								<mat-radio-group aria-label="Select an option" class="d-flex  justify-content-between"
+								[(ngModel)]="scheme.minorMajor" name="status">
+
+								<mat-radio-button value="minor" name="minor">Minor</mat-radio-button>
+								<mat-radio-button value="major" name="major">Major</mat-radio-button>
+							</mat-radio-group>
+						</div>
+						<div class="col-md-6" *ngIf="scheme.minorMajor == 'minor'">
+							<mat-form-field class="example-full-width">
+								<input matInput placeholder="Name of Second Holder" type="text"
+								[(ngModel)]="scheme.secondHolder">
+							</mat-form-field>
+						</div>
+
+
+						<div class="col-md-4">
+							<mat-form-field class="example-full-width">
+								<input matInput placeholder=" Company Name" [(ngModel)]="scheme.companyName"
+								type="text">
+							</mat-form-field>
+						</div>
+
+
+						<div class="col-md-4">
+							<mat-form-field class="example-full-width">
+								<mat-label>Account type</mat-label>
+								<mat-select [(ngModel)]="scheme.accountType">
+									<mat-option value="single">
+										Single
+									</mat-option>
+									<mat-option value="joint">
+										Joint
+									</mat-option>
+									<mat-option value="anyoneSurvivor">
+										Anyone or Survivor
+									</mat-option>
+									<mat-option value="minorWithMajor">
+										Minor with a Major
+									</mat-option>
+								</mat-select>
+							</mat-form-field>
+						</div>
+
+						<div class="col-md-4" *ngIf="scheme.accountType !== 'single'"> 
+							<mat-form-field class="example-full-width">0
+								<mat-label>Number of Holder</mat-label>
+								<mat-select [(ngModel)]="scheme.totalHolders" (selectionChange)="setTotalHoldersGovt()">
+									<mat-option value="1">
+										+1
+									</mat-option>
+									<mat-option value="2">
+										+2
+									</mat-option>
+								</mat-select>
+							</mat-form-field>
+						</div>
+					</div>
+
+					<div class="row" *ngFor="let num of allHoldersGovt; let i = index">
+						<div class="col-md-3">
+							<mat-form-field class="example-full-width">
+								<input matInput placeholder="Holder {{i+2}}" type="text" [(ngModel)]="allHoldersGovt[i].nomineeHolder">
+							</mat-form-field>  
+						</div>
+
+
+						<div class="col-md-3">
+							<mat-form-field class="example-full-width">
+								<input matInput placeholder="Allocation" type="text" [(ngModel)]="allHoldersGovt[i].holderAllocation">
+							</mat-form-field>
+						</div>
+
+						<div class="col-md-3">
+							<mat-form-field class="example-full-width">
+								<input matInput placeholder="PAN Number" type="text" [(ngModel)]="allHoldersGovt[i].PanNumber">
+							</mat-form-field>
+						</div>
+
+						<div class="col-md-3">
+							<mat-form-field class="example-full-width">
+								<mat-label>KYC Status</mat-label>
+								<mat-select [(ngModel)]="allHoldersGovt[i].kyc">
+									<mat-option value="registered">
+										Registered
+									</mat-option>
+									<mat-option value="notRegistered">
+										Not Registered
+									</mat-option>
+								</mat-select>
+							</mat-form-field>
+						</div>
+					</div>
+					<div class="row">
+					<div class="col-md-4">
+						<mat-form-field class="example-full-width">
+							<mat-label>Source of Scheme</mat-label>
+							<mat-select [(ngModel)]="scheme.source">
+								<mat-option value="Nhai">
+									Nhai
+								</mat-option>
+								<mat-option value="Post Office">
+									Post Office
+								</mat-option>
+								<mat-option value="Name of government body">
+									Name of government body
+								</mat-option>
+							</mat-select>
+						</mat-form-field>
+					</div>
+
+
+					<div class="col-md-4" *ngIf="scheme.source === 'Name of government body'">
+						<mat-form-field class="example-full-width">
+							<input matInput placeholder="Name of government body" type="text" [(ngModel)]="scheme.govtBodyName">
+						</mat-form-field>
+					</div>
+
+					<div class="col-md-4">
+						<mat-form-field class="example-full-width">
+							<input matInput placeholder=" Scheme Name" type="text" [(ngModel)]="scheme.schemeName">
+						</mat-form-field>
+					</div>
+					<div class="col-md-4">
+						<mat-form-field class="example-full-width">
+							<mat-label>Guaranteed/Market Linked</mat-label>
+							<mat-select [(ngModel)]="scheme.guaranteed">
+								<mat-option value="Guaranteed">
+									Guaranteed
+								</mat-option>
+								<mat-option value="Market Linked">
+									Market Linked
+								</mat-option>
+							</mat-select>
+						</mat-form-field>
+					</div>
+
+					<div class="col-md-4">
+						<p class="form-sub-heading font-weight-bold text-secondary">
+						Bank NEFT Details</p>
+						<mat-radio-group aria-label="Select an option" class="d-flex  justify-content-between" [(ngModel)]="scheme.bankAssigned">
+							<mat-radio-button value="yes">Yes</mat-radio-button>
+							<mat-radio-button value="no">No</mat-radio-button>
+						</mat-radio-group>
+					</div>
+				</div>
+
+				<div class="row" *ngIf="scheme.bankAssigned === 'yes'">
+
+					<div class="col-md-3">
+						<mat-form-field class="example-full-width">
+							<input matInput [(ngModel)]="scheme.bankName" placeholder="Bank Name"
+							(keyup)="valuechange($event)" type="text">
+						</mat-form-field>
+						<div class="dropdown-angular" *ngIf="bankList.length != 0">
+							<p *ngFor="let x of bankList" (click)="selectDropdown(x.name, 'scheme')">
+							{{x.name}}</p>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<mat-form-field class="example-full-width">
+							<input matInput [(ngModel)]="term.bankAccountHolder" placeholder="Bank Account Holder Name"
+							type="text">
+						</mat-form-field>
+					</div>
+					<div class="col-md-3">
+						<mat-form-field class="example-full-width">
+							<mat-label>Bank Account Type</mat-label>
+							<mat-select [(ngModel)]="scheme.bankAccountType">
+								<mat-option value="saving">
+									Saving
+								</mat-option>
+								<mat-option value="current">
+									Current
+								</mat-option>
+								<mat-option value="NRE/NRO">
+									NRE/NRO
+								</mat-option>
+							</mat-select>
+						</mat-form-field>
+					</div>
+					<div class="col-md-3">
+						<mat-form-field class="example-full-width">
+							<input matInput [(ngModel)]="scheme.bankAccountNumber" placeholder="Bank Account Number"
+							type="text">
+						</mat-form-field>
+					</div>
+				</div>
+
+				<div class="row">
+
+					<div class="col-md-4">
+						<mat-form-field class="example-full-width">
+							<input matInput placeholder=" Registered Folio No." type="text" [(ngModel)]="scheme.folioNum">
+						</mat-form-field>
+					</div>
+					<div class="col-md-4">
+						<mat-form-field class="example-full-width">
+							<input matInput placeholder=" Unit Certification No." type="text" [(ngModel)]="scheme.certification">
+						</mat-form-field>
+					</div>
+					<div class="col-md-4">
+						<mat-form-field class="example-full-width">
+							<input matInput placeholder=" Distincitive No." type="text" [(ngModel)]="scheme.distinctive">
+						</mat-form-field>
+					</div>
+					<div class="col-md-4">
+						<mat-form-field class="example-full-width">
+							<input matInput placeholder="  No. of Units" type="text" [(ngModel)]="scheme.unitNumber">
+						</mat-form-field>
+					</div>
+					<div class="col-md-4">
+						<mat-form-field class="example-full-width">
+							<input matInput placeholder=" Date of Issuance" type="date" [(ngModel)]="scheme.issuance">
+						</mat-form-field>
+					</div>
+					<div class="col-md-4">
+						<mat-form-field class="example-full-width">
+							<input matInput placeholder=" Term" type="number" [(ngModel)]="scheme.term">
+						</mat-form-field>
+					</div>
+					<div class="col-md-4">
+						<mat-form-field class="example-full-width">
+							<input matInput placeholder="Paying Term" type="text" value="Single" [disabled]='true' [(ngModel)]="scheme.payingTerm">
+						</mat-form-field>
+					</div>
+
+							<!-- <div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<mat-label>Mode of Payment</mat-label>
+									<mat-select>
+										<mat-option value="monthly">
+											Monthly
+										</mat-option>
+										<mat-option value="quarterly">
+											Quarterly
+										</mat-option>
+										<mat-option value="quarterly">
+											Annualy
+										</mat-option>
+
+									</mat-select>
+								</mat-form-field>
+							</div> -->
+
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder=" Maturity Date" type="date" [(ngModel)]="scheme.maturityDate">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4">
+								<div class="row">
+									<div class="col-1 d-flex ">
+										<span class="addon d-flex align-items-end">₹</span>                
+									</div>
+									<div class="col-10">
+										<mat-form-field class="example-full-width">
+
+											<input matInput placeholder="Total Investment in Tenure" type="number" [(ngModel)]="scheme.tenureInvestment">
+										</mat-form-field>
+									</div>
+								</div>
+							</div>
+
+
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder=" Maturity Value" type="number" [(ngModel)]="scheme.maturityValue">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder=" Nominee Name" type="text" [(ngModel)]="scheme.nomineeName">
+								</mat-form-field>
+							</div>
+
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<mat-label>Tax Benefits</mat-label>
+									<mat-select (selectionChange)="schemeTaxBenefits($event)">
+										<mat-option value="yes">
+											Yes
+										</mat-option>
+										<mat-option value="no">
+											No
+										</mat-option>
+									</mat-select>
+								</mat-form-field>
+							</div>
+							
+							<div class="col-md-4" *ngIf="showSectionNameScheme">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder=" Section Name" type="text" [(ngModel)]="scheme.taxBenefits">
+								</mat-form-field>
+							</div>
+
+
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<mat-label>Maturity</mat-label>
+									<mat-select [(ngModel)]="scheme.maturity">
+										<mat-option value="monthly">
+											Tax Free
+										</mat-option>
+										<mat-option value="quarterly">
+											Taxable
+										</mat-option>
+
+
+									</mat-select>
+								</mat-form-field>
+							</div>
+
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder=" Rate of returns" type="text" [(ngModel)]="scheme.returnRate">
+								</mat-form-field>
+							</div>
+
+
+
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<mat-label>Payout Mode</mat-label>
+									<mat-select [(ngModel)]="scheme.payoutMode">
+										<mat-option value="monthly">
+											Monthly
+										</mat-option>
+										<mat-option value="quarterly">
+											Quarterly
+										</mat-option>
+
+										<mat-option value="half">
+											Half yearly
+										</mat-option>
+
+										<mat-option value="annual">
+											Annual
+										</mat-option>
+										<mat-option value="annual">
+											Lumpsum
+										</mat-option>
+									</mat-select>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder=" Money Back Amount" type="text" [(ngModel)]="scheme.backAmount">
+								</mat-form-field>
+							</div>
+
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder=" Place" type="text" [(ngModel)]="scheme.place">
+								</mat-form-field>
+							</div>
+
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder=" Status" type="text" [(ngModel)]="scheme.status">
+								</mat-form-field>
+							</div>
+
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder=" Last Pay Year" type="date" [(ngModel)]="scheme.lastPayYear">
+								</mat-form-field>
+							</div>
+
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder=" Family age at end of term " type="text" [(ngModel)]="scheme.familyAgeEndTerm">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder=" Financial Year on purchase" type="text" [(ngModel)]="scheme.financialYearOnPurchase">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<mat-label>Current fianacial year</mat-label>
+									<input matInput placeholder="yyyy-yy" type="tel" numbersOnly [(ngModel)]="scheme.currentFinancialYear">
+								</mat-form-field>
+							</div>
+
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Toll Free Number" type="text" [(ngModel)]="scheme.tollFreeNumber">
+								</mat-form-field>
+							</div>
+
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder=" Branch Locator" type="text" [(ngModel)]="scheme.branchLocator">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4">
+								<div class="row">
+									<div class="col-1 d-flex ">
+										<span class="addon d-flex align-items-end">₹</span>                
+									</div>
+									<div class="col-10">
+										<mat-form-field class="example-full-width">			
+											<input matInput  placeholder="Surrender Amount" type="number" [(ngModel)]="scheme.surrenderAmount">
+										</mat-form-field>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="d-flex justify-content-center" *ngIf="update !== 'true'">
+							<button mat-raised-button class="btn btn-success " (click)="schemeSubmit()">Save</button>
+						</div>
+
+						<div class="d-flex justify-content-center" *ngIf="update === 'true'">
+							<button mat-raised-button class="btn btn-success " (click)="schemeEdit()">Edit</button>
+						</div>
+
+					</mat-tab>
+					<mat-tab label="Fixed Deposit">
+						<div class="row" *ngIf="update === 'true'">
+							<div class="col-md-6">
+								<mat-form-field class="example-full-width">
+									<mat-label>Select Company Name</mat-label>
+									<mat-select>
+										<mat-option *ngFor="let number of allFixedDeposits; let i = index" (click)="fixedSelected(i)">
+											{{number.companyName}}
+										</mat-option>
+									</mat-select>
+								</mat-form-field>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Name of First Holder" type="text"
+									[(ngModel)]="fixed.firstHolder">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4">
+								<mat-radio-group aria-label="Select an option" class="d-flex  justify-content-between"
+								[(ngModel)]="fixed.minorMajor" name="status">
+
+								<mat-radio-button value="minor" name="minor">Minor</mat-radio-button>
+								<mat-radio-button value="major" name="major">Major</mat-radio-button>
+							</mat-radio-group>
+						</div>
+						<div class="col-md-4" *ngIf="fixed.minorMajor == 'minor'">
+							<mat-form-field class="example-full-width">
+								<input matInput placeholder="Name of Second Holder" type="text"
+								[(ngModel)]="fixed.secondHolder">
+							</mat-form-field>
+						</div>
+						<!-- <div class="col-md-4">
+							<mat-form-field class="example-full-width">
+								<input matInput placeholder="Holder Name" type="text"
+								[(ngModel)]="fixed.holderName">
+							</mat-form-field>
+						</div> -->
+						
+						<div class="col-md-4">
+							<mat-form-field class="example-full-width">
+								<input matInput placeholder="Pan of Holder" type="text"
+								[(ngModel)]="fixed.pan">
+							</mat-form-field>
+						</div>
+						<div class="col-md-4">
+							<mat-form-field class="example-full-width">
+								<mat-label>Mode of Holding</mat-label>
+								<mat-select [(ngModel)]="fixed.accountType">
+									<mat-option value="single">
+										Single
+									</mat-option>
+									<mat-option value="joint">
+										Joint
+									</mat-option>
+									<mat-option value="anyoneSurvivor">
+										Anyone or Survivor
+									</mat-option>
+									<mat-option value="minorWithMajor">
+										Minor with a Major
+									</mat-option>
+								</mat-select>
+							</mat-form-field>
+						</div>
+						<div class="col-md-4" *ngIf="bond.accountType !== 'single'"> 
+							<mat-form-field class="example-full-width">0
+								<mat-label>Number of Holder</mat-label>
+								<mat-select [(ngModel)]="fixed.totalHolders" (selectionChange)="setTotalHoldersFixed()">
+									<mat-option value="1">
+										+1
+									</mat-option>
+									<mat-option value="2">
+										+2
+									</mat-option>
+								</mat-select>
+							</mat-form-field>
+						</div>
+					</div>
+
+					<div class="row" *ngFor="let num of allHoldersFixed; let i = index">
+						<div class="col-md-3">
+							<mat-form-field class="example-full-width">
+								<input matInput placeholder="Holder {{i+2}}" type="text" [(ngModel)]="allHoldersFixed[i].nomineeHolder">
+							</mat-form-field>  
+						</div>
+
+
+						<div class="col-md-3">
+							<mat-form-field class="example-full-width">
+								<input matInput placeholder="Allocation" type="text" [(ngModel)]="allHoldersFixed[i].holderAllocation">
+							</mat-form-field>
+						</div>
+
+						<div class="col-md-3">
+							<mat-form-field class="example-full-width">
+								<input matInput placeholder="PAN Number" type="text" [(ngModel)]="allHoldersFixed[i].PanNumber">
+							</mat-form-field>
+						</div>
+
+						<div class="col-md-3">
+							<mat-form-field class="example-full-width">
+								<mat-label>KYC Status</mat-label>
+								<mat-select [(ngModel)]="allHoldersFixed[i].kyc">
+									<mat-option value="registered">
+										Registered
+									</mat-option>
+									<mat-option value="notRegistered">
+										Not Registered
+									</mat-option>
+								</mat-select>
+							</mat-form-field>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-4"  >
+							<mat-form-field class="example-full-width">
+								<input matInput [(ngModel)]="fixed.nameBank" placeholder="Name Bank"  (keyup)="valuechange($event)" type="text">
+							</mat-form-field>
+							<div class="dropdown-angular"   *ngIf="bankList.length != 0">
+								<p *ngFor="let x of bankList"  (click)="selectDropdown(x.name)"> {{x.name}}</p>
+							</div>
+						</div>
+
+						<div class="col-md-4">
+							<mat-form-field class="example-full-width">
+								<input matInput [(ngModel)]="fixed.schemeName" placeholder=" Scheme Name"  (keyup)="valuechange($event)" type="text">
+							</mat-form-field>
+						</div>
+						<div class="col-md-4">
+							<mat-form-field class="example-full-width">
+								<input matInput placeholder=" Guaranteed" type="text" [(ngModel)]="fixed.guaranteed">
+							</mat-form-field>
+						</div>
+						<div class="col-md-4">
+							<mat-form-field class="example-full-width">
+								<input matInput placeholder=" Registered Folio No." type="text" [(ngModel)]="fixed.folioNum">
+							</mat-form-field>
+						</div>
+
+						<div class="col-md-4">
+							<mat-form-field class="example-full-width">
+								<input matInput placeholder=" Date of Issuance" type="date" [(ngModel)]="fixed.issuance">
+							</mat-form-field>
+						</div>
+						<div class="col-md-4">
+							<mat-form-field class="example-full-width">
+								<input matInput placeholder="Maturity Date" type="date" [(ngModel)]="fixed.maturityDate">
+							</mat-form-field>
+						</div>
+						<div class="col-md-4">
+							<mat-form-field class="example-full-width">
+								<input matInput placeholder="Amount Deposit" type="number" [(ngModel)]="fixed.amountDeposit">
+							</mat-form-field>
+						</div>
+						<div class="col-md-4">
+							<mat-form-field class="example-full-width">
+								<input matInput placeholder="Maturity Value" type="number" [(ngModel)]="fixed.maturityValue">
+							</mat-form-field>
+						</div>
+						<div class="col-md-4">
+							<mat-form-field class="example-full-width">
+								<input matInput placeholder=" Term" type="text" [(ngModel)]="fixed.term">
+							</mat-form-field>
+						</div>
+						<div class="col-md-4">
+							<mat-form-field class="example-full-width">
+								<input matInput placeholder=" Paying Term" type="text" [(ngModel)]="fixed.payingTerm">
+							</mat-form-field>
+						</div>
+
+						<div class="col-md-4">
+							<mat-form-field class="example-full-width">
+								<mat-label>Mode of Payment</mat-label>
+								<mat-select [(ngModel)]="fixed.paymentMode">
+									<mat-option value="monthly">
+										Monthly
+									</mat-option>
+									<mat-option value="quarterly">
+										Quarterly
+									</mat-option>
+									<mat-option value="quarterly">
+										Annualy
+									</mat-option>
+									<mat-option value="Lumpsum">
+										Lumpsum
+									</mat-option>
+
+								</mat-select>
+							</mat-form-field>
+						</div>
+						<div class="col-md-4">
+							<div class="row">
+								<div class="col-1 d-flex ">
+									<span class="addon d-flex align-items-end">₹</span>                
+								</div>
+								<div class="col-10">
+									<mat-form-field class="example-full-width">
+
+										<input matInput  placeholder="Total Investment in Tenure" type="number" [(ngModel)]="fixed.tenureInvestment">
+									</mat-form-field>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<mat-form-field class="example-full-width">
+								<mat-label>Payout Mode</mat-label>
+								<mat-select [(ngModel)]="fixed.payoutMode">
+									<mat-option value="monthly">
+										Monthly
+									</mat-option>
+									<mat-option value="quarterly">
+										Quarterly
+									</mat-option>
+									<mat-option value="quarterly">
+										Half yearly
+									</mat-option>
+									<mat-option value="quarterly">
+										Annualy
+									</mat-option>
+									<mat-option value="quarterly">
+										Lumpsum
+									</mat-option>
+
+								</mat-select>
+							</mat-form-field>
+						</div>
+
+
+
+						<div class="col-md-4">
+							<mat-form-field class="example-full-width">
+								<input matInput placeholder=" Nominee Name" type="text" [(ngModel)]="fixed.nomineeName">
+							</mat-form-field>
+						</div>
+						<div class="col-md-4">
+							<mat-form-field class="example-full-width">
+								<mat-label>Tax Benefits</mat-label>
+								<mat-select (selectionChange)="fixedTaxBenefits($event)">
+									<mat-option value="yes">
+										Yes
+									</mat-option>
+									<mat-option value="no">
+										No
+									</mat-option>
+								</mat-select>
+							</mat-form-field>
+						</div>
+
+						<div class="col-md-4" *ngIf="showSectionNameFixed">
+							<mat-form-field class="example-full-width">
+								<input matInput placeholder=" Section Name" type="text" [(ngModel)]="fixed.taxBenefits">
+							</mat-form-field>
+						</div>
+
+						<div class="col-md-4">
+							<mat-form-field class="example-full-width">
+								<mat-label>Maturity</mat-label>
+								<mat-select [(ngModel)]="fixed.maturity">
+									<mat-option value="monthly">
+										Tax Free
+									</mat-option>
+									<mat-option value="quarterly">
+										Taxable
+									</mat-option>
+
+
+								</mat-select>
+							</mat-form-field>
+						</div>
+
+						<div class="col-md-4">
+							<mat-form-field class="example-full-width">
+								<input matInput placeholder=" Bank Address" type="text" [(ngModel)]="fixed.bankAddress">
+							</mat-form-field>
+						</div>
+						
+						<div class="col-md-4">
+							<p class="form-sub-heading font-weight-bold text-secondary">
+							Bank NEFT Details</p>
+							<mat-radio-group aria-label="Select an option" class="d-flex  justify-content-between"
+							[(ngModel)]="fixed.bankAssigned">
+							<mat-radio-button value="yes">Yes</mat-radio-button>
+							<mat-radio-button value="no">No</mat-radio-button>
+						</mat-radio-group>
+					</div>
+				</div>
+
+				<div class="row" *ngIf="fixed.bankAssigned === 'yes'">
+
+					<div class="col-md-3">
+						<mat-form-field class="example-full-width">
+							<input matInput [(ngModel)]="fixed.bankName" placeholder="Bank Name"
+							(keyup)="valuechange($event)" type="text">
+						</mat-form-field>
+						<div class="dropdown-angular" *ngIf="bankList.length != 0">
+							<p *ngFor="let x of bankList" (click)="selectDropdown(x.name, 'fixed')">
+							{{x.name}}</p>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<mat-form-field class="example-full-width">
+							<input matInput [(ngModel)]="term.bankAccountHolder" placeholder="Bank Account Holder Name"
+							type="text">
+						</mat-form-field>
+					</div>
+					<div class="col-md-3">
+						<mat-form-field class="example-full-width">
+							<mat-label>Bank Account Type</mat-label>
+							<mat-select [(ngModel)]="fixed.bankAccountType">
+								<mat-option value="saving">
+									Saving
+								</mat-option>
+								<mat-option value="current">
+									Current
+								</mat-option>
+								<mat-option value="NRE/NRO">
+									NRE/NRO
+								</mat-option>
+							</mat-select>
+						</mat-form-field>
+					</div>
+					<div class="col-md-3">
+						<mat-form-field class="example-full-width">
+							<input matInput [(ngModel)]="fixed.bankAccountNumber" placeholder="Bank Account Number"
+							type="text">
+						</mat-form-field>
+					</div>
+				</div>
+
+				<div class="row">
+
+					<div class="col-md-4">
+						<mat-form-field class="example-full-width">
+							<input matInput placeholder="Status" type="text" [(ngModel)]="fixed.status">
+						</mat-form-field>
+					</div>
+					<div class="col-md-4">
+						<mat-form-field class="example-full-width">
+							<input matInput placeholder="Surrender Amount" type="number" [(ngModel)]="fixed.surrenderAmount">
+						</mat-form-field>
+					</div>
+
+
+					<div class="col-md-4">
+						<mat-form-field class="example-full-width">
+							<input matInput placeholder=" Last Pay Year" type="date" [(ngModel)]="fixed.lastPayYear">
+						</mat-form-field>
+					</div>
+
+					<div class="col-md-4">
+						<mat-form-field class="example-full-width">
+							<input matInput placeholder="Family age at Last Pay Year" type="number" [(ngModel)]="fixed.familyAgePayYear">
+						</mat-form-field>
+					</div>
+
+					<div class="col-md-4">
+						<mat-form-field class="example-full-width">
+							<input matInput placeholder=" Financial Year on purchase" type="text" [(ngModel)]="fixed.financialYearOnPurchase">
+						</mat-form-field>
+					</div>
+					<div class="col-md-4">
+						<mat-form-field class="example-full-width">
+							<mat-label>Current fianacial year</mat-label>
+							<input matInput placeholder="yyyy-yy" type="tel" numbersOnly [(ngModel)]="fixed.currentFinancialYear">
+						</mat-form-field>
+					</div>
+
+					<div class="col-md-4">
+						<mat-form-field class="example-full-width">
+							<input matInput placeholder="Toll Fee Number" type="text" [(ngModel)]="fixed.tollFreeNumber">
+						</mat-form-field>
+					</div>
+
+					<div class="col-md-4">
+						<mat-form-field class="example-full-width">
+							<input matInput placeholder=" Branch Locator" type="text" [(ngModel)]="fixed.branchLocator">
+						</mat-form-field>
+					</div>
+					<div class="col-md-4">
+
+
+						<div class="row">
+
+							<div class="col-10">
+								<mat-form-field class="example-full-width">
+
+									<input matInput  placeholder="Rate of return" type="tel" numbersOnly [(ngModel)]="fixed.returnRate">
+									<span matSuffix>%</span>
+								</mat-form-field>
+							</div>
+							<div class="col-1 d-flex ">
+								<span class="addon d-flex align-items-end">₹</span>                
+							</div>
+						</div>
+					</div>
+
+
+
+				</div>
+				<div class="d-flex justify-content-center" *ngIf="update !== 'true'">
+					<button mat-raised-button class="btn btn-success " (click)="fixedSubmit()">Save</button>
+				</div>
+				<div class="d-flex justify-content-center" *ngIf="update === 'true'">
+					<button mat-raised-button class="btn btn-success " (click)="fixedEdit()">Edit</button>
+				</div>
+			</mat-tab>
+
+		</mat-tab-group>
+
+	</div>
+</div>
+</div>
+
+</div>
+
+</div>

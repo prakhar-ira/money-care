@@ -1,0 +1,126 @@
+
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="col-lg-12 col-md-12">
+      <button mat-raised-button class="btn btn-primary" (click)="addNew()">Add New</button>
+      <div class="card">
+        <div class="card-header card-header-tabs card-header-primary">
+          <div class="nav-tabs-navigation">
+            <div class="nav-tabs-wrapper">
+              <span class="nav-tabs-title">Nominee Claim:</span>
+              <ul class="nav nav-tabs" data-tabs="tabs">
+                <li class="nav-item">
+                  <a mat-button class="nav-link active" href="#sheduled" data-toggle="tab">
+                    Pendinng
+                    <div class="ripple-container"></div>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a mat-button class="nav-link" href="#sent" data-toggle="tab">
+                    Sent
+                    <div class="ripple-container"></div>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="tab-content">
+            <div class="tab-pane active" id="sheduled">
+              <table class="table table-hover">
+                <thead class="text-warning">
+                  <th>Username</th>
+                  <th>Notification</th>
+                  <th>Date</th>
+                  <th>Time</th>
+                  <th>Status</th>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Dakota Rice</td>
+                    <td>$36,738</td>
+                    <td>Niger</td>
+                    <td>Policy Name</td>
+                    <td>Scheduled</td>
+                  </tr>
+                  <tr>
+                    <td>Minerva Hooper</td>
+                    <td>$23,789</td>
+                    <td>Curaçao</td>
+                    <td>Policy Name</td>                                        
+                    <td>Scheduled</td>                                          
+                  </tr>
+                  <tr>
+                    <td>Sage Rodriguez</td>
+                    <td>$56,142</td>                                     
+
+                    <td>Netherlands</td>
+                    <td>Policy Name</td>
+                    <td>Scheduled</td>                                        
+                  </tr>
+                  <tr>
+                    <td>Philip Chaney</td>
+                    <td>$38,735</td>
+                    <td>Korea, South</td>
+                    <td>Policy Name</td>
+                    <td>Scheduled</td>                                        
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="tab-pane" id="sent">
+              <table class="table table-hover">
+                <thead class="text-warning">
+                  <th>Username</th>
+                  <th>Notification</th>
+                  <th>Date</th>
+                  <th>Time</th>
+                  <th>Status</th>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Dakota Rice</td>
+                    <td>$36,738</td>
+                    <td>Niger</td>
+                    <td>Hello World</td>
+                    <td class="td-actions text-right">
+                      Sent
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Minerva Hooper</td>
+                    <td>$23,789</td>
+                    <td>Curaçao</td>
+                    <td>Hello World</td>
+                    <td class="td-actions text-right">
+                      Sent
+                    </td>                                        
+                  </tr>
+                  <tr>
+                    <td>Sage Rodriguez</td>
+                    <td>$56,142</td>
+                    <td>Netherlands</td>
+                    <td>Hello World</td>
+                    <td class="td-actions text-right">
+                      Sent
+                    </td>                                        
+                  </tr>
+                  <tr>
+                    <td>Philip Chaney</td>
+                    <td>$38,735</td>
+                    <td>Korea, South</td>
+                    <td>Hello World</td>
+                    <td class="td-actions text-right">
+                      Sent
+                    </td>                                        
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

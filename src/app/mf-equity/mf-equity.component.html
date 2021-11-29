@@ -1,0 +1,1380 @@
+
+<div class="main-content">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="card">
+				<div class="card-header card-header-danger">
+					<h4 class="card-title ">Mutual Fund & Equity</h4>
+				</div>
+				<div class="card-body">
+
+					<mat-tab-group mat-stretch-tabs>
+						<mat-tab label="Mutual Fund">
+							<div class="row" *ngIf="update === 'true'">
+								<div class="col-md-4">
+									<mat-form-field class="example-full-width">
+										<mat-label>Select Company</mat-label>
+										<mat-select (selectionChange)="getType()">
+											<mat-option *ngFor="let type of mfFolio; let i = index" (click)="mfSelected(i)">
+												{{type.companyName}}
+											</mat-option>
+										</mat-select>
+									</mat-form-field>
+								</div> 
+							</div>
+							<div class="row">
+								<div class="col-md-4">
+									<mat-form-field class="example-full-width">
+										<mat-label>Type</mat-label>
+										<mat-select (selectionChange)="getType(); calcTaxGain()" [(ngModel)]="mutualFund.type">
+											<mat-option *ngFor="let type of types" [value]="type.id">
+												{{type.text}}
+											</mat-option>
+										</mat-select>
+									</mat-form-field>
+								</div>
+
+								<div class="col-md-4">
+									<mat-form-field class="example-full-width">
+										<mat-label>Category Mutual Fund</mat-label>
+										<mat-select [(ngModel)]="mutualFund.category">
+											<mat-option *ngFor="let cat of category" [value]="cat.id">
+												{{cat.text}}
+											</mat-option>
+											<mat-option value="other">
+												Other
+											</mat-option>
+
+										</mat-select>
+									</mat-form-field>
+								</div>
+
+								<div class="col-md-4" *ngIf="mutualFund.category === 'other'">
+									<mat-form-field>
+										<input matInput [(ngModel)]="mutualFund.categoryOther" type="text" placeholder="Other Category">
+									</mat-form-field>
+								</div>
+
+								<div class="col-md-6">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Purpose of Investment" type="text" [(ngModel)]="mutualFund.purpose">
+									</mat-form-field>
+								</div>
+								<div class="col-md-6">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Expected Term Of investment" type="text"  [(ngModel)]="mutualFund.expectedTerm">
+									</mat-form-field>
+								</div>
+
+
+								<div class="col-md-4">
+									<mat-form-field class="example-full-width">
+										<mat-label>Tax Saver</mat-label>
+										<mat-select [(ngModel)]="mutualFund.taxSaver">
+											<mat-option value="yes">
+												Yes
+											</mat-option>
+											<mat-option value="no">
+												No
+											</mat-option>
+										</mat-select>
+									</mat-form-field>
+								</div>
+
+								<div class="col-md-4">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Company Name" type="text" [(ngModel)]="mutualFund.companyName">
+									</mat-form-field>
+								</div>
+
+								<div class="col-md-4">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Folio Holder"
+										type="text" [(ngModel)]="mutualFund.proposerName">
+									</mat-form-field>
+								</div>
+
+								<div class="col-md-3">
+									<p class="form-sub-heading font-weight-bold text-secondary">Major/Minor</p>                                
+									<mat-radio-group aria-label="Select an option" [(ngModel)]="mutualFund.minorMajor" class="d-flex  justify-content-between"
+									name="status">
+									<mat-radio-button value="minor" name="minor">Minor</mat-radio-button>
+									<mat-radio-button value="major" name="major">Major</mat-radio-button>
+								</mat-radio-group>
+							</div>
+
+							<div class="col-md-4" *ngIf="mutualFund.minorMajor === 'minor'">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Guardian Name"
+									type="text" [(ngModel)]="mutualFund.guardianName">
+								</mat-form-field>
+							</div>
+
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Registered Address" type="text" [(ngModel)]="mutualFund.registeredAddress">
+								</mat-form-field>
+							</div>
+
+
+						</div>
+
+						<div class="row ">
+
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Registered Mobile number in folio" type="tel" step="0.01" maxlength="10" [(ngModel)]="mutualFund.folioMobile" numbersOnly>
+								</mat-form-field>
+							</div>
+
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Registered email id in folio" type="email" [(ngModel)]="mutualFund.folioEmail">
+								</mat-form-field>
+							</div>
+
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<mat-label>KYC Status</mat-label>
+									<mat-select [(ngModel)]="mutualFund.kycUpdated">
+										<mat-option value="registered">
+											Registered
+										</mat-option>
+										<mat-option value="notRegistered">
+											Not Registered
+										</mat-option>
+									</mat-select>
+								</mat-form-field>
+							</div>
+
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<mat-label>Fatca Status</mat-label>
+									<mat-select [(ngModel)]="mutualFund.fatcaUpdated">
+										<mat-option value="registered">
+											Registered
+										</mat-option>
+										<mat-option value="notRegistered">
+											Not Registered
+										</mat-option>
+
+									</mat-select>
+								</mat-form-field>
+							</div>
+
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<mat-label>Mode of Holding</mat-label>
+									<mat-select [(ngModel)]="mutualFund.modeHolding">
+										<mat-option value="single">
+											Single
+										</mat-option>
+										<mat-option value="joint">
+											Joint
+										</mat-option>
+										<mat-option value="anyoneSurvivor">
+											Anyone or Survivor
+										</mat-option>
+										<mat-option value="minorWithMajor">
+											Minor with a Major
+										</mat-option>
+									</mat-select>
+								</mat-form-field>
+							</div>
+
+							<div class="col-md-4" *ngIf="mutualFund.modeHolding !== 'single'"> 
+								<mat-form-field class="example-full-width">
+									<mat-label>Number of Holder</mat-label>
+									<mat-select [(ngModel)]="mutualFund.totalHolders" (selectionChange)="setTotalHolders()">
+										<mat-option value="1">
+											+1
+										</mat-option>
+										<mat-option value="2">
+											+2
+										</mat-option>
+									</mat-select>
+								</mat-form-field>
+							</div>
+						</div>
+
+						<div class="row" *ngFor="let num of allHolders; let i = index">
+							<div class="col-md-3">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Holder {{i+2}}" type="text" [(ngModel)]="allHolders[i].nomineeHolder">
+								</mat-form-field>  
+							</div>
+
+
+							<div class="col-md-3">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Allocation" type="text" [(ngModel)]="allHolders[i].holderAllocation">
+								</mat-form-field>
+							</div>
+
+							<div class="col-md-3">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="PAN Number" type="text" [(ngModel)]="allHolders[i].PanNumber">
+								</mat-form-field>
+							</div>
+
+							<div class="col-md-3">
+								<mat-form-field class="example-full-width">
+									<mat-label>KYC Status</mat-label>
+									<mat-select [(ngModel)]="allHolders[i].kyc">
+										<mat-option value="registered">
+											Registered
+										</mat-option>
+										<mat-option value="notRegistered">
+											Not Registered
+										</mat-option>
+									</mat-select>
+								</mat-form-field>
+							</div>
+						</div>  
+
+
+
+						<div class="row">
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder=" Bank Name" type="text" [(ngModel)]="mutualFund.bankName">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder=" Bank A/C Number" type="tel" step="0.01"  [(ngModel)]="mutualFund.bankAccNumber" numbersOnly>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<mat-label>Bank A/C Type</mat-label>
+									<mat-select [(ngModel)]="mutualFund.bankAccType">
+										<mat-option value="savings">
+											Savings
+										</mat-option>
+										<mat-option value="current">
+											Current
+										</mat-option>
+										<mat-option value="nreNro">
+											NRE/NRO
+										</mat-option>
+									</mat-select>
+								</mat-form-field>
+							</div>
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Bank Address" type="text" [(ngModel)]="mutualFund.bankAddress">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="IFSC Code" type="text" [(ngModel)]="mutualFund.ifscCode">
+								</mat-form-field>
+							</div>
+							<div class="col-md-4">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="PAN NO." type="text" maxlength="10" [(ngModel)]="mutualFund.panNumber">
+								</mat-form-field>
+							</div>
+
+         <!--  <div class="col-md-4">
+            <mat-form-field class="example-full-width">
+              <mat-label>Life Type</mat-label>
+              <mat-select [(ngModel)]="mutualFund.lifeType">
+                <mat-option value="Single">
+                  Single
+                </mat-option>
+                <mat-option value="Joint">
+                  Joint
+                </mat-option>
+                <mat-option value="Any one Survivor">
+                  Any one Survivor
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div> -->
+
+          <div class="col-md-4">
+          	<mat-form-field class="example-full-width">
+          		<input matInput placeholder="Folio No." type="text" [(ngModel)]="mutualFund.folioNumber">
+          	</mat-form-field>
+          </div>
+          <div class="col-md-4">
+          	<mat-form-field class="example-full-width">
+          		<input matInput placeholder="Plan Name" type="text" [(ngModel)]="mutualFund.planName">
+          	</mat-form-field>
+          </div>
+
+          <div class="col-md-4">
+          	<mat-form-field class="example-full-width">
+          		<mat-label>Option</mat-label>
+          		<mat-select [(ngModel)]="mutualFund.option">
+          			<mat-option value="growthDirect">
+          				Growth - Direct
+          			</mat-option>
+          			<mat-option value="growthRegular">
+          				Growth - Regular
+          			</mat-option>
+          			<mat-option value="dividendDirect">
+          				Dividend - Direct
+          			</mat-option>
+          			<mat-option value="dividendRegular">
+          				Dividend - Regular
+          			</mat-option>
+          			<mat-option value="dividendReinvestmentDirect">
+          				Dividend Reinvestment - Direct
+          			</mat-option>
+          			<mat-option value="dividendReinvestmentRegular">
+          				Dividend Reinvestment - Regular
+          			</mat-option>
+          			<mat-option value="dividendAsWhenRegular">
+          				Dividend As & When - Regular
+          			</mat-option>
+          			<mat-option value="dividendAsWhenDirect">
+          				Dividend As & When - Direct
+          			</mat-option>
+          		</mat-select>
+          	</mat-form-field>
+          </div>
+
+          <div class="col-md-4">
+          	<mat-form-field class="example-full-width">
+          		<input matInput type="date" placeholder="Date of Purchase" [(ngModel)]="mutualFund.purchaseDate" (keyup)="calcTenure()">
+          	</mat-form-field>
+          </div>
+
+          <div class="col-md-4">
+          	<mat-form-field class="example-full-width">
+          		<input matInput placeholder="Financial Year of purchase" (keyup)="financialYearPurchase($event)" maxlength="7" type="tel" step="0.01" [(ngModel)]="mutualFund.purchaseYear" numbersOnly>
+          	</mat-form-field>
+          </div>
+
+          <div class="col-md-4">
+          	<mat-form-field class="example-full-width">
+          		<mat-label>Mode of Investment</mat-label>
+          		<mat-select [(ngModel)]="mutualFund.investmentMode">
+          			<mat-option value="sip">
+          				SIP
+          			</mat-option>
+          			<mat-option value="lumpSum">
+          				LUMP SUM
+          			</mat-option>
+          			<mat-option value="sipLumpSum">
+          				SIP + LUMP SUM
+          			</mat-option>
+          		</mat-select>
+          	</mat-form-field>
+          </div>
+
+          <div class="col-md-4" *ngIf="mutualFund.investmentMode === 'sip' || mutualFund.investmentMode === 'sipLumpSum'">
+          	<mat-form-field class="example-full-width">
+          		<input matInput placeholder="SIP Amount"
+          		type="text" [(ngModel)]="mutualFund.sipAmount"  (keyup)="valuechangeSip($event);calcTenureInvestment()">
+          	</mat-form-field>
+          </div>
+
+
+          <div class="col-md-4" *ngIf="mutualFund.investmentMode === 'lumpSum' || mutualFund.investmentMode === 'sipLumpSum'">
+          	<mat-form-field class="example-full-width">
+          		<input matInput placeholder="Lump Sum Amount"
+          		type="text" [(ngModel)]="mutualFund.lumpSumAmount"  (keyup)="valuechangeSip($event); calcTenureInvestment()">
+          	</mat-form-field>
+          </div>
+
+          <div class="col-md-4">
+          	<mat-form-field class="example-full-width">
+          		<mat-label>Sip ecs Date"</mat-label>
+          		<mat-select [(ngModel)]="mutualFund.sipEcsDate">
+          			<mat-option *ngFor="let day of days" [value]="day">
+          				{{day}}
+          			</mat-option>
+          		</mat-select>
+          	</mat-form-field>
+          </div>
+
+       <!--  <div class="col-md-4">
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Current Nav" type="tel" step="0.01" numbersOnly  (keyup)="calcFundValue()" [(ngModel)]="mutualFund.currentNav">
+          </mat-form-field>
+        </div> -->
+
+
+
+        <div class="col-md-4">
+        	<mat-form-field class="example-full-width">
+        		<input matInput placeholder="Free units" type="tel" step="0.01" numbersOnly [(ngModel)]="mutualFund.freeUnits">
+        	</mat-form-field>
+        </div>
+
+        <div class="col-md-4">
+        	<mat-form-field class="example-full-width">
+        		<input matInput placeholder="Locked Units" type="tel" step="0.01" numbersOnly [(ngModel)]="mutualFund.lockedUnits">
+        	</mat-form-field>
+        </div>
+
+        <div class="col-md-4">
+        	<mat-form-field class="example-full-width">
+        		<input matInput placeholder="Total Units" type="tel" step="0.01" numbersOnly  (keyup)="calcFundValue(); calcCapitalTaxGain()" [(ngModel)]="mutualFund.totalUnits">
+        	</mat-form-field>
+        </div>
+
+        <div class="col-md-4">
+        	<mat-form-field class="example-full-width">
+        		<input matInput placeholder="Total Deposits" type="tel" step="0.01" numbersOnly [(ngModel)]="mutualFund.totalDeposits" (keyup)="calcCapitalTaxGain(); calcTaxGain()">
+        	</mat-form-field>
+        </div>
+
+        <div class="col-md-4">
+        	<mat-form-field class="example-full-width">
+        		<input matInput placeholder="Fund Value" type="tel" step="0.01" numbersOnly [(ngModel)]="mutualFund.fundValue" (keyup)="calcCapitalTaxGain()">
+        	</mat-form-field>
+        </div>
+
+        <div class="col-md-4">
+        	<mat-form-field class="example-full-width">
+        		<input matInput placeholder="Absolute Return" type="text" [(ngModel)]="mutualFund.absoluteReturn" (keyup)="calcAnnualizedReturn()">
+        	</mat-form-field>
+        </div>
+
+        <div class="col-md-4">
+        	<mat-form-field class="example-full-width">
+        		<input matInput placeholder="Annualized Return in %" type="text" [(ngModel)]="mutualFund.annualizedReturn">
+        	</mat-form-field>
+        </div>
+
+        <div class="col-md-4">
+        	<mat-form-field class="example-full-width">
+        		<input matInput placeholder="Tenure of investment" type="text" (keyup)="calcTaxGain()" [(ngModel)]="mutualFund.tenure">
+        		<span matSuffix>Days</span>
+        	</mat-form-field>
+        </div>
+
+        <div class="col-md-4">
+        	<mat-form-field class="example-full-width">
+        		<input matInput placeholder="Expected Return in Term" type="tel" step="0.01" numbersOnly [(ngModel)]="mutualFund.expectedReturnInTerm">
+        		<span matSuffix>%</span>
+        	</mat-form-field>
+        </div>
+
+        <div class="col-md-4">
+        	<mat-form-field class="example-full-width">
+        		<input matInput placeholder="Agent/Broker" type="text" [(ngModel)]="mutualFund.agent">
+        	</mat-form-field>
+        </div>
+
+        <div class="col-md-4">
+        	<mat-form-field class="example-full-width">
+        		<mat-label>Top Up</mat-label>
+        		<mat-select [(ngModel)]="mutualFund.topUp">
+        			<mat-option value="yes">
+        				Yes
+        			</mat-option>
+        			<mat-option value="no">
+        				No
+        			</mat-option>
+
+        		</mat-select>
+        	</mat-form-field>
+        </div>
+
+        <div class="col-md-4" *ngIf="mutualFund.topUp === 'yes'">
+        	<mat-form-field class="example-full-width">
+        		<input matInput placeholder="Top Up Amount" type="text" (keyup)="calcTenureInvestment()" [(ngModel)]="mutualFund.topUpAmount">
+        	</mat-form-field>
+        </div>
+
+        <div class="col-md-4" *ngIf="mutualFund.topUp === 'yes'">
+        	<mat-form-field class="example-full-width">
+        		<input matInput type="date" placeholder="Date of Top up" [(ngModel)]="mutualFund.topUpDate">
+        	</mat-form-field>
+        </div>
+
+        <!-- <div class="col-md-4">
+          <mat-form-field class="example-full-width">
+            <input matInput type="date" placeholder="Purchase Date Nav" [(ngModel)]="mutualFund.purchaseDateNav">
+          </mat-form-field>
+        </div>
+      -->
+      <div class="col-md-4">
+      	<mat-form-field class="example-full-width" *ngIf="mutualFund.investmentMode !== 'sip'">
+      		<input matInput placeholder="LUMPSUM Pay Year" type="date" [(ngModel)]="mutualFund.lumpSupPayYear">
+      	</mat-form-field>
+      </div>
+
+      <div class="col-md-4" *ngIf="mutualFund.investmentMode !== 'lumpSum'">
+      	<mat-form-field class="example-full-width">
+      		<input matInput placeholder="Last SIP" type="date" [(ngModel)]="mutualFund.lastSip">
+      	</mat-form-field>
+      </div>
+
+        <!-- <div class="col-md-4">
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Family Age  At Last SIP/ Lumpsum Pay Year" type="text" [(ngModel)]="mutualFund.familyAgePayYear">
+          </mat-form-field>
+        </div> -->
+
+        <!-- <div class="col-md-4">
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Family Age at end of Term" type="text" [(ngModel)]="mutualFund.familyAgeEndTerm">
+          </mat-form-field>
+        </div> -->
+
+        <div class="col-md-4">
+        	<mat-form-field class="example-full-width">
+        		<input matInput placeholder="Sensex at Purchase" type="text" [(ngModel)]="mutualFund.sensexAtPurchase">
+        	</mat-form-field>
+        </div>
+
+
+        <div class="col-md-4">
+        	<mat-form-field class="example-full-width">
+        		<input matInput placeholder="Sensex at current rate" type="text" [(ngModel)]="mutualFund.currentRateSensex">
+        	</mat-form-field>
+        </div>
+
+
+        <div class="col-md-4">
+        	<mat-form-field class="example-full-width">
+        		<input matInput placeholder="Lien Mutual Fund" type="text" [(ngModel)]="mutualFund.lienMutualFund">
+        		<mat-select>
+        			<mat-option value="Yes">
+        				Yes
+        			</mat-option>
+        			<mat-option value="No">
+        				No
+        			</mat-option>
+        		</mat-select>
+        	</mat-form-field>
+        </div>
+
+        <div class="col-md-4" *ngIf="mutualFund.lienMutualFund === 'Yes'">
+        	<mat-form-field class="example-full-width">
+        		<input matInput placeholder="Bank Name" type="text" [(ngModel)]="mutualFund.lienBankName">
+        	</mat-form-field>
+        </div>
+
+        <div class="col-md-4">
+        	<mat-form-field class="example-full-width">
+        		<input matInput placeholder="Exit Load" type="tel" step="0.01" numbersOnly [(ngModel)]="mutualFund.exitLoad">
+        		<span matSuffix>%</span>
+        	</mat-form-field>
+        </div>
+
+        <div class="col-md-4">
+        	<mat-form-field class="example-full-width">
+        		<input matInput placeholder="Exit Load Amount" type="tel" step="0.01" numbersOnly [(ngModel)]="mutualFund.exitLoadAmount">
+        	</mat-form-field>
+        </div>
+
+        <div class="col-md-4">
+        	<mat-form-field class="example-full-width">
+        		<input matInput placeholder="Exit Load Tenure" type="text" [(ngModel)]="mutualFund.exitLoadTenure">
+        	</mat-form-field>
+        </div>
+
+        <div class="col-md-4">
+        	<mat-form-field class="example-full-width">
+        		<mat-label>Systematic Transfer Plan</mat-label>
+        		<mat-select [(ngModel)]="mutualFund.stp">
+        			<mat-option value="yes">
+        				Yes
+        			</mat-option>
+        			<mat-option value="no">
+        				No
+        			</mat-option>
+        		</mat-select>
+        	</mat-form-field>
+        </div>
+
+        <div class="col-md-4" *ngIf="mutualFund.stp === 'yes'">
+        	<mat-form-field>
+        		<input matInput placeholder="STP Amount" [(ngModel)]="mutualFund.stpAmount" type="tel" step="0.01" numnbersOnly>
+        	</mat-form-field>
+        </div>
+
+        <div class="col-md-4" *ngIf="mutualFund.stp === 'yes'">
+        	<mat-form-field class="example-full-width">
+        		<mat-label>Mode</mat-label>
+        		<mat-select [(ngModel)]="mutualFund.stpMode">
+        			<mat-option value="daily">
+        				Daily
+        			</mat-option>
+        			<mat-option value="weekly">
+        				Weekly
+        			</mat-option>
+        			<mat-option value="monthly">
+        				Monthly
+        			</mat-option>
+        			<mat-option value="quarterly">
+        				Quarterly
+        			</mat-option>
+        			<mat-option value="Annual">
+        				Annual
+        			</mat-option>
+        		</mat-select>
+        	</mat-form-field>
+        </div>
+
+        <div class="col-md-4" *ngIf="mutualFund.stp === 'yes'">
+        	<mat-form-field class="example-full-width">
+        		<input matInput type="date" placeholder="STP End Date" [(ngModel)]="mutualFund.stpEndDate">
+        	</mat-form-field>
+        </div>
+
+        <div class="col-md-4">
+        	<mat-form-field class="example-full-width">
+        		<mat-label>Systematic Wthdrawl Plan</mat-label>
+        		<mat-select [(ngModel)]="mutualFund.swp">
+        			<mat-option value="yes">
+        				Yes
+        			</mat-option>
+        			<mat-option value="no">
+        				No
+        			</mat-option>
+        		</mat-select>
+        	</mat-form-field>
+        </div>
+
+        <div class="col-md-4" *ngIf="mutualFund.swp === 'yes'">
+        	<mat-form-field>
+        		<input matInput placeholder="SWP Amount" [(ngModel)]="mutualFund.swpAmount" type="tel" step="0.01" numnbersOnly>
+        	</mat-form-field>
+        </div>
+
+        <div class="col-md-4" *ngIf="mutualFund.swp === 'yes'">
+        	<mat-form-field class="example-full-width">
+        		<mat-label>Mode</mat-label>
+        		<mat-select [(ngModel)]="mutualFund.swpMode">
+        			<mat-option value="daily">
+        				Daily
+        			</mat-option>
+        			<mat-option value="weekly">
+        				Weekly
+        			</mat-option>
+        			<mat-option value="monthly">
+        				Monthly
+        			</mat-option>
+        			<mat-option value="quarterly">
+        				Quarterly
+        			</mat-option>
+        			<mat-option value="Annual">
+        				Annual
+        			</mat-option>
+        		</mat-select>
+        	</mat-form-field>
+        </div>
+
+        <div class="col-md-4" *ngIf="mutualFund.swp === 'yes'">
+        	<mat-form-field class="example-full-width">
+        		<input matInput type="date" placeholder="SWP End Date" [(ngModel)]="mutualFund.swpEndDate">
+        	</mat-form-field>
+        </div>
+
+        <div class="col-md-4">
+        	<mat-form-field class="example-full-width">
+        		<input matInput placeholder="Return Performance Since Inception " type="text" [(ngModel)]="mutualFund.returnPerformanceSinceInception">
+        	</mat-form-field>
+        </div>
+        <div class="col-md-4">
+        	<mat-form-field class="example-full-width">
+        		<mat-label>Status</mat-label>
+        		<mat-select [(ngModel)]="mutualFund.status">
+        			<mat-option value="Status Live">
+        				Status Live
+        			</mat-option>
+        			<mat-option value="Redeemed">
+        				Redeemed
+        			</mat-option>
+        			<mat-option value="Partially Redeemed">
+        				Partially Redeemed
+        			</mat-option>
+        			<mat-option value="SIP Stopped">
+        				SIP Stopped
+        			</mat-option>
+        		</mat-select>
+        	</mat-form-field>
+        </div>
+
+        <div class="col-md-4" *ngIf="mutualFund.investmentMode !== 'lumpSum'">
+        	<mat-form-field class="example-full-width">
+        		<input matInput placeholder="Last SIP Deducted" type="date" [(ngModel)]="mutualFund.lastSipDeducted">
+        	</mat-form-field>
+        </div>
+
+        <div class="col-md-4">
+        	<p class="form-sub-heading font-weight-bold text-secondary">Statement Upload</p>
+        	<input placeholder="Statement Upload" type="file" accept="image/*, application/pdf" id="file" (change)="handleFileInput($event)">
+        </div>
+
+<!-- <div class="col-md-4">
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Redemption Date" type="date" [(ngModel)]="mutualFund.redemptionDate">
+  </mat-form-field>
+</div>
+
+<div class="col-md-4">
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Partial Redemption Amount" type="text" [(ngModel)]="mutualFund.partialRedemptionAmount">
+  </mat-form-field>
+</div>
+-->
+<div class="col-md-4" *ngIf="mutualFund.option !== 'growthDirect' && mutualFund.option !== 'growthRegular'">
+	<mat-form-field class="example-full-width">
+		<input matInput placeholder="Dividend Received"
+		type="text" [(ngModel)]="mutualFund.dividendReceived">
+	</mat-form-field>
+</div>
+
+<div class="col-md-4" *ngIf="mutualFund.option !== 'growthDirect' && mutualFund.option !== 'growthRegular'">
+	<mat-form-field class="example-full-width">
+		<input matInput placeholder="Dividend Reinvested"
+		type="text" [(ngModel)]="mutualFund.dividendReinvested">
+	</mat-form-field>
+</div>
+<!-- 
+<div class="col-md-4">
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Redemption Amount"
+    type="text" [(ngModel)]="mutualFund.redemptionAmount">
+  </mat-form-field>
+</div>
+-->
+<div class="col-md-4">
+	<mat-form-field class="example-full-width">
+		<input matInput placeholder="Current Financial Year"
+		type="tel" step="0.01" maxlength="7" (keyup)="calcCurrentFinancialYear($event)" [(ngModel)]="mutualFund.currentFinancialYear">
+	</mat-form-field>
+</div>
+
+<div class="col-md-4">
+	<mat-form-field class="example-full-width">
+		<input matInput placeholder="Capital Tax Gain"
+		type="text" [(ngModel)]="mutualFund.capitalTaxGain">
+	</mat-form-field>
+</div>
+
+<div class="col-md-4" *ngIf="mutualFund.investmentMode !== 'lumpSum'">
+	<mat-form-field class="example-full-width">
+		<input matInput placeholder="Annual SIP Investment"
+		type="text"  [(ngModel)]="mutualFund.annualSip">
+	</mat-form-field>
+</div>
+<div class="col-md-4">
+	<mat-form-field class="example-full-width">
+		<input matInput placeholder="Total Investment in Tenure"
+		type="tel" step="0.01" [(ngModel)]="mutualFund.tenureInvestment">
+	</mat-form-field>
+</div>
+<div class="col-md-4">
+	<mat-form-field class="example-full-width">
+		<input matInput placeholder="Expected Return Percentage %"
+		type="tel" step="0.01" [(ngModel)]="mutualFund.expectedRateReturnPercentage">
+	</mat-form-field>
+</div>
+<div class="col-md-4">
+	<mat-form-field class="example-full-width">
+		<input matInput placeholder="Estimated Fund Value As Per Tenure Of Investment"
+		type="text" [(ngModel)]="mutualFund.estimatedFundValue">
+	</mat-form-field>
+</div>
+<div class="col-md-4">
+	<mat-form-field class="example-full-width">
+		<mat-label>Type Of Return</mat-label>
+		<mat-select [(ngModel)]="mutualFund.returnType">
+			<mat-option value="Full Redemption">
+				Full Redemption
+			</mat-option>
+			<mat-option value="Partial Redemption">
+				Partial Redemption
+			</mat-option>
+		</mat-select>
+	</mat-form-field>
+</div>
+
+<div class="col-md-4">
+	<mat-form-field class="example-full-width">
+		<mat-label>Riskometer</mat-label>
+		<mat-select [(ngModel)]="mutualFund.riskometer">
+			<mat-option value="low">
+				Low
+			</mat-option>
+			<mat-option value="moderatelyLow">
+				Moderately Low
+			</mat-option>
+			<mat-option value="moderate">
+				Moderate
+			</mat-option>
+			<mat-option value="moderatelyHigh">
+				Moderately High
+			</mat-option>
+			<mat-option value="high">
+				High
+			</mat-option>
+		</mat-select>
+	</mat-form-field>
+</div>
+
+<div class="col-md-4">
+	<mat-form-field class="example-full-width">
+		<mat-label>Scheme Type</mat-label>
+		<mat-select [(ngModel)]="mutualFund.schemeType" (selectionChange)="calcTaxTreatmentStt()">
+			<mat-option value="oneEndedScheme">
+				Open Ended Scheme 
+			</mat-option>
+			<mat-option value="closedEndedScheme">
+				Closed Ended Scheme
+			</mat-option>
+		</mat-select>
+	</mat-form-field>
+</div>
+
+<div class="col-md-4">
+	<mat-form-field class="example-full-width">
+		<input matInput placeholder="Tax Treatment STT"
+		type="text" [(ngModel)]="mutualFund.taxTreatmentStt">
+	</mat-form-field>
+</div>
+
+<div class="col-md-4" *ngIf="mutualFund.type === 'debt'">
+	<mat-form-field class="example-full-width">
+		<input matInput placeholder="Indexation" (keyup)="calcTaxGainDebt()" type="text" [(ngModel)]="mutualFund.indexation">
+	</mat-form-field>
+</div>
+
+<div class="col-md-4">
+	<mat-form-field class="example-full-width">
+		<input matInput placeholder="Tax Treatment - Long Term Tax Gain - Current Rate"
+		type="text" [(ngModel)]="mutualFund.lttgCurrentRate">
+	</mat-form-field>
+</div>
+
+<div class="col-md-4">
+	<mat-form-field class="example-full-width">
+		<input matInput placeholder="Tax Treatment - Long Term Tax Gain - Amount"
+		type="text" [(ngModel)]="mutualFund.lttgAmount">
+	</mat-form-field>
+</div>
+
+<div class="col-md-4">
+	<mat-form-field class="example-full-width">
+		<input matInput placeholder="Tax Treatment- Short Term Tax Gain - Current Rate"
+		type="text" [(ngModel)]="mutualFund.sttgCurrentRate">
+	</mat-form-field>
+</div>
+
+<div class="col-md-4">
+	<mat-form-field class="example-full-width">
+		<input matInput placeholder="Tax Treatment- Short Term Tax Gain - Amount"
+		type="text" [(ngModel)]="mutualFund.sttgAmount">
+	</mat-form-field>
+</div>
+
+<div class="col-md-4">
+	<mat-form-field class="example-full-width">
+		<mat-label>80c Tax Benefit</mat-label>
+		<mat-select [(ngModel)]="mutualFund.cTaxBenefit">
+			<mat-option value="yes">
+				Yes
+			</mat-option>
+			<mat-option value="no">
+				No
+			</mat-option>
+		</mat-select>
+	</mat-form-field>
+</div>
+<div class="col-md-4">
+	<mat-form-field class="example-full-width">
+		<mat-label>Maturity </mat-label>
+		<mat-select [(ngModel)]="mutualFund.maturity">
+			<mat-option value="Tax Free">
+				Tax Free
+			</mat-option>
+			<mat-option value="Taxable">
+				Taxable
+			</mat-option>
+			<mat-option value="Moderate">
+				Moderate
+			</mat-option>
+		</mat-select>
+	</mat-form-field>
+</div>
+
+
+
+</div>
+<div class="text-center d-flex justify-content-center" *ngIf="update === 'false'">
+	<button mat-raised-button class="btn btn-danger" (click)="mutualFundSubmit()">SAVE</button>
+</div>
+
+<div class="text-center d-flex justify-content-center" *ngIf="update === 'true'">
+	<button mat-raised-button class="btn btn-danger" (click)="editMutualFund()">EDIT</button>
+</div>
+
+</mat-tab>
+<mat-tab label="Share">
+	<div class="row" *ngIf="update === 'true'">
+		<div class="col-md-4">
+			<mat-form-field class="example-full-width">
+				<mat-label>Select Company</mat-label>
+				<mat-select (selectionChange)="getType()">
+					<mat-option *ngFor="let type of allEquity; let i = index" (click)="equitySelected(i)">
+						{{type.companyName}}
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</div> 
+	</div>
+
+	<div class="row ">
+
+		<div class="col-md-4">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Purpose of Investment"
+				type="text" [(ngModel)]="equity.investmentPurpose">
+			</mat-form-field>
+		</div>
+		<div class="col-md-4">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Expected Term Of Investment" type="tel" step="0.01" numbersOnly [(ngModel)]="equity.expectedTerm">
+			</mat-form-field>
+		</div>
+
+
+
+		<div class="col-md-4">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Company Name" type="text" [(ngModel)]="equity.companyName">
+			</mat-form-field>
+		</div>
+
+		<div class="col-md-4">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Proposer Name"
+				type="text" [(ngModel)]="equity.proposerName">
+			</mat-form-field>
+		</div>
+
+		<div class="col-md-4">
+			<mat-form-field class="example-full-width">
+				<mat-label>Minor/Major</mat-label>
+				<mat-select [(ngModel)]="equity.minorMajor">
+					<mat-option value="Minor">
+						Minor
+					</mat-option>
+					<mat-option value="Major">
+						Major
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</div>
+
+		<div class="col-md-4">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Beneficiary Name" type="text" [(ngModel)]="equity.beneficiaryName">
+			</mat-form-field>
+		</div>
+
+
+	</div>
+
+	<div class="row ">
+		<div class="col-md-4">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Folio Holder Name" type="text" [(ngModel)]="equity.nomineeHolder">
+			</mat-form-field>
+		</div>
+
+
+		<div class="col-md-4">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Demat Company" type="text" [(ngModel)]="equity.dematCompany">
+			</mat-form-field>
+		</div>
+
+		<div class="col-md-4">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Demat Account Number/ DP ID" type="text" [(ngModel)]="equity.dematAccNum">
+			</mat-form-field>
+
+		</div>
+
+		<div class="col-md-4">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Client Code" type="text" [(ngModel)]="equity.clientCode">
+			</mat-form-field>
+		</div>
+
+		<div class="col-md-4">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Registered Address" type="text" [(ngModel)]="equity.registeredAddress">
+			</mat-form-field>
+		</div>
+
+		<div class="col-md-4">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Registered Mobile number in folio" type="tel" step="0.01" maxlength="10" numbersOnly [(ngModel)]="equity.folioMobile">
+			</mat-form-field>
+		</div>
+
+		<div class="col-md-4">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Registered email id in folio" type="email" [(ngModel)]="equity.folioEmail">
+			</mat-form-field>
+		</div>
+
+		<div class="col-md-4">
+			<mat-form-field class="example-full-width">
+				<mat-label>KYC Updated</mat-label>
+				<mat-select [(ngModel)]="equity.kycUpdated">
+					<mat-option value="registered">
+						Registered
+					</mat-option>
+					<mat-option value="notRegistered">
+						Not Registered
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</div>
+
+		<div class="col-md-4">
+			<mat-form-field class="example-full-width">
+				<mat-label>Fatca Updated</mat-label>
+				<mat-select [(ngModel)]="equity.fatcaUpdated">
+					<mat-option value="registered">
+						Registered
+					</mat-option>
+					<mat-option value="notRegistered">
+						Not Registered
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</div>
+
+		<div class="col-md-4">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder=" Pan Number" maxlength="10" type="text" [(ngModel)]="equity.panNumber">
+			</mat-form-field>
+		</div>
+
+
+		<div class="col-md-4">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder=" Bank Name" type="text" [(ngModel)]="equity.bankName">
+			</mat-form-field>
+		</div>
+
+		<div class="col-md-4">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder=" Bank A/C Number" type="tel" step="0.01" numbersOnly [(ngModel)]="equity.bankAccNumber">
+			</mat-form-field>
+		</div>
+
+		<div class="col-md-4">
+			<mat-form-field class="example-full-width">
+				<mat-label>Bank Acc Type</mat-label>
+				<mat-select [(ngModel)]="equity.bankAccType">
+					<mat-option value="savings">
+						Savings
+					</mat-option>
+					<mat-option value="current">
+						Current
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</div>
+
+		<div class="col-md-4">
+			<mat-form-field class="example-full-width">
+				<mat-label>Mode of Holding</mat-label>
+				<mat-select [(ngModel)]="equity.modeHolding">
+					<mat-option value="single">
+						Single
+					</mat-option>
+					<mat-option value="joint">
+						Joint
+					</mat-option>
+					<mat-option value="anyoneSurvivor">
+						Anyone or Survivor
+					</mat-option>
+					<mat-option value="minorWithMajor">
+						Minor with a Major
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</div>
+
+		<div class="col-md-4" *ngIf="equity.modeHolding !== 'single'"> 
+			<mat-form-field class="example-full-width">
+				<mat-label>Number of Holder</mat-label>
+				<mat-select [(ngModel)]="equity.totalHolders">
+					<mat-option value="1">
+						+1
+					</mat-option>
+					<mat-option value="2">
+						+2
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</div>
+	</div>
+	<div class="row" *ngIf="equity.totalHolders > 0">
+		<div class="col-md-3">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Holder 2" type="text" [(ngModel)]="equity.nomineeHolder1">
+			</mat-form-field>
+		</div>
+
+		<div class="col-md-3">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Allocation" type="text" [(ngModel)]="equity.holderAllocationTwo">
+			</mat-form-field>
+		</div>
+
+		<div class="col-md-3">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="PAN Number" type="text" [(ngModel)]="equity.PanNumberTwo">
+			</mat-form-field>
+		</div>
+
+		<div class="col-md-3">
+			<mat-form-field class="example-full-width">
+				<mat-label>KYC Status</mat-label>
+				<mat-select [(ngModel)]="equity.holderKycUpdatedTwo">
+					<mat-option value="registered">
+						Registered
+					</mat-option>
+					<mat-option value="notRegistered">
+						Not Registered
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</div>
+	</div>
+
+	<div class="row" *ngIf="equity.totalHolders > 1">
+		<div class="col-md-3">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Holder 3" type="text" [(ngModel)]="equity.nomineeHolder2">
+			</mat-form-field>  
+		</div>
+
+
+		<div class="col-md-3">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Allocation" type="text" [(ngModel)]="equity.holderAllocationThree">
+			</mat-form-field>
+		</div>
+
+		<div class="col-md-3">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="PAN Number" type="text" [(ngModel)]="equity.PanNumberThree">
+			</mat-form-field>
+		</div>
+
+		<div class="col-md-3">
+			<mat-form-field class="example-full-width">
+				<mat-label>KYC Status</mat-label>
+				<mat-select [(ngModel)]="equity.holderKycUpdatedThree">
+					<mat-option value="registered">
+						Registered
+					</mat-option>
+					<mat-option value="notRegistered">
+						Not Registered
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</div>
+	</div>  
+	<div class="row">
+		<div class="col-md-4">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Folio No." type="text" [(ngModel)]="equity.folioNumber">
+			</mat-form-field>
+		</div>
+
+		<div class="col-md-4">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Share Name" type="text" [(ngModel)]="equity.shareName">
+			</mat-form-field>
+		</div>
+
+		<div class="col-md-4">
+			<mat-form-field class="example-full-width">
+				<input matInput type="date" placeholder="Date of Purchase" [(ngModel)]="equity.purchaseDate">
+			</mat-form-field>
+		</div>
+
+		<div class="col-md-4">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Financial Year of purchase" type="tel" step="0.01" numbersOnly (keyup)="equityfinancialYearOfPurchase($event)" [(ngModel)]="equity.financialYearOfPurchase">
+			</mat-form-field>
+		</div>
+
+		<div class="col-md-4">
+			<mat-form-field class="example-full-width">
+				<mat-label>Mode of Investment</mat-label>
+				<mat-select [(ngModel)]="equity.investmentMode">
+					<mat-option value="lumpsum">
+						LUMP SUM
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</div>
+
+		<div class="col-md-4">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="No. Of Share"
+				type="tel" step="0.01" [(ngModel)]="equity.numberOfShare" (keyup)="shareValue()">
+			</mat-form-field>
+		</div>
+
+		<div class="col-md-4">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Nav As On Today"
+				type="tel" step="0.01" [(ngModel)]="equity.currentNav" (keyup)="shareValue()">
+			</mat-form-field>
+		</div>
+
+		<div class="col-md-4">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Share Value"
+				type="text" [(ngModel)]="equity.shareValue" (keyup)="calculateAbsoluteReturn()">
+			</mat-form-field>
+		</div>
+
+		<div class="col-md-4">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Total Investment In Tenure"
+				type="tel" step="0.01" [(ngModel)]="equity.tenureInvestment" (keyup)="calculateAbsoluteReturn()">
+			</mat-form-field>
+		</div>
+
+		<div class="col-md-4">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Surrender Value"
+				type="tel" step="0.01" [(ngModel)]="equity.surrenderValue">
+			</mat-form-field>
+		</div>
+
+
+		<div class="col-md-4">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Tenure of Investement" type="text" [(ngModel)]="equity.termDoiTillDate">
+			</mat-form-field>
+		</div>
+
+		<div class="col-md-4">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Current Rate"
+				type="text" [(ngModel)]="equity.currentRate">
+			</mat-form-field>
+		</div>
+
+		<div class="col-md-4">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Estimated Fund Value As Per Tenure of Investment"
+				type="text" [(ngModel)]="equity.estimatedFundValue">
+			</mat-form-field>
+		</div>
+
+		<div class="col-md-4">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Type of Return"
+				type="text" [(ngModel)]="equity.returnType">
+			</mat-form-field>
+		</div>
+		<div class="col-md-4">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Redemption Amount Done"
+				type="text" [(ngModel)]="equity.redemptionAmount">
+			</mat-form-field>
+		</div>
+		<div class="col-md-4">
+			<mat-form-field class="example-full-width">
+				<mat-label>Status</mat-label>
+				<mat-select [(ngModel)]="equity.status">
+					<mat-option value="live">
+						Live
+					</mat-option>
+					<mat-option value="redeemed">
+						Redeemed
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</div>
+		<div class="col-md-4">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Total Days of Investment" type="text" [(ngModel)]="equity.totalInvestmentDays">
+			</mat-form-field>
+		</div>
+
+		<div class="col-md-4">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Absolute Return %"
+				type="tel" step="0.01" [(ngModel)]="equity.absoluteReturn">
+			</mat-form-field>
+		</div>
+
+		<div class="col-md-4">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Purchase Date Nav"
+				type="tel" step="0.01" [(ngModel)]="equity.purchaseDateNav">
+			</mat-form-field>
+		</div>
+
+		<div class="col-md-4">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Sensex At Purchase"
+				type="tel" step="0.01" [(ngModel)]="equity.sensexAtPurchase">
+			</mat-form-field>
+		</div>
+
+		<div class="col-md-4">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Sensex At Current Rate"
+				type="tel" step="0.01">
+			</mat-form-field>
+		</div>
+		<div class="col-md-4">
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Return Performance Since Inception"
+				type="tel" step="0.01" [(ngModel)]="equity.returnPerformanceSinceInception">
+			</mat-form-field>
+		</div>
+
+
+<!-- <div class="col-md-4">
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Family age at Last SIP/Lumpsum Pay Year"
+    type="text" [(ngModel)]="equity.familyAgePayYear">
+  </mat-form-field>
+</div>
+
+<div class="col-md-4">
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Family age at end of Term" type="text" [(ngModel)]="equity.familyAgeEndTerm">
+  </mat-form-field>
+</div>
+-->
+<div class="col-md-4">
+	<mat-form-field class="example-full-width">
+		<input matInput placeholder="Agent/Broker" type="text" [(ngModel)]="equity.agent">
+	</mat-form-field>
+</div>
+</div>
+<div class="text-center d-flex justify-content-center" *ngIf="update === 'false'">
+	<button mat-raised-button class="btn btn-danger" (click)="equitySubmit()">Save</button>
+</div>
+<div class="text-center d-flex justify-content-center" *ngIf="update === 'true'">
+	<button mat-raised-button class="btn btn-danger" (click)="editEquity()">EDIT</button>
+</div>
+</mat-tab>
+</mat-tab-group>
+
+</div>
+</div>
+</div>
+
+</div>
+
+</div>

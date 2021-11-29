@@ -1,0 +1,112 @@
+<!-- 
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="card card-plain">
+          <div class="card-header card-header-danger">
+              <h4 class="card-title">Material Design Icons</h4>
+              <p class="card-category">Handcrafted by our friends from
+                  <a target="_blank" href="https://design.google.com/icons/">Google</a>
+              </p>
+          </div>
+          <div class="row">
+              <div class="col-md-12">
+                  <div class="card-body">
+                      <div class="iframe-container d-none d-lg-block">
+                          <iframe src="https://design.google.com/icons/">
+                              <p>Your browser does not support iframes.</p>
+                          </iframe>
+                      </div>
+                      <div class="col-md-12 d-none d-sm-block d-md-block d-lg-none d-block d-sm-none text-center ml-auto mr-auto">
+                          <h5>The icons are visible on Desktop mode inside an iframe. Since the iframe is not working on Mobile and Tablets please visit the icons on their original page on Google. Check the
+                              <a href="https://design.google.com/icons/" target="_blank">Material Icons</a>
+                          </h5>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div> -->
+
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="col-lg-12 col-md-12">
+      <button mat-raised-button class="btn btn-warning" (click)="openDialog()">Add Sub Admin</button>
+      <div class="card">
+        <div class="card-header card-header-warning">
+          <h4 class="card-title">Sub Admin</h4>
+          <!-- <p class="card-category">New employees on 15th September, 2016</p> -->
+        </div>
+        <div class="card-body table-responsive">
+          <table class="table table-hover">
+            <thead class="text-warning">
+              <th>Username</th>
+              <th>Role</th>
+              <th>Email ID</th>
+              <th>Phone No.</th>
+              <th>Status</th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let admin of allAdmins">
+                <td>{{admin.username}}</td>
+                <td>{{admin.role}}</td>
+                <td>{{admin.email}}</td>
+                <td>{{admin.phone}}</td>
+                <td>
+                  <button mat-raised-button type="button" matTooltip="Approve" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon" (click)="approveAdmin(admin)">
+                    <i class="material-icons">check</i>
+                  </button>
+                  <button mat-raised-button type="button" matTooltip="Reject" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon" (click)="rejectAdmin(admin)">
+                    <i class="material-icons">close</i>
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>Anna Pieterson</td>
+                <td>Sub Admin</td>
+                <td>annapieterson@mail.com</td>
+                <td>7856123698</td>
+                <td>
+                  <button mat-raised-button type="button" matTooltip="Approve" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                    <i class="material-icons">check</i>
+                  </button>
+                  <button mat-raised-button type="button" matTooltip="Reject" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                    <i class="material-icons">close</i>
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>Tony Bryan</td>
+                <td>Sub Admin</td>
+                <td>tonybrayn@mail.com</td>
+                <td>9874563210</td>
+                <td>
+                  <button mat-raised-button type="button" matTooltip="Approve" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                    <i class="material-icons">check</i>
+                  </button>
+                  <button mat-raised-button type="button" matTooltip="Reject" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                    <i class="material-icons">close</i>
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>Adam Nic</td>
+                <td>Admin</td>
+                <td>nicadam@mail.com</td>
+                <td>95135782460</td>
+                <td>
+                  <button mat-raised-button type="button" matTooltip="Approve" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                    <i class="material-icons">check</i>
+                  </button>
+                  <button mat-raised-button type="button" matTooltip="Reject" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                    <i class="material-icons">close</i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,467 @@
+<div class="main-content">
+  <form [formGroup]="addUserForm" *ngIf="addUserForm">
+     <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">{{ edit ? 'Edit User' : 'Add User'}}</h4>
+            <p class="card-category">Complete your profile</p>
+          </div>
+          <div class="card-body">
+
+            <div class="row">
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <input matInput formControlName="firstName" placeholder="First Name" type="text">
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <input matInput formControlName="middleName" placeholder="Middle Name" type="text">
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <input matInput formControlName="lastName" placeholder="Last Name" type="text">
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6" *ngIf="!edit">
+                <mat-form-field class="example-full-width">
+                  <input matInput formControlName="password" placeholder="Password" type="password">
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field class="example-full-width">
+                  <input matInput formControlName="email" placeholder="Email Id" type="email">
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 ">
+                <div class="row">
+                  <div class="col-1 d-flex ">
+                    <span class="addon d-flex align-items-end">+91</span>
+                  </div>
+                  <div class="col-11">
+                    <mat-form-field class="example-full-width">
+                      <input matInput formControlName="mobile"  (keyup)="onValueChange($event)" placeholder="Contact Number" type="number">
+                    </mat-form-field>
+                  </div>
+                </div>
+
+              </div>
+              <div class="col-md-6">
+                <mat-form-field class="example-full-width">
+                  <input matInput formControlName="alternateNumber" placeholder="Alternate Contact Number"
+                    type="number">
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <p>Select Photo</p>
+                <input type="file" name="userPhoto" accept="image/*" #imageInput (change)="addPhoto($event.target.files, 'user')">
+              </div>
+              <div *ngIf="userProfilePhoto" class="col-md-4">
+                <img class="img-width" [src]="userProfilePhoto" alt="userPhoto" />
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-md-5">
+                <mat-radio-group aria-label="Select an option" (change)="onMartialStatusChange($event)" class="d-flex  justify-content-between"
+                  formControlName="maritalStatus" name="status">
+                  <p class="form-sub-heading">Marital Status:-</p>
+
+                  <mat-radio-button value="non-married" name="non-married">Non Married</mat-radio-button>
+                  <mat-radio-button value="married" name="married">Married</mat-radio-button>
+                </mat-radio-group>
+              </div>
+            </div>
+            <p class="form-sub-heading mt-3">Address:-</p>
+            <div class="row">
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <input matInput formControlName="address" placeholder="House Number & Name" type="text">
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <input matInput formControlName="streetName" placeholder="Street Name" type="text">
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <input matInput formControlName="city" placeholder="city" type="text">
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <input matInput formControlName="pincode"  oninput="javascript: if (this.value.length > 6) this.value = this.value.slice(0, 6);" placeholder="Pincode" type="text">
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <input matInput formControlName="state" placeholder="State" type="text">
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <input matInput formControlName="country" placeholder="Country" type="text">
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">Bio</h4>
+            <p class="card-category">Add user bio</p>
+          </div>
+          <div class="card-body">
+
+            <div class="row">
+              <div class="col-md-3">
+                <mat-form-field class="example-full-width">
+                  <input matInput formControlName="dob" placeholder="Date of Birth" type="date">
+                </mat-form-field>
+              </div>
+              <div class="col-md-3">
+                <mat-form-field class="example-full-width">
+                  <input matInput formControlName="userFeet"  placeholder="Enter Height (feet)" type="number">
+                </mat-form-field>
+              </div>
+              <div class="col-md-3 input-margin-left">
+                <mat-form-field class="example-full-width">
+                  <input matInput formControlName="userInches" placeholder="Enter Height (inches)" type="number">
+                </mat-form-field>
+              </div>
+              <div class="col-md-3">
+                <mat-form-field class="example-full-width">
+                  <input matInput formControlName="weight" placeholder="Weight in kg" type="number">
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">Occupation</h4>
+            <p class="card-category">Add user occupation</p>
+          </div>
+          <div class="card-body">
+
+            <div class="row">
+
+              <div class="col-md-12">
+                <mat-radio-group aria-label="Select an option" class="d-flex align-items-center justify-content-around"
+                  formControlName="occupation">
+                  <mat-radio-button value="businessOwner">Business Owner</mat-radio-button>
+                  <mat-radio-button value="salaryEmployee">Salary Employee</mat-radio-button>
+                  <mat-radio-button value="professional">Professional</mat-radio-button>
+                </mat-radio-group>
+              </div>
+
+            </div>
+
+            <div class="row mt-3">
+              <div class="col-md-6">
+                <mat-form-field class="example-full-width">
+                  <input matInput formControlName="natureDuties" placeholder="Nature of Duties" type="text">
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field class="example-full-width">
+                  <mat-label>Annual Income Range</mat-label>
+                  <mat-select formControlName="annualIncome">
+
+                    <mat-option value="5 lac to 10 lac">
+                      5 lac to 10 lac
+                    </mat-option>
+                    <mat-option value="10 lac to 20 lac">
+                      10 lac to 20 lac
+                    </mat-option>
+                    <mat-option value="20 lac and above">
+                      20 lac and above
+                    </mat-option>
+
+                  </mat-select>
+                </mat-form-field>
+
+              </div>
+
+            </div>
+
+            <div class="row ">
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-7">
+                    <mat-form-field class="example-full-width">
+                      <input matInput formControlName="pan" maxlength="10" placeholder="Pan Number" type="text">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-5">
+                    <input type="file"  name="panPhoto" accept="image/*" #panImageInput (change)="addPhoto($event.target.files, 'pan')">
+                  </div>
+                </div>
+                <div class="col-md-2" *ngIf="userPanPhoto">
+                  <img class="img-width" [src]="userPanPhoto" alt="userPanPhoto" />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-7">
+                    <mat-form-field class="example-full-width">
+                      <input matInput formControlName="adhar" placeholder="UDID Number"  oninput="javascript: if (this.value.length > 12) this.value = this.value.slice(0, 12);" type="text">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-5">
+                    <input type="file"  name="aadharPhoto" accept="image/*" #aadharImageInput (change)="addPhoto($event.target.files, 'aadhar')">
+                  </div>
+                </div>
+                <div class="col-md-2" *ngIf="userAadharPhoto">
+                  <img class="img-width" [src]="userAadharPhoto" alt="userAadharPhoto" />
+                </div>
+              </div>
+
+            </div>
+
+            <div class="row ">
+              <div class="col-md-8">
+                <mat-form-field class="example-full-width">
+                  <input matInput formControlName="officeAddress" placeholder="Office Address" type="text">
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <input matInput formControlName="officeContact" placeholder="Office Contact" type="number">
+                </mat-form-field>
+              </div>
+
+            </div>
+
+
+
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">Bank Detail</h4>
+            <p class="card-category">Add user bank detail</p>
+          </div>
+          <div class="card-body">
+
+            <div class="row" formArrayName="bank" *ngFor="let bankDetail of addUserForm.controls.bank?.controls; let i = index">
+           <ng-container [formGroupName]="i">
+              <div class="col-md-3 ">
+                <mat-form-field class="example-full-width">
+                  <input matInput formControlName="bankName" placeholder="Bank Name"
+                    (keyup)="valuechange($event,i)" type="text">
+                </mat-form-field>
+                <div class="dropdown-angular" [ngClass]="i !== indexValue? 'd-none' : '' " *ngIf="bankList?.length">
+                  <p *ngFor="let x of bankList" (click)="selectDropdown(x.name, i)"> {{x.name}}</p>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <mat-form-field class="example-full-width">
+                  <input matInput formControlName="ifsc" placeholder="IFSC Code" type="text">
+                </mat-form-field>
+              </div>
+              <div class="col-md-3">
+                <mat-form-field class="example-full-width">
+                  <input matInput formControlName="accountNumber" placeholder="Account Number" type="number">
+                </mat-form-field>
+              </div>
+              <div class="col-md-3">
+                <i (click)="onArrayItemDeleted(i, 'bank')" class="material-icons cursor-pointer">delete</i>
+              </div>
+              </ng-container>
+            </div>
+            <div class="text-right">
+              <button mat-raised-button class="btn btn-success pull-right" (click)="addBank()">Add More Bank
+                Detail</button>
+              <div class="clearfix"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">Parent Detail</h4>
+            <p class="card-category">Add user parent detail</p>
+          </div>
+          <div class="card-body">
+
+            <div class="row">
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <input matInput formControlName="fatherFirstName" placeholder="Father's First Name" type="text">
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <input matInput formControlName="fatherMiddleName" placeholder="Father's Middle Name" type="text">
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <input matInput formControlName="fatherLastName" placeholder="Father's Last Name" type="text">
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <input matInput formControlName="motherFirstName" placeholder="Mother's First Name" type="text">
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <input matInput formControlName="motherMiddleName" placeholder="Mother's Middle Name" type="text">
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <input matInput formControlName="motherLastName" placeholder="Mother's Last Name" type="text">
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid" *ngIf="addUserForm.get('maritalStatus')?.value === 'married'">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">Family Detail</h4>
+            <p class="card-category">Add user family detail</p>
+          </div>
+          <div class="card-body">
+
+
+
+            <div class="row mt-4">
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <input matInput formControlName="spouseName" placeholder="Spouse Name" type="text">
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <input matInput formControlName="spouseDob" placeholder="Spouse D.O.B" type="date">
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <input matInput formControlName="spouseWeight" placeholder="Spouse weight in kg" type="number">
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <input matInput formControlName="spouseNumber" placeholder="Mobile number" type="number">
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <input matInput formControlName="spouseFeet"  placeholder="Enter Height (feet)" type="number">
+                </mat-form-field>
+              </div>
+              <div class="col-md-4 input-margin-left">
+                <mat-form-field class="example-full-width">
+                  <input matInput formControlName="spouseInches" placeholder="Enter Height (inches)" type="number">
+                </mat-form-field>
+              </div>
+
+             
+            </div>
+            <p class="form-sub-heading mt-3">Children Detail :-</p>
+            <div class="row" formArrayName="children" *ngFor="let bankDetail of addUserForm.controls.children?.controls; let i = index">
+              <ng-container [formGroupName]="i">
+              <div class="col-md-2">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder=" Name" formControlName="childName" type="text">
+                </mat-form-field>
+              </div>
+              <div class="col-md-2">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder=" D.O.B" formControlName="childDob" type="date">
+                </mat-form-field>
+              </div>
+              <div class="col-md-2">
+                <mat-form-field class="example-full-width">
+                  <input matInput formControlName="childFeet"  placeholder="Enter Height (feet)" type="number">
+                </mat-form-field>
+              </div>
+              <div class="col-md-2 input-margin-left">
+                <mat-form-field class="example-full-width">
+                  <input matInput formControlName="childInches" placeholder="Enter Height (inches)" type="number">
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-2">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Weight in kgs" formControlName="childWeight"
+                    type="number">
+                </mat-form-field>
+              </div>
+              <div class="col-md-2">
+                <i (click)="onArrayItemDeleted(i, 'children')" class="material-icons cursor-pointer">delete</i>
+              </div>
+              </ng-container>
+            </div>
+            <div class="text-right">
+              <button mat-raised-button class="btn btn-success pull-right" (click)="addChildren()">Add
+                children</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </form>
+  <div class="d-flex align-items-center justify-content-center">
+    <button mat-raised-button class="btn btn-danger " [disabled]="addUserForm?.invalid || isContactNumberValid" (click)="addUser()">{{ edit ? 'Save Changes' : 'Add User'}}</button>
+    <div class="clearfix"></div>
+  </div>
+</div>

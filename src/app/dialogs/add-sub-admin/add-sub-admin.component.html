@@ -1,0 +1,35 @@
+<div class="card">
+  <div class="card-header card-header-warning">
+      <h4 class="card-title">Add Sub Admin</h4>
+  </div>
+  <div class="card-body table-responsive">
+
+    <mat-form-field>
+      <input matInput [(ngModel)]="admin.username" placeholder="Username">
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Select Role</mat-label>
+        <mat-select [(ngModel)]="admin.role">
+          <mat-option *ngFor="let role of roles" value="role.id">{{role.text}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="email" [(ngModel)]="admin.email" placeholder="Email ID">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="tel" [(ngModel)]="admin.phone" placeholder="Phone No." numbersOnly>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="password" [(ngModel)]="admin.password" placeholder="Create Password">
+    </mat-form-field>
+
+    <div>
+        <button mat-raised-button class="btn btn-warning" (click)="add()">Add</button>
+    </div>
+
+  </div>
+</div>

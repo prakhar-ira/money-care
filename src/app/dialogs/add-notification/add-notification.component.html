@@ -1,0 +1,33 @@
+<div class="card">
+  <div class="card-header card-header-primary">
+      <h4 class="card-title">Add Notification</h4>
+  </div>
+  <div class="card-body table-responsive">
+
+    <mat-form-field>
+      <input matInput [(ngModel)]="notification.title" placeholder="Notification Title">
+    </mat-form-field>
+
+    <mat-form-field>
+    	<mat-label>Assign To</mat-label>
+        <input matInput type="text" placeholder="username" [(ngModel)]="notification.username">
+      </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="date" [(ngModel)]="notification.date" placeholder="Date">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="time" [(ngModel)]="notification.time" placeholder="Time" numbersOnly>
+    </mat-form-field>
+
+   <!--  <mat-form-field>
+      <input matInput type="password" [(ngModel)]="notification.password" placeholder="Create Password">
+    </mat-form-field>
+ -->
+    <div>
+        <button mat-raised-button class="btn btn-primary" (click)="add()">Add</button>
+    </div>
+
+  </div>
+</div>

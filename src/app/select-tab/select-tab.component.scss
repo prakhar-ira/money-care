@@ -1,0 +1,24 @@
+.strong{
+    font-weight: bold;
+}
+
+.mat-tab-body-content {
+    height: 100%;
+    overflow: hidden !important;
+}
+
+.tab-button{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+
+    .tab-element{
+        flex: 1;
+       
+        text-align: center;
+    }
+    .tab-element:hover{
+        border-bottom: 1px solid blue;
+    }
+}

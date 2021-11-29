@@ -1,0 +1,37 @@
+.strong{
+    font-weight: bold;
+}
+
+.mat-tab-body-content {
+    height: 100%;
+    overflow: hidden !important;
+}
+
+.form-sub-heading{
+    font-size: 16px;
+    color: grey;
+    font-weight: 500;
+    
+}
+
+.addon{
+    font-weight: 600;
+    padding-bottom: 20px;
+}
+
+.dropdown-angular{
+    background: #fff;
+    box-shadow: 0px 0px 10px #888;
+    width: 100%;
+    min-height: 60px;
+    position: absolute;
+    top: 40px;
+    z-index: 100;
+    padding: 20px;
+    max-height: 300px;
+    overflow-y: scroll;
+}
+
+::ng-deep.mat-tab-label, ::ng-deep.mat-tab-label-active{
+    min-width: 15rem !important;
+   }

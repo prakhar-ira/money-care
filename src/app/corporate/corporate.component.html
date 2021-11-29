@@ -1,0 +1,2887 @@
+<div class="main-content">
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header card-header-danger">
+          <h4 class="card-title ">Corporate</h4>
+          <!-- <p class="card-category"></p> -->
+        </div>
+        <div class="card-body">
+          <mat-tab-group mat-stretch-tabs>
+            <mat-tab label="Workmen Compensation">
+              <div class="row" *ngIf="update === 'true'">
+                <div class="col-md-4">
+                  <mat-form-field>
+                    <mat-label>Select Policy Number</mat-label>
+                    <mat-select>
+                      <mat-option *ngFor="let number of allWorkmenCompensation; let i = index" (click)="workmenSelected(i)">
+                        {{number.companyName}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+               </div>
+             </div>
+
+             <div class="row">
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Name of the Insured" type="text"
+                  [(ngModel)]="workmenCompensation.name">
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Owner" type="text" [(ngModel)]="workmenCompensation.owner">
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Address of Insured" type="text"
+                  [(ngModel)]="workmenCompensation.address">
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Company Name" type="text" [(ngModel)]="workmenCompensation.companyName">
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4">
+
+                <mat-form-field class="example-full-width">
+									<mat-label>Date of Commencement</mat-label>
+									<input
+									  matInput
+									  [(ngModel)]="workmenCompensation.commencementDate"
+									  placeholder="Date of Commencement"
+									  [matDatepicker]="picker1"
+									/>
+									<mat-datepicker-toggle
+									  matSuffix
+									  [for]="picker1"
+									></mat-datepicker-toggle>
+									<mat-datepicker #picker1></mat-datepicker>
+                  </mat-form-field>
+                  
+              </div>
+
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Policy Number" type="text"
+                  [(ngModel)]="workmenCompensation.policyNumber">
+                </mat-form-field>
+              </div>
+
+             <!--  <div class="col-md-6">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Period of Insurance" type="number"
+                  [(ngModel)]="workmenCompensation.insurancePeriod">
+                </mat-form-field>
+              </div> -->
+
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Premium" type="number" [(ngModel)]="workmenCompensation.premium">
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Industry Classification" type="text"
+                  [(ngModel)]="workmenCompensation.industryClassification">
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Insured Trade or Business" type="text"
+                  [(ngModel)]="workmenCompensation.insuredTrade">
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Project Name" type="text"
+                  [(ngModel)]="workmenCompensation.projectName">
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Main Coverage WC Liability Cover" type="text"
+                  [(ngModel)]="workmenCompensation.mainCoverageWc">
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Extensions (If Any)" type="text"
+                  [(ngModel)]="workmenCompensation.extensions">
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+
+                <mat-form-field class="example-full-width">
+                  <mat-label>Medical Extension Cover</mat-label>
+                  <mat-select [(ngModel)]="workmenCompensation.medicalExtensionCover">
+                    <mat-option value="Yes">
+                      Yes
+                    </mat-option>
+                    <mat-option value="No">
+                      No
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4" *ngIf="workmenCompensation.medicalExtensionCover === 'Yes'">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Limit Of Cover" type="number" [(ngModel)]="workmenCompensation.limitOfCover">
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Policy Cover (As Per WC Act)" type="text"
+                  [(ngModel)]="workmenCompensation.policyCover">
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Estimated Number of Employees" type="text"
+                  [(ngModel)]="workmenCompensation.estNumEmployees">
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Occupation of Employees" type="text"
+                  [(ngModel)]="workmenCompensation.employeesOccupation">
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Estimated Total Earnings" type="text"
+                  [(ngModel)]="workmenCompensation.estEarnings">
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4">
+
+                <mat-form-field class="example-full-width">
+                  <mat-label>Policy Valid Till</mat-label>
+                  <input
+                    matInput
+                    [(ngModel)]="workmenCompensation.policyValidTill"
+                    placeholder="Policy Valid Till"
+                    [matDatepicker]="picker23"
+                  />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="picker23"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #picker23></mat-datepicker>
+                  </mat-form-field>
+
+              </div>
+
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <mat-label>Claim Taken In Policy Year</mat-label>
+                  <input matInput type="tel" [(ngModel)]="workmenCompensation.claimTaken" numbersOnly (keyup)="claimDetailsWorkmenMethod()">
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <mat-form-field class="example-full-width">
+                <mat-label>Period of insurance</mat-label>
+                <input matInput placeholder="Period of insurance" [(ngModel)]="workmenCompensation.periodOfInsurance" type="text">
+              </mat-form-field>
+            </div>
+
+            <div class="row" *ngFor ="let num of claimDetailsWorkmen; let i = index">
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <mat-label>Name of Hospital {{i+1}}</mat-label>
+                  <input matInput placeholder="Name of Hospital" [(ngModel)]="claimDetailsWorkmen[i].hospitalName" type="text">
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <mat-label>Patient Name {{i+1}}</mat-label>
+                  <input matInput placeholder="Patient Name" [(ngModel)]="claimDetailsWorkmen[i].patientName" type="text">
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Date of Claim {{i+1}}</mat-label>
+                    <input
+                      matInput
+                      [(ngModel)]="claimDetailsWorkmen[i].claimDate"
+                      placeholder="Date of Claim"
+                      [matDatepicker]="picker2"
+                    />
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="picker2"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                    </mat-form-field>
+
+                </mat-form-field>
+              </div>
+              
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <mat-label>Diagnosis {{i+1}}</mat-label>
+                  <input matInput placeholder="Diagnosis" [(ngModel)]="claimDetailsWorkmen[i].diagnosis" type="text">
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <mat-label>Hospitalization/Daycare {{i+1}}</mat-label>
+                  <mat-select [(ngModel)]="claimDetailsWorkmen[i].hospitalizedDaycare">
+                    <mat-option value="hospitalization">
+                      Hospitalization
+                    </mat-option>
+                    <mat-option value="Daycare">
+                      Daycare
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <mat-label>No. of days Hospitalized {{i+1}}</mat-label>
+                  <input matInput placeholder="No. of days Hospitalized" [(ngModel)]="claimDetailsWorkmen[i].numberOfDaysHospitalized" type="tel" numbersOnly>
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <mat-label>Claimed Amount {{i+1}}</mat-label>
+                  <input matInput placeholder="Claimed Amount" [(ngModel)]="claimDetailsWorkmen[i].clamimedAmount" type="tel" numbersOnly>
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <mat-label>Approved Amount {{i+1}}</mat-label>
+                  <input matInput placeholder="Approved Amount" [(ngModel)]="claimDetailsWorkmen[i].approvedAmount" type="tel" numbersOnly>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Geographical Limit" type="text" [(ngModel)]="workmenCompensation.geographicalLimit">
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="GST" type="text" [(ngModel)]="workmenCompensation.gst">
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Toll Free Number" type="text"
+                  [(ngModel)]="workmenCompensation.tollFreeNumber">
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Branch Locator" type="text"
+                  [(ngModel)]="workmenCompensation.branchLocator">
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Claim Procedure" type="text"
+                  [(ngModel)]="workmenCompensation.claimProcedure">
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Any Special Condition" type="text"
+                  [(ngModel)]="workmenCompensation.specialCondition">
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <mat-label>Status of Policy</mat-label>
+                  <mat-select [(ngModel)]="workmenCompensation.policyStatus">
+                    <mat-option value="Lapse">
+                      Lapse
+                    </mat-option>
+                    <mat-option value="Inforce">
+                      Inforce
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <mat-label>Endorsement</mat-label>
+                  <mat-select [(ngModel)]="workmenCompensation.endorsement">
+                    <mat-option value="Yes">
+                      Yes
+                    </mat-option>
+                    <mat-option value="No">
+                      No
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4" *ngIf="workmenCompensation.endorsement === 'Yes'">
+                <mat-form-field>
+                  <input matInput type="tel" placeholder="Number of Endorsement" [(ngModel)]="workmenCompensation.numberOfEndorsement" (keyup)="numberEndorsementWorkmen()">
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row" *ngFor="let num of endorsement; let i = index">
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <mat-label>Type of Endorsement {{i+1}}</mat-label>
+                  <input matInput placeholder="" [(ngModel)]="endorsement[i].endorsementType" type="text">
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <mat-label>Remark {{i+1}}</mat-label>
+                  <input matInput placeholder="Remark" [(ngModel)]="endorsement[i].remark" type="text">
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <mat-label>Premium {{i+1}}</mat-label>
+                  <input matInput placeholder="Premium" [(ngModel)]="endorsement[i].premium" type="text">
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                  <!-- <mat-form-field class="example-full-width">
+                  </mat-form-field> -->
+                  <p>GST INVOICE</p>
+                  <input  placeholder="GST Invoice Upload" type="file" [(ngModel)]="workmenCompensation.gstInvoice" (change)="pdfUpload($event, 'workmen', 'gst')">
+                </div>
+
+                <div class="col-md-6">
+                  <p>attachement for occupation / estimated earning of employees</p>
+                  <input  placeholder="attachement for occupation / estimated earning of employees" type="file" [(ngModel)]="workmenCompensation.gstInvoice" (change)="pdfUpload($event, 'workmen', 'occupation')">
+                </div>
+
+              </div>
+              <div class="text-center d-flex justify-content-center" *ngIf="update !== 'true'">
+                <button mat-raised-button class="btn btn-danger pull-right"  (click)="addWorkmen()">Save</button>
+              </div>
+
+              <div class="text-center d-flex justify-content-center" *ngIf="update === 'true'">
+                 <button mat-raised-button class="btn btn-danger pull-right"  (click)="editWorkmen()">Edit</button>   
+              </div>
+
+            </mat-tab>
+            <mat-tab label="Group Mediclaim">
+
+              <div class="row" *ngIf="update === 'true'">
+                <div class="col-md-4">
+                  <mat-form-field>
+                    <mat-label>Select Policy Number</mat-label>
+                    <mat-select>
+                      <mat-option *ngFor="let number of allGroupMediclaim; let i = index" (click)="groupMediclaimSelected(i)">
+                        {{number.companyName}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+               </div>
+             </div>
+
+
+              <div class="row ">
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Name of the Insured" type="text" [(ngModel)]="groupMediclaim.name">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Owner" type="text" [(ngModel)]="groupMediclaim.owner">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Address of Insured" type="text" [(ngModel)]="groupMediclaim.address">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Company Name" type="text" [(ngModel)]="groupMediclaim.companyName">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Date of Commencement</mat-label>
+                    <input
+                      matInput
+                      [(ngModel)]="groupMediclaim.commencementDate"
+                      placeholder="Date of Commencement"
+                      [matDatepicker]="picker3"
+                    />
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="picker3"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #picker3></mat-datepicker>
+                    </mat-form-field>
+
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Policy Number" type="text" [(ngModel)]="groupMediclaim.policyNumber">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Period of Insurance" type="number" [(ngModel)]="groupMediclaim.insurancePeriod">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Premium" type="number" [(ngModel)]="groupMediclaim.premium">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Total claimed amoount till date" type="text" [(ngModel)]="groupMediclaim.totalClaimedAmountTillDate">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Industry Classification" type="text" [(ngModel)]="groupMediclaim.industryClassification">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Insured Trade or Business" type="text" [(ngModel)]="groupMediclaim.insuredTrade">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Project Name" type="text" [(ngModel)]="groupMediclaim.projectName">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Number of Employees" type="text" [(ngModel)]="groupMediclaim.employeesNumber">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Occupation Of Employees" type="text" [(ngModel)]="groupMediclaim.employeesOccupation">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Sum Assured Per Employee" type="text" [(ngModel)]="groupMediclaim.sumAssuredPerEmployee">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Number Of Claims Taken in Policy Year" type="text" [(ngModel)]="groupMediclaim.claimsTaken" (keyup)="claimTakenGroupMediclaim()">
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="row" *ngFor ="let num of claimDetailsGroupMediclaim; let i = index">
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Name of Hospital {{i+1}}</mat-label>
+                    <input matInput placeholder="Name of Hospital" [(ngModel)]="claimDetailsGroupMediclaim[i].hospitalName" type="text">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Patient Name {{i+1}}</mat-label>
+                    <input matInput placeholder="Patient Name" [(ngModel)]="claimDetailsGroupMediclaim[i].patientName" type="text">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <mat-form-field class="example-full-width">
+                      <mat-label>Date of Claim {{i+1}</mat-label>
+                      <input
+                        matInput
+                        [(ngModel)]="claimDetailsGroupMediclaim[i].claimDate"
+                        placeholder="Date of Claim"
+                        [matDatepicker]="picker4"
+                      />
+                      <mat-datepicker-toggle
+                        matSuffix
+                        [for]="picker4"
+                      ></mat-datepicker-toggle>
+                      <mat-datepicker #picker4></mat-datepicker>
+                      </mat-form-field>
+
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Diagnosis {{i+1}}</mat-label>
+                    <input matInput placeholder="Diagnosis" [(ngModel)]="claimDetailsGroupMediclaim[i].diagnosis" type="text">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Hospitalization/Daycare {{i+1}}</mat-label>
+                    <mat-select [(ngModel)]="claimDetailsGroupMediclaim[i].hospitalizedDaycare">
+                      <mat-option value="hospitalization">
+                        Hospitalization
+                      </mat-option>
+                      <mat-option value="Daycare">
+                        Daycare
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>No. of days Hospitalized {{i+1}}</mat-label>
+                    <input matInput placeholder="No. of days Hospitalized" [(ngModel)]="claimDetailsGroupMediclaim[i].numberOfDaysHospitalized" type="tel" numbersOnly>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Claimed Amount {{i+1}}</mat-label>
+                    <input matInput placeholder="Claimed Amount" [(ngModel)]="claimDetailsGroupMediclaim[i].clamimedAmount" type="tel" numbersOnly>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Approved Amount {{i+1}}</mat-label>
+                    <input matInput placeholder="Approved Amount" [(ngModel)]="claimDetailsGroupMediclaim[i].approvedAmount" type="tel" numbersOnly>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4">
+                 <mat-form-field class="example-full-width">
+                  <mat-label>Endorsement</mat-label>
+                  <mat-select [(ngModel)]="groupMediclaim.endorsement">
+                    <mat-option value="Yes">
+                      Yes
+                    </mat-option>
+                    <mat-option value="No">
+                      No
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-md-4" *ngIf="groupMediclaim.endorsement === 'Yes'">
+                <mat-form-field>
+                  <input matInput type="tel" [(ngModel)]="groupMediclaim.numberOfEndorsement" (keyup)="numberEndorsementGroupMediclaim()">
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row" *ngFor="let num of endorsementGroupMediclaim; let i = index">
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <mat-label>Type of Endorsement {{i+1}}</mat-label>
+                  <input matInput placeholder="" [(ngModel)]="endorsementGroupMediclaim[i].endorsementType" type="text">
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <mat-label>Remark {{i+1}}</mat-label>
+                  <input matInput placeholder="Remark" [(ngModel)]="endorsementGroupMediclaim[i].remark" type="text">
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <mat-label>Premium {{i+1}}</mat-label>
+                  <input matInput placeholder="Premium" [(ngModel)]="endorsementGroupMediclaim[i].premium" type="text">
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Total Premium Paid" type="text" [(ngModel)]="groupMediclaim.totalPremiumPaid">
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Total Claim Taken" type="text" [(ngModel)]="groupMediclaim.totalClaimTaken">
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Claim Ratio % " type="tel" numbersOnly [(ngModel)]="groupMediclaim.claimRatio">
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Geographical Limit" type="text" [(ngModel)]="groupMediclaim.geographicalLimit">
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="GST" type="text" [(ngModel)]="groupMediclaim.gst">
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4">
+                  <!-- <mat-form-field class="example-full-width">
+                  </mat-form-field> -->
+                  GST INVOICE
+                  <input placeholder="GST Invoice Upload" type="file" (change)="pdfUpload($event, 'groupMediclaim', 'gst')">
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Toll Free Number" type="text" [(ngModel)]="groupMediclaim.tollFreeNumber">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Branch Locator" type="text" [(ngModel)]="groupMediclaim.branchLocator">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Claim Procedure" type="text" [(ngModel)]="groupMediclaim.claimProcedure">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Any Special Condition" type="text" [(ngModel)]="groupMediclaim.specialCondition">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+                  Policy Upload
+                  <input placeholder="Policy Upload" type="file" (change)="pdfUpload($event, 'groupMediclaim', 'policyUpload')">
+                </div>
+
+                <div class="col-md-4">
+                  <p>attachement for occupation / estimated earning of employees</p>
+                  <input  placeholder="attachement for occupation / estimated earning of employees" type="file" (change)="pdfUpload($event, 'groupMediclaim', 'occupation')">
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Status of Policy</mat-label>
+                    <mat-select [(ngModel)]="groupMediclaim.policyStatus">
+                      <mat-option value="Lapse">
+                        Lapse
+                      </mat-option>
+                      <mat-option value="Inforce">
+                        Inforce
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+              </div>
+              <div class="text-center d-flex justify-content-center" *ngIf="update !== 'true'">
+                <button mat-raised-button class="btn btn-danger pull-right" (click)="addGroupMediclaim()">Save</button>
+              </div>
+              <div class="text-center d-flex justify-content-center" *ngIf="update === 'true'">
+                <button mat-raised-button class="btn btn-danger pull-right" (click)="editGroupMediclaim()">Edit</button>
+              </div>
+
+            </mat-tab>
+            <mat-tab label="Merchant's Cover Policy">
+              <div class="row" *ngIf="update === 'true'">
+                <div class="col-md-4">
+                  <mat-form-field>
+                    <mat-label>Select Policy Number</mat-label>
+                    <mat-select>
+                      <mat-option *ngFor="let number of allMerchantCoverPolicy; let i = index" (click)="merchantSelected(i)">
+                        {{number.companyName}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+               </div>
+             </div>
+              <div class="row ">
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Name of the Insured " type="text" [(ngModel)]="merchantsCover.name">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Owner" type="text" [(ngModel)]="merchantsCover.owner">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Company Name" type="text" [(ngModel)]="merchantsCover.companyName">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Risk Location Address" type="text" [(ngModel)]="merchantsCover.riskLocationAddress">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Industry Classification" type="text" [(ngModel)]="merchantsCover.industryClassification">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Insured Trade or Business" type="text" [(ngModel)]="merchantsCover.insuredTrade">
+                  </mat-form-field>
+                </div>
+
+
+                <div class="col-md-4">
+
+                    <mat-form-field class="example-full-width">
+                      <mat-label>Date of Commencement</mat-label>
+                      <input
+                        matInput
+                        [(ngModel)]="merchantsCover.commencementDate"
+                        placeholder="Date of Commencement"
+                        [matDatepicker]="picker5"
+                      />
+                      <mat-datepicker-toggle
+                        matSuffix
+                        [for]="picker5"
+                      ></mat-datepicker-toggle>
+                      <mat-datepicker #picker5></mat-datepicker>
+                      </mat-form-field>
+
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Policy Number" type="text" [(ngModel)]="merchantsCover.policyNumber">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Period of Insurance" type="number" [(ngModel)]="merchantsCover.insurancePeriod">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Premium" type="number" [(ngModel)]="merchantsCover.premium">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Perils Covered" type="text" [(ngModel)]="merchantsCover.perilsCovered">
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Standard Fire & Special Perils Content</mat-label>
+                    <mat-select [(ngModel)]="merchantsCover.sfspContent">
+                      <mat-option value="Covered">
+                        Covered
+                      </mat-option>
+                      <mat-option value="Not Covered">
+                        Not Covered
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4" *ngIf="merchantsCover.sfspContent === 'Covered'">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Sum Assured" type="text" [(ngModel)]="merchantsCover.sumAssuredSfspContent">
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Burglary</mat-label>
+                    <mat-select [(ngModel)]="merchantsCover.burglary">
+                      <mat-option value="Covered">
+                        Covered
+                      </mat-option>
+                      <mat-option value="Not Covered">
+                        Not Covered
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4" *ngIf="merchantsCover.burglary === 'Covered'">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Sum Assured" type="text" [(ngModel)]="merchantsCover.sumAssuredBurglary">
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Cash in Safe</mat-label>
+                    <mat-select [(ngModel)]="merchantsCover.cashInSafe">
+                      <mat-option value="Covered">
+                        Covered
+                      </mat-option>
+                      <mat-option value="Not Covered">
+                        Not Covered
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4" *ngIf="merchantsCover.cashInSafe === 'Covered'">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Sum Assured" type="text" [(ngModel)]="merchantsCover.sumAssuredCashSafe">
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Cash in Transit</mat-label>
+                    <mat-select [(ngModel)]="merchantsCover.cashInTransit">
+                      <mat-option value="Covered">
+                        Covered
+                      </mat-option>
+                      <mat-option value="Not Covered">
+                        Not Covered
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4" *ngIf="merchantsCover.cashInTransit === 'Covered'">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Sum Assured" type="text" [(ngModel)]="merchantsCover.sumAssuredCashTransit">
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-3">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Other 1" type="text" [(ngModel)]="merchantsCover.otherOne">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3" *ngIf="merchantsCover.debrisRemovalExpenses === 'Covered'">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Sum Assured Other 1" type="text" [(ngModel)]="merchantsCover.sumAssuredOtherOne">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Other 2" type="text" [(ngModel)]="merchantsCover.otherTwo">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3" *ngIf="merchantsCover.debrisRemovalExpenses === 'Covered'">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Sum Assured Other 2" type="text" [(ngModel)]="merchantsCover.sumAssuredOtherTwo">
+                  </mat-form-field>
+                </div>
+              </div>
+
+<!--               <div class="row">
+                <div class="col-md-4">
+                  <mat-form-field>
+                    <mat-label>Others (if any)</mat-label>
+                    <mat-select [(ngModel)]="merchantsCover.other">
+                      <mat-option value="Yes">
+                        Yes
+                      </mat-option>
+                      <mat-option value="No">
+                        No
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4" *ngIf="merchantsCover.other === 'yes'">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Other Scope of Cover" type="text" [(ngModel)]="merchantsCover.scopeOfCoverOther">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4" *ngIf="merchantsCover.other === 'yes'">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Other Sum Assured" type="text" [(ngModel)]="merchantsCover.sumAssuredOther">
+                  </mat-form-field>
+                </div>
+              </div> -->
+              <div class="row">
+                <div class="col-md-3">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Total Sum Assured" type="number" [(ngModel)]="merchantsCover.totalSumAssured">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-3">
+
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Policy Valid Till</mat-label>
+                    <input
+                      matInput
+                      [(ngModel)]="merchantsCover.policyValidTill"
+                      placeholder="Policy Valid Till"
+                      [matDatepicker]="picker6"
+                    />
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="picker6"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #picker6></mat-datepicker>
+                    </mat-form-field>
+
+                </div>
+                <div class="col-md-3">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Hypothecation - Name of Bank" type="text" [(ngModel)]="merchantsCover.hypothecation">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Number Of Claims Taken in Policy Year" type="tel" numbersOnly [(ngModel)]="merchantsCover.claimsTaken" (keyup)="claimTakenMerchant()">
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row" *ngFor ="let num of claimDetailsMerchant; let i = index">
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Name of Hospital {{i+1}}</mat-label>
+                    <input matInput placeholder="Name of Hospital" [(ngModel)]="claimDetailsMerchant[i].hospitalName" type="text">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Patient Name {{i+1}}</mat-label>
+                    <input matInput placeholder="Patient Name" [(ngModel)]="claimDetailsMerchant[i].patientName" type="text">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Date of Claim {{i+1}}</mat-label>
+                    <input
+                      matInput
+                      [(ngModel)]="claimDetailsMerchant[i].claimDate"
+                      placeholder="Date of Claim"
+                      [matDatepicker]="picker7"
+                    />
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="picker7"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #picker7></mat-datepicker>
+                    </mat-form-field>
+
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Diagnosis {{i+1}}</mat-label>
+                    <input matInput placeholder="Diagnosis" [(ngModel)]="claimDetailsMerchant[i].diagnosis" type="text">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Hospitalization/Daycare {{i+1}}</mat-label>
+                    <mat-select [(ngModel)]="claimDetailsMerchant[i].hospitalizedDaycare">
+                      <mat-option value="hospitalization">
+                        Hospitalization
+                      </mat-option>
+                      <mat-option value="Daycare">
+                        Daycare
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>No. of days Hospitalized {{i+1}}</mat-label>
+                    <input matInput placeholder="No. of days Hospitalized" [(ngModel)]="claimDetailsMerchant[i].numberOfDaysHospitalized" type="tel" numbersOnly>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Claimed Amount {{i+1}}</mat-label>
+                    <input matInput placeholder="Claimed Amount" [(ngModel)]="claimDetailsMerchant[i].clamimedAmount" type="tel" numbersOnly>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Approved Amount {{i+1}}</mat-label>
+                    <input matInput placeholder="Approved Amount" [(ngModel)]="claimDetailsMerchant[i].approvedAmount" type="tel" numbersOnly>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="row">
+
+                <div class="col-md-4">
+                 <mat-form-field class="example-full-width">
+                  <mat-label>Endorsement</mat-label>
+                  <mat-select [(ngModel)]="merchantsCover.endorsement">
+                    <mat-option value="Yes">
+                      Yes
+                    </mat-option>
+                    <mat-option value="No">
+                      No
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4" *ngIf="merchantsCover.endorsement === 'Yes'">
+                <mat-form-field>
+                  <input matInput type="tel" [(ngModel)]="merchantsCover.numberOfEndorsement" (keyup)="numberEndorsementMerchantsCover()">
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row" *ngFor="let num of endorsementMerchants; let i = index">
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <mat-label>Type of Endorsement {{i+1}}</mat-label>
+                  <input matInput placeholder="" [(ngModel)]="endorsementMerchants[i].endorsementType" type="text">
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <mat-label>Remark {{i+1}}</mat-label>
+                  <input matInput placeholder="Remark" [(ngModel)]="endorsementMerchants[i].remark" type="text">
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <mat-label>Premium {{i+1}}</mat-label>
+                  <input matInput placeholder="Premium" [(ngModel)]="endorsementMerchants[i].premium" type="text">
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                Policy Wording
+                <input type="file" (change)="pdfUpload($event, 'merchantsCover', 'policyWordingDirectAccess')">
+              </div>
+
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Geographical Limit" type="text" [(ngModel)]="merchantsCover.geographicalLimit">
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="GST" type="text" [(ngModel)]="merchantsCover.gst">
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4">
+                  <!-- <mat-form-field class="example-full-width">
+                  </mat-form-field> -->
+                  GST Invoice
+                  <input type="file" (change)="pdfUpload($event, 'merchantsCover', 'gst')">
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Toll Free Number" type="text" [(ngModel)]="merchantsCover.tollFreeNumber">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Branch Locator" type="text" [(ngModel)]="merchantsCover.branchLocator">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Claim Procedure" type="text" [(ngModel)]="merchantsCover.claimProcedure">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Any Special Condition" type="text" [(ngModel)]="merchantsCover.specialCondition">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Status of Policy</mat-label>
+                    <mat-select [(ngModel)]="merchantsCover.policyStatus">
+                      <mat-option value="Lapse">
+                        Lapse
+                      </mat-option>
+                      <mat-option value="Inforce">
+                        Inforce
+                      </mat-option>
+
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+              </div>
+
+
+              <div class="text-center d-flex justify-content-center" *ngIf="update !== 'true'">
+                <button mat-raised-button class="btn btn-danger pull-right" (click)="addMerchantCover()">Save</button>
+              </div>
+I
+              <div class="text-center d-flex justify-content-center" *ngIf="update === 'true'">
+                <button mat-raised-button class="btn btn-danger pull-right" (click)="editMerchantCover()">Edit</button>
+              </div>
+
+            </mat-tab>
+            <mat-tab label="Shop Insurance">
+              <div class="row" *ngIf="update === 'true'">
+                <div class="col-md-4">
+                  <mat-form-field>
+                    <mat-label>Select Policy Number</mat-label>
+                    <mat-select>
+                      <mat-option *ngFor="let number of allShopInsurance; let i = index" (click)="shopInsuranceSelected(i)">
+                        {{number.companyName}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+               </div>
+             </div>
+              <div class="row ">
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Name of the Insured " type="text" [(ngModel)]="shopInsurance.name">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Owner" type="text" [(ngModel)]="shopInsurance.owner">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Company Name" type="text" [(ngModel)]="shopInsurance.companyName">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Risk Location Address" type="text" [(ngModel)]="shopInsurance.riskLocationAddress">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Industry Classification" type="text" [(ngModel)]="shopInsurance.industryClassification">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Insured Trade or Business" type="text" [(ngModel)]="shopInsurance.insuredTrade">
+                  </mat-form-field>
+                </div>
+
+
+                <div class="col-md-4">
+
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Date of Commencement</mat-label>
+                    <input
+                      matInput
+                      [(ngModel)]="shopInsurance.commencementDate"
+                      placeholder="Date of Commencement"
+                      [matDatepicker]="picker8"
+                    />
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="picker8"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #picker8></mat-datepicker>
+                    </mat-form-field>
+
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Policy Number" type="text" [(ngModel)]="shopInsurance.policyNumber">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Period of Insurance" type="number" [(ngModel)]="shopInsurance.insurancePeriod">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Premium" type="number" [(ngModel)]="shopInsurance.premium">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Perils Covered" type="text" [(ngModel)]="shopInsurance.perilsCovered">
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Standard Fire & Special Perils Building</mat-label>
+                    <mat-select [(ngModel)]="shopInsurance.sfspBuilding">
+                      <mat-option value="Covered">
+                        Covered
+                      </mat-option>
+                      <mat-option value="Not Covered">
+                        Not Covered
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3" *ngIf="shopInsurance.sfspBuilding === 'Covered'">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Sum Assured" type="text" [(ngModel)]="shopInsurance.sumAssuredSfspBuilding">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-3">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Standard Fire & Special Perils Content</mat-label>
+                    <mat-select [(ngModel)]="shopInsurance.sfspContent">
+                      <mat-option value="Covered">
+                        Covered
+                      </mat-option>
+                      <mat-option value="Not Covered">
+                        Not Covered
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3" *ngIf="shopInsurance.sfspContent === 'Covered'">
+                  <mat-form-field>
+                    <input matInput placeholder="Sum Assured" type="text" [(ngModel)]="shopInsurance.sumAssuredSfspContent">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-3">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Furniture & Fixtures</mat-label>
+                    <mat-select [(ngModel)]="shopInsurance.furnitureNfixtures">
+                      <mat-option value="Covered">
+                        Covered
+                      </mat-option>
+                      <mat-option value="Not Covered">
+                        Not Covered
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3" *ngIf="shopInsurance.furnitureNfixtures === 'Covered'">
+                  <mat-form-field>
+                    <input matInput placeholder="Sum Assured" type="text" [(ngModel)]="shopInsurance.sumAssuredfurniture">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-3">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Burglary</mat-label>
+                    <mat-select [(ngModel)]="shopInsurance.burglary">
+                      <mat-option value="Covered">
+                        Covered
+                      </mat-option>
+                      <mat-option value="Not Covered">
+                        Not Covered
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3" *ngIf="shopInsurance.burglary === 'Covered'">
+                  <mat-form-field>
+                    <input matInput placeholder="Sum Assured" type="text" [(ngModel)]="shopInsurance.sumAssuredBurglary">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-3">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Cash in Safe</mat-label>
+                    <mat-select [(ngModel)]="shopInsurance.cashInSafe">
+                      <mat-option value="Covered">
+                        Covered
+                      </mat-option>
+                      <mat-option value="Not Covered">
+                        Not Covered
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-3" *ngIf="shopInsurance.cashInSafe === 'Covered'">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Sum Assured" type="text" [(ngModel)]="shopInsurance.sumAssuredCashSafe">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Cash in Transit</mat-label>
+                    <mat-select [(ngModel)]="shopInsurance.cashInTransit">
+                      <mat-option value="Covered">
+                        Covered
+                      </mat-option>
+                      <mat-option value="Not Covered">
+                        Not Covered
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-3" *ngIf="shopInsurance.cashInTransit === 'Covered'">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Sum Assured" type="text" [(ngModel)]="shopInsurance.sumAssuredCashTransit">
+                  </mat-form-field>
+                </div>
+
+
+                <div class="col-md-3">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Cash in Counter</mat-label>
+                    <mat-select [(ngModel)]="shopInsurance.cashInCounter">
+                      <mat-option value="Covered">
+                        Covered
+                      </mat-option>
+                      <mat-option value="Not Covered">
+                        Not Covered
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-3" *ngIf="shopInsurance.cashInCounter === 'Covered'">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Sum Assured" type="text" [(ngModel)]="shopInsurance.sumAssuredCashCounter">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-3">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Legal Liability - Public Liability</mat-label>
+                    <mat-select [(ngModel)]="shopInsurance.legalLiability">
+                      <mat-option value="Covered">
+                        Covered
+                      </mat-option>
+                      <mat-option value="Not Covered">
+                        Not Covered
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-3" *ngIf="shopInsurance.legalLiability === 'Covered'">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Sum Assured" type="text" [(ngModel)]="shopInsurance.sumAssuredLegal">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Baggage</mat-label>
+                    <mat-select [(ngModel)]="shopInsurance.baggage">
+                      <mat-option value="Covered">
+                        Covered
+                      </mat-option>
+                      <mat-option value="Not Covered">
+                        Not Covered
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3" *ngIf="shopInsurance.baggage === 'Covered'">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Sum Assured" type="text" [(ngModel)]="shopInsurance.sumAssuredBaggage">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Personal Accident</mat-label>
+                    <mat-select [(ngModel)]="shopInsurance.personalAccident">
+                      <mat-option value="Covered">
+                        Covered
+                      </mat-option>
+                      <mat-option value="Not Covered">
+                        Not Covered
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3" *ngIf="shopInsurance.personalAccident === 'Covered'">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Sum Assured" type="text" [(ngModel)]="shopInsurance.sumAssuredPersonalAcc">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>First Loss %</mat-label>
+                    <mat-select [(ngModel)]="shopInsurance.firstLoss">
+                      <mat-option value="Covered">
+                        Covered
+                      </mat-option>
+                      <mat-option value="Not Covered">
+                        Not Covered
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3" *ngIf="shopInsurance.firstLoss === 'Covered'">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Sum Assured" type="text" [(ngModel)]="shopInsurance.sumAssuredFirstLoss">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Electronic Equipments</mat-label>
+                    <mat-select [(ngModel)]="shopInsurance.electronicEquipments">
+                      <mat-option value="Covered">
+                        Covered
+                      </mat-option>
+                      <mat-option value="Not Covered">
+                        Not Covered
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3" *ngIf="shopInsurance.electronicEquipments === 'Covered'">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Number of Electronic Equipments" type="text" [(ngModel)]="shopInsurance.electronicEquipmentsNumber">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3" *ngIf="shopInsurance.electronicEquipments === 'Covered'">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Name of Electronic Equipments" type="text" [(ngModel)]="shopInsurance.electronicEquipmentsName">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                  <mat-form-field class="example-full-width" *ngIf="shopInsurance.electronicEquipments === 'Covered'">
+                    <input matInput placeholder="Sum Assured" type="text" [(ngModel)]="shopInsurance.sumAssuredElectronic">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Public Liability</mat-label>
+                    <mat-select [(ngModel)]="shopInsurance.publicLiability">
+                      <mat-option value="Covered">
+                        Covered
+                      </mat-option>
+                      <mat-option value="Not Covered">
+                        Not Covered
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3" *ngIf="shopInsurance.publicLiability === 'Covered'">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Sum Assured" type="text" [(ngModel)]="shopInsurance.sumAssuredPublicLiability">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-3">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Earthquake - Structure</mat-label>
+                    <mat-select [(ngModel)]="shopInsurance.earthquakeStructure">
+                      <mat-option value="Covered">
+                        Covered
+                      </mat-option>
+                      <mat-option value="Not Covered">
+                        Not Covered
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3" *ngIf="shopInsurance.earthquakeStructure === 'Covered'">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Sum Assured" type="text" [(ngModel)]="shopInsurance.sumAssuredEarthquake">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Earthquake - Content</mat-label>
+                    <mat-select [(ngModel)]="shopInsurance.earthquakeContent">
+                      <mat-option value="Covered">
+                        Covered
+                      </mat-option>
+                      <mat-option value="Not Covered">
+                        Not Covered
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-3" *ngIf="shopInsurance.earthquakeContent === 'Covered'">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Sum Assured" type="text" [(ngModel)]="shopInsurance.sumAssuredEarthquakeContent">
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Total Sum Assured" type="number" [(ngModel)]="shopInsurance.totalSumAssured">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Policy Valid Till</mat-label>
+                    <input
+                      matInput
+                      [(ngModel)]="shopInsurance.policyValidTill"
+                      placeholder="Policy Valid Till"
+                      [matDatepicker]="picker9"
+                    />
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="picker9"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #picker9></mat-datepicker>
+                    </mat-form-field>
+
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Hypothecation - Name of Bank" type="text" [(ngModel)]="shopInsurance.hypothecation">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Number Of Claims Taken in Policy Year" type="tel" numbersOnly [(ngModel)]="shopInsurance.claimsTaken" (keyup)="claimTakenShop()">
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row" *ngFor ="let num of claimDetailsShop; let i = index">
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Type of Damage {{i+1}}</mat-label>
+                    <input matInput placeholder="Type of Damage" [(ngModel)]="claimDetailsShop[i].damageType" type="text">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Claimed Amount {{i+1}}</mat-label>
+                    <input matInput placeholder="Claimed Amount" [(ngModel)]="claimDetailsShop[i].clamimedAmount" type="tel" numbersOnly>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Approved Amount {{i+1}}</mat-label>
+                    <input matInput placeholder="Approved Amount" [(ngModel)]="claimDetailsShop[i].approvedAmount" type="tel" numbersOnly>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Date of Damage {{i+1}}</mat-label>
+                    <input
+                      matInput
+                      [(ngModel)]="claimDetailsShop[i].damageDate"
+                      placeholder="Date of Damage"
+                      [matDatepicker]="picker10"
+                    />
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="picker10"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #picker10></mat-datepicker>
+                    </mat-form-field>
+
+                </div>
+                <div class="col-md-4">
+
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Date of Reimbursement {{i+1}}</mat-label>
+                    <input
+                      matInput
+                      [(ngModel)]="cclaimDetailsShop[i].reimbursementDate"
+                      placeholder="Date of Reimbursement"
+                      [matDatepicker]="picker11"
+                    />
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="picker11"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #picker11></mat-datepicker>
+                    </mat-form-field>
+
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4">
+                 <mat-form-field class="example-full-width">
+                  <mat-label>Endorsement</mat-label>
+                  <mat-select [(ngModel)]="shopInsurance.endorsement">
+                    <mat-option value="Yes">
+                      Yes
+                    </mat-option>
+                    <mat-option value="No">
+                      No
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4" *ngIf="shopInsurance.endorsement === 'Yes'">
+                <mat-form-field>
+                  <input matInput type="tel" [(ngModel)]="shopInsurance.numberOfEndorsement" (keyup)="numberEndorsementShopInsurance()">
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row" *ngFor="let num of endorsementShop; let i = index">
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <mat-label>Type of Endorsement {{i+1}}</mat-label>
+                  <input matInput placeholder="" [(ngModel)]="endorsementShop[i].endorsementType" type="text">
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <mat-label>Remark {{i+1}}</mat-label>
+                  <input matInput placeholder="Remark" [(ngModel)]="endorsementShop[i].remark" type="text">
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <mat-label>Premium {{i+1}}</mat-label>
+                  <input matInput placeholder="Premium" [(ngModel)]="endorsementShop[i].premium" type="text">
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row"> 
+              <div class="col-md-4">
+                Policy Wording
+                <input type="file" (change)="pdfUpload($event, 'shopInsurance', 'policyUpload')">
+              </div>
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="GST No." type="text" [(ngModel)]="shopInsurance.gstNumber">
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Toll Free Number" [(ngModel)]="shopInsurance.tollFreeNumber" type="text">
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Branch Locator" [(ngModel)]="shopInsurance.branchLocator" type="text">
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Claim Procedure" [(ngModel)]="shopInsurance.claimProcedure" type="text">
+                </mat-form-field>
+              </div>
+
+
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Any Special Condition" type="text" [(ngModel)]="shopInsurance.specialCondition">
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Remark" type="text" [(ngModel)]="shopInsurance.remark">
+                </mat-form-field>
+              </div>
+
+
+              <div class="col-md-4">
+                  <!-- <mat-form-field class="example-full-width">
+                  </mat-form-field> -->
+                  GST Invoice
+                  <input type="file" (change)="pdfUpload($event, 'shopInsurance', 'gst')">
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Status of Policy</mat-label>
+                    <mat-select [(ngModel)]="shopInsurance.policyStatus">
+                      <mat-option value="Lapse">
+                        Lapse
+                      </mat-option>
+                      <mat-option value="Inforce">
+                        Inforce
+                      </mat-option>
+
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+              </div>
+
+              <div class="text-center d-flex justify-content-center" *ngIf="update !== 'true'">
+                <button mat-raised-button class="btn btn-danger pull-right" (click)="addShopInsurance()">Save</button>
+              </div>
+
+
+              <div class="text-center d-flex justify-content-center" *ngIf="update === 'true'">
+                <button mat-raised-button class="btn btn-danger pull-right" (click)="editShopInsurance()">Edit</button>
+              </div>
+
+            </mat-tab>
+            <mat-tab label="Marine Open In land Declaration Policy">
+               <div class="row" *ngIf="update === 'true'">
+                <div class="col-md-4">
+                  <mat-form-field>
+                    <mat-label>Select Policy Number</mat-label>
+                    <mat-select>
+                      <mat-option *ngFor="let number of allMarine; let i = index" (click)="marineSelected(i)">
+                        {{number.companyName}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+             </div>
+              <div class="row ">
+               <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Name of the Insured" [(ngModel)]="marineOpenLandDeclaration.insuredName" type="text">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Owner" [(ngModel)]="marineOpenLandDeclaration.owner" type="text">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Company Name" [(ngModel)]="marineOpenLandDeclaration.companyName" type="text">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+
+                  <mat-form-field class="example-full-width">
+                    <mat-label>D.O.C</mat-label>
+                    <input
+                      matInput
+                      [(ngModel)]="marineOpenLandDeclaration.doc"
+                      placeholder="D.O.C"
+                      [matDatepicker]="picker12"
+                    />
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="picker12"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #picker12></mat-datepicker>
+                    </mat-form-field>
+
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Premium" [(ngModel)]="marineOpenLandDeclaration.premium" type="text">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Risk Location Address" [(ngModel)]="marineOpenLandDeclaration.riskLocationAddress" type="text">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Industry Classification" [(ngModel)]="marineOpenLandDeclaration.industryClassification" type="text">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Insured Trade or Business" [(ngModel)]="marineOpenLandDeclaration.insuredTrade" type="text">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Subject Material Insured" [(ngModel)]="marineOpenLandDeclaration.subject" type="text">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Policy Number" [(ngModel)]="marineOpenLandDeclaration.policyNumber" type="text">
+                  </mat-form-field>
+                </div>
+                <!-- <div class="col-md-4">
+                  <mat-form-field>
+                    <mat-label>No. of Transits</mat-label>
+                    <mat-select [(ngModel)]="marineOpenLandDeclaration.noOfTransits" (selectionChange)="transitDetailsMarineLand()">
+                      <mat-option value="1">
+                        1
+                      </mat-option>
+                      <mat-option value="2">
+                        2
+                      </mat-option>
+                      <mat-option value="3">
+                        3
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div> -->
+              </div>
+              <div class="row">
+                <div class="col-md-4"> 
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Details of Transit FROM</mat-label>
+                    <input matInput placeholder="FROM" [(ngModel)]="marineOpenLandDeclaration.transitFrom" type="text">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4"> 
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Details of Transit TO</mat-label>
+                    <input matInput placeholder="FROM" [(ngModel)]="marineOpenLandDeclaration.transitTo" type="text">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Date of Transit</mat-label>
+                    <input
+                      matInput
+                      [(ngModel)]="marineOpenLandDeclaration.transitDate"
+                      placeholder="Date of Transit"
+                      [matDatepicker]="picker13"
+                    />
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="picker13"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #picker13></mat-datepicker>
+                    </mat-form-field>
+
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Limit" [(ngModel)]="marineOpenLandDeclaration.transitLimit" type="text">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Mode of Convey" [(ngModel)]="marineOpenLandDeclaration.conveyMode" type="text">
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Total Sum Insured" [(ngModel)]="marineOpenLandDeclaration.totalSumAssured" type="number">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Period of insurance" [(ngModel)]="marineOpenLandDeclaration.periodOfInsurance" type="number">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Limit Per Sending" [(ngModel)]="marineOpenLandDeclaration.limitPerSending" type="number">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Limit Per Location" [(ngModel)]="marineOpenLandDeclaration.limitPerLocation" type="number">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Description of Packaging" [(ngModel)]="marineOpenLandDeclaration.descriptionPackaging" type="text">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Basis of Valuation" [(ngModel)]="marineOpenLandDeclaration.basicValuation" type="text">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Cargo Sum Insured" [(ngModel)]="marineOpenLandDeclaration.cargoSumInsured" type="text">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Estimated Annual Sum Insured" [(ngModel)]="marineOpenLandDeclaration.estimatedAnnualSumInsured" type="number">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Excess" [(ngModel)]="marineOpenLandDeclaration.excess" type="text">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="1% of consignment value subject to minimium INR 10000" [(ngModel)]="marineOpenLandDeclaration.consignmentValueOnePercent" type="text">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput
+                    placeholder="Survey & Claim Settlement - In the event of loss or damage which may involve a claim under this insurance policy, immediate notice thereof should be
+                    given to insurer. In no case,such intimation shall be later than 7 days from date of delivery of consignment." [(ngModel)]="marineOpenLandDeclaration.surveyClaimStatement" type="text">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder=" furnish declaration for each and every transit to us
+                    by 5th of every month for all the transits commenced in preceding month" [(ngModel)]="marineOpenLandDeclaration.furnishDeclaration" type="text">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="NOTIFICATION ON 1ST OF EVERY MONTH FOR DECLARATION" [(ngModel)]="marineOpenLandDeclaration.notificationFirst" type="text">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+                  Policy Uplaod
+                  <input type="file" (change)="pdfUpload($event, 'marineOpenLandDeclaration', 'policyUpload')">
+                </div>
+
+                <div class="col-md-4">
+
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Policy Valid Till</mat-label>
+                    <input
+                      matInput
+                      [(ngModel)]="marineOpenLandDeclaration.policyValidTill"
+                      placeholder="Policy Valid Till"
+                      [matDatepicker]="picker15"
+                    />
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="picker15"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #picker15></mat-datepicker>
+                    </mat-form-field>
+
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Toll Free Number" type="text" [(ngModel)]="marineOpenLandDeclaration.tollFreeNumber">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Branch Locator" type="text" [(ngModel)]="marineOpenLandDeclaration.branchLocator">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Claim Procedure" type="text" [(ngModel)]="marineOpenLandDeclaration.claimProcedure">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="GST" [(ngModel)]="marineOpenLandDeclaration.gst" type="text">
+                  </mat-form-field>
+                </div>
+
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Any Special Condition" [(ngModel)]="marineOpenLandDeclaration.specialCondition" type="text">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+                  <!-- <mat-form-field class="example-full-width">
+                  </mat-form-field> -->
+                  GST Invoice
+                  <input type="file" (change)="pdfUpload($event, 'marineOpenLandDeclaration', 'gst')">
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Status of Policy</mat-label>
+                    <mat-select [(ngModel)]="marineOpenLandDeclaration.statusOfPolicy">
+                      <mat-option value="Lapse">
+                        Lapse
+                      </mat-option>
+                      <mat-option value="Inforce">
+                        Inforce
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+              </div>
+
+              <div class="text-center d-flex justify-content-center" *ngIf="update === 'true'">
+                <button mat-raised-button class="btn btn-danger pull-right" (click)="editMarine()">Edit</button>
+              </div>
+              <div class="text-center d-flex justify-content-center" *ngIf="update !== 'true'">
+                <button mat-raised-button class="btn btn-danger pull-right" (click)="addMarine()">Save</button>
+              </div>
+
+            </mat-tab>
+            <mat-tab label="Contractor's Plant">
+
+              <div class="row" *ngIf="update === 'true'">
+                <div class="col-md-4">
+                  <mat-form-field>
+                    <mat-label>Select Policy Number</mat-label>
+                    <mat-select>
+                      <mat-option *ngFor="let number of allContractorsPlant; let i = index" (click)="contractorsPlantSelected(i)">
+                        {{number.companyName}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+               </div>
+             </div>
+              <div class="row ">
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Policy Number" type="text" [(ngModel)]="contractorsPlant.policyNumber">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Owner" type="text" [(ngModel)]="contractorsPlant.owner">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Company Name" type="text" [(ngModel)]="contractorsPlant.companyName">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Date of Commencement</mat-label>
+                    <input
+                      matInput
+                      [(ngModel)]="contractorsPlant.commencementDate"
+                      placeholder="Date of Commencement"
+                      [matDatepicker]="picker19"
+                    />
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="picker19"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #picker19></mat-datepicker>
+                    </mat-form-field>
+
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Industry Classification" type="text" [(ngModel)]="contractorsPlant.industryClassification">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Insured Trade or Business" type="text" [(ngModel)]="contractorsPlant.insuredTrade">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Period of Insurance" type="number" [(ngModel)]="contractorsPlant.insurancePeriod">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Type of machine</mat-label>
+                    <mat-select [(ngModel)]="contractorsPlant.machineType">
+                      <mat-option value="Dg Set">
+                        Dg Set
+                      </mat-option>
+                      <mat-option value="Splicer">
+                        Splicer
+                      </mat-option>
+                      <mat-option value="Any Other">
+                        Any Other
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Machine Name" type="text" [(ngModel)]="contractorsPlant.otherMachineType">
+                  </mat-form-field>
+                </div>
+                
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Description of Items" type="text" [(ngModel)]="contractorsPlant.itemsDescription">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Make/Model" type="text" [(ngModel)]="contractorsPlant.makeModel">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Year of Manufacture" type="text" [(ngModel)]="contractorsPlant.manufactureYear">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Sum Assured" type="text" [(ngModel)]="contractorsPlant.sumAssured1">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Other than AOG Perils" type="text" [(ngModel)]="contractorsPlant.otherThanAog">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="AOG Perils" type="text" [(ngModel)]="contractorsPlant.aogPerils">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Hypothecation - Name of Bank" type="text" [(ngModel)]="contractorsPlant.hypothecation">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="premium" type="text" [(ngModel)]="contractorsPlant.premium">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Sum assured" type="text" [(ngModel)]="contractorsPlant.sumAssured">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Coverage situation" type="text" [(ngModel)]="contractorsPlant.coverageSitutaion">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Third party coverage" type="text" [(ngModel)]="contractorsPlant.thirdPartyCoverage">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="GST" type="text" [(ngModel)]="contractorsPlant.gst">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Policy Valid Till</mat-label>
+                    <input
+                      matInput
+                      [(ngModel)]="contractorsPlant.policyValidTill"
+                      placeholder="Policy Valid Till"
+                      [matDatepicker]="picker16"
+                    />
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="picker16"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #picker16></mat-datepicker>
+                    </mat-form-field>
+
+                </div>
+              </div>
+              <div  class="row">
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Floater Cover</mat-label>
+                    <mat-select [(ngModel)]="contractorsPlant.floaterCover">
+                      <mat-option value="Covered">
+                        Covered
+                      </mat-option>
+                      <mat-option value="Not Covered">
+                        Not Covered
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4" *ngIf="contractorsPlant.floaterCover === 'Covered'">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Sum Assured" type="text" [(ngModel)]="contractorsPlant.sumAssuredfloater">
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Burglary Insurance</mat-label>
+                    <mat-select [(ngModel)]="contractorsPlant.burglaryInsurance">
+                      <mat-option value="Covered">
+                        Covered
+                      </mat-option>
+                      <mat-option value="Not Covered">
+                        Not Covered
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4" *ngIf="contractorsPlant.burglaryInsurance === 'Covered'">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Sum Assured" type="text" [(ngModel)]="contractorsPlant.sumAssuredburglary">
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Standard Fire & Special Perils</mat-label>
+                    <mat-select [(ngModel)]="contractorsPlant.sfsp">
+                      <mat-option value="Covered">
+                        Covered
+                      </mat-option>
+                      <mat-option value="Not Covered">
+                        Not Covered
+                      </mat-option>
+
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4" *ngIf="contractorsPlant.sfsp === 'Covered'">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Sum Assured" type="text" [(ngModel)]="contractorsPlant.sumAssuredsfsp">
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="row">
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Earthquake Cover</mat-label>
+                    <mat-select [(ngModel)]="contractorsPlant.earthquakeCover">
+                      <mat-option value="Covered">
+                        Covered
+                      </mat-option>
+                      <mat-option value="Not Covered">
+                        Not Covered
+                      </mat-option>
+
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+
+                <div class="col-md-4" *ngIf="contractorsPlant.earthquakeCover === 'Covered'">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Sum Assured" type="text" [(ngModel)]="contractorsPlant.sumAssuredEarthquake">
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>TPL Cover</mat-label>
+                    <mat-select [(ngModel)]="contractorsPlant.tplCover">
+                      <mat-option value="Covered">
+                        Covered
+                      </mat-option>
+                      <mat-option value="Not Covered">
+                        Not Covered
+                      </mat-option>
+
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4" *ngIf="contractorsPlant.tplCover === 'Covered'">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Sum Assured" type="text" [(ngModel)]="contractorsPlant.sumAssuredTpl">
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Escalation Cover</mat-label>
+                    <mat-select [(ngModel)]="contractorsPlant.escalationCover">
+                      <mat-option value="Covered">
+                        Covered
+                      </mat-option>
+                      <mat-option value="Not Covered">
+                        Not Covered
+                      </mat-option>
+
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4" *ngIf="contractorsPlant.escalationCover === 'Covered'">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Sum Assured" type="text" [(ngModel)]="contractorsPlant.sumAssuredEscalation">
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Owner Surrounding Property</mat-label>
+                    <mat-select [(ngModel)]="contractorsPlant.ownerSurroundingProperty">
+                      <mat-option value="Covered">
+                        Covered
+                      </mat-option>
+                      <mat-option value="Not Covered">
+                        Not Covered
+                      </mat-option>
+
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4"  *ngIf="contractorsPlant.ownerSurroundingProperty === 'Covered'">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Sum Assured" type="text" [(ngModel)]="contractorsPlant.sumAssuredOwner">
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Debris Removal Expenses</mat-label>
+                    <mat-select [(ngModel)]="contractorsPlant.debrisRemovalExpenses">
+                      <mat-option value="Covered">
+                        Covered
+                      </mat-option>
+                      <mat-option value="Not Covered">
+                        Not Covered
+                      </mat-option>
+
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4" *ngIf="contractorsPlant.debrisRemovalExpenses === 'Covered'">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Sum Assured" type="text" [(ngModel)]="contractorsPlant.sumAssuredDebris">
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-3">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Other 1" type="text" [(ngModel)]="contractorsPlant.otherOne">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3" *ngIf="contractorsPlant.debrisRemovalExpenses === 'Covered'">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Sum Assured Other 1" type="text" [(ngModel)]="contractorsPlant.sumAssuredOtherOne">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Other 2" type="text" [(ngModel)]="contractorsPlant.otherTwo">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3" *ngIf="contractorsPlant.debrisRemovalExpenses === 'Covered'">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Sum Assured Other 2" type="text" [(ngModel)]="contractorsPlant.sumAssuredOtherTwo">
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Geographical Limit" type="text" [(ngModel)]="contractorsPlant.geographicalLimit">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Third Party Liability</mat-label>
+                    <mat-select [(ngModel)]="contractorsPlant.thirdPartyLiability">
+                      <mat-option value="Yes">
+                        Yes
+                      </mat-option>
+                      <mat-option value="No">
+                        No
+                      </mat-option>
+
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Place for attachment of Prospectus</mat-label>
+                    <mat-select [(ngModel)]="contractorsPlant.placeForAttachmentOfProspectus">
+                      <mat-option value="monthly">
+                        Place for attachment of Prospectus
+                      </mat-option>
+                      <mat-option value="quarterly">
+                        Policy wording for direct access
+                      </mat-option>
+
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Toll Free Number" type="tel" numbersOnly [(ngModel)]="contractorsPlant.tollFreeNumber">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Branch Locator" type="text" [(ngModel)]="contractorsPlant.branchLocator">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Claim Procedure" type="text" [(ngModel)]="contractorsPlant.claimProcedure">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Any Special Condition" type="text" [(ngModel)]="contractorsPlant.specialCondition">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+                  Policy Upload
+                  <input type="file" (change)="pdfUpload($event, 'contractorsPlant', 'policyUpload')">
+                </div>
+
+                <div class="col-md-4">
+                  <!-- <mat-form-field class="example-full-width">
+                  </mat-form-field> -->
+                  GST Invoice
+                  <input type="file" (change)="pdfUpload($event, 'contractorsPlant', 'gst')">
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Status of Policy</mat-label>
+                    <mat-select [(ngModel)]="contractorsPlant.policyStatus">
+                      <mat-option value="Lapse">
+                        Lapse
+                      </mat-option>
+                      <mat-option value="Inforce">
+                        Inforce
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="text-center d-flex justify-content-center" *ngIf="update === 'true'">
+                <button mat-raised-button class="btn btn-danger pull-right" (click)=" editContractorPlan()">Edit</button>
+              </div>
+              <div class="text-center d-flex justify-content-center" *ngIf="update !== 'true'">
+                <button mat-raised-button class="btn btn-danger pull-right" (click)=" addContractorPlan()">Save</button>
+              </div>
+
+            </mat-tab>
+            <mat-tab label="Standard Fire">
+
+              <div class="row" *ngIf="update === 'true'">
+                <div class="col-md-4">
+                  <mat-form-field>
+                    <mat-label>Select Policy Number</mat-label>
+                    <mat-select>
+                      <mat-option *ngFor="let number of allStandardFire; let i = index" (click)="standardFireSelected(i)">
+                        {{number.companyName}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+               </div>
+             </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Owner" type="text" [(ngModel)]="standardFire.owner">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Insured" type="text" [(ngModel)]="standardFire.insured">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Company Name" type="text" [(ngModel)]="merchantsCover.companyName">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Industry Classification" type="text" [(ngModel)]="standardFire.industryClassification">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Insured Trade or Business" type="text" [(ngModel)]="standardFire.insuredTrade">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Risk Location Address" type="text" [(ngModel)]="standardFire.riskLocation">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Coverage amount" type="text" [(ngModel)]="standardFire.coverageAmount">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Coverage description" type="text" [(ngModel)]="standardFire.coverageDescription">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Period of insurance" type="text" [(ngModel)]="standardFire.periodOfInsurance">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Hypthecation - Name of the Bank" type="text" [(ngModel)]="standardFire.bankName">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Policy valid till</mat-label>
+                    <input
+                      matInput
+                      [(ngModel)]="standardFire.policyValidTill"
+                      placeholder="Policy valid till"
+                      [matDatepicker]="picker20"
+                    />
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="picker20"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #picker20></mat-datepicker>
+                    </mat-form-field>
+
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Occupancy" type="text" [(ngModel)]="standardFire.occupancy">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Details" type="text" [(ngModel)]="standardFire.details">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Company Name" type="text" [(ngModel)]="standardFire.companyName">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Policy Number" type="text" [(ngModel)]="standardFire.policyNumber">
+                  </mat-form-field>
+                </div>
+
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Sum Assured" type="text" [(ngModel)]="standardFire.sumAssured1">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+
+                  <mat-form-field class="example-full-width">
+                    <mat-label>D.O.C</mat-label>
+                    <input
+                      matInput
+                      [(ngModel)]="standardFire.doc"
+                      placeholder="D.O.C"
+                      [matDatepicker]="picker17"
+                    />
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="picker17"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #picker17></mat-datepicker>
+                    </mat-form-field>
+
+                </div>
+
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Premium" type="number" [(ngModel)]="standardFire.premium">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Policy Period" type="text" [(ngModel)]="standardFire.policyPeriod">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Renewal Date</mat-label>
+                    <input
+                      matInput
+                      [(ngModel)]="standardFire.renewalDate"
+                      placeholder="Renewal Date"
+                      [matDatepicker]="picker18"
+                    />
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="picker18"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #picker18></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Fire</mat-label>
+                    <mat-select [(ngModel)]="standardFire.fire">
+                      <mat-option value="Covered">
+                        Covered
+                      </mat-option>
+                      <mat-option value="Not Covered">
+                        Not Covered
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4" *ngIf="standardFire.fire === 'Covered'">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Sum Assured" type="text" [(ngModel)]="standardFire.sumAssuredFire">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Lightning</mat-label>
+                    <mat-select [(ngModel)]="standardFire.lightning">
+                      <mat-option value="Covered">
+                        Covered
+                      </mat-option>
+                      <mat-option value="Not Covered">
+                        Not Covered
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4" *ngIf="standardFire.lightning === 'Covered'">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Sum Assured" type="text" [(ngModel)]="standardFire.sumAssuredLight">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Explosion</mat-label>
+                    <mat-select [(ngModel)]="standardFire.explosion">
+                      <mat-option value="Covered">
+                        Covered
+                      </mat-option>
+                      <mat-option value="Not Covered">
+                        Not Covered
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4" *ngIf="standardFire.explosion === 'Covered'">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Sum Assured" type="text" [(ngModel)]="standardFire.sumAssuredExplosion">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Aircraft Damage</mat-label>
+                    <mat-select [(ngModel)]="standardFire.aircraftDamage">
+                      <mat-option value="Covered">
+                        Covered
+                      </mat-option>
+                      <mat-option value="Not Covered">
+                        Not Covered
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4" *ngIf="standardFire.aircraftDamage === 'Covered'">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Sum Assured" type="text" [(ngModel)]="standardFire.sumAssuredAirCraft">
+                  </mat-form-field>
+                </div>
+
+
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>RIOT</mat-label>
+                    <mat-select [(ngModel)]="standardFire.riot">
+                      <mat-option value="RIOT">
+                        RIOT
+                      </mat-option>
+                      <mat-option value="STRIKE">
+                        STRIKE
+                      </mat-option>
+                      <mat-option value="MALICIOUS DAMAGE">
+                        MALICIOUS DAMAGE
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Add On Cover Earthquake</mat-label>
+                    <mat-select [(ngModel)]="standardFire.earthquakeCover">
+                      <mat-option value="Covered">
+                        Covered
+                      </mat-option>
+                      <mat-option value="Not Covered">
+                        Not Covered
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4" *ngIf="standardFire.earthquakeCover === 'Covered'">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Sum Assured" type="text" [(ngModel)]="standardFire.sumAssured6">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="GST" type="text" [(ngModel)]="standardFire.gst">
+                  </mat-form-field>
+                </div>
+
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Toll Free Number" type="text" [(ngModel)]="standardFire.tollFreeNumber">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Branch Locator" type="text" [(ngModel)]="standardFire.branchLocator">
+                  </mat-form-field>
+                </div>
+
+
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Claim Procedure" type="text" [(ngModel)]="standardFire.claimProcedure">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Any Special Condition" type="text" [(ngModel)]="standardFire.specialCondition">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+                  Policy upload
+                  <input type="file" (change)="pdfUpload($event, 'standardFire', 'policyUpload')">
+                </div>
+
+                <div class="col-md-4">
+                  <!-- <mat-form-field class="example-full-width">
+                  </mat-form-field> -->
+                  GST Invoice
+                  <input type="file" (change)="pdfUpload($event, 'standardFire', 'gst')">
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Status of Policy</mat-label>
+                    <mat-select [(ngModel)]="standardFire.policyStatus">
+                      <mat-option value="Lapse">
+                        Lapse
+                      </mat-option>
+                      <mat-option value="Inforce">
+                        Inforce
+                      </mat-option>
+
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+              </div>
+
+              <div class="text-center d-flex justify-content-center">
+                <button mat-raised-button class="btn btn-danger pull-right" (click)="addStandardFire()">Save</button>
+              </div>
+
+               <div class="text-center d-flex justify-content-center" *ngIf="update === 'true'">
+                <button mat-raised-button class="btn btn-danger pull-right" (click)="editStandardFire()">Edit</button>
+              </div>
+
+            </mat-tab>
+
+
+          </mat-tab-group>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>

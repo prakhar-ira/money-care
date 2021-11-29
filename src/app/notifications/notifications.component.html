@@ -1,0 +1,274 @@
+<div class="main-content">
+        <div class="container-fluid">
+            <div class="col-lg-12 col-md-12">
+                    <div class="card">
+                        <div class="card-header card-header-tabs card-header-primary">
+                            <div class="nav-tabs-navigation">
+                                <div class="nav-tabs-wrapper">
+                                    <span class="nav-tabs-title">Nominee Claim:</span>
+                                    <ul class="nav nav-tabs" data-tabs="tabs">
+                                        <li class="nav-item">
+                                            <a mat-button class="nav-link active" href="#pending" data-toggle="tab">
+                                                Pendinng
+                                                <div class="ripple-container"></div>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a mat-button class="nav-link" href="#approval" data-toggle="tab">
+                                                Approval
+                                                <div class="ripple-container"></div>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a mat-button class="nav-link" href="#rejected" data-toggle="tab">
+                                                Rejected
+                                                <div class="ripple-container"></div>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="pending">
+                                    <table class="table table-hover">
+                                        <thead class="text-warning">
+                                            <th>Date</th>
+                                            <th>Username</th>
+                                            <th>Phone No.</th>
+                                            <th>Policy Name</th>
+                                            <th>Policy Type</th>
+                                            <th>Provider</th>
+                                            <th>Nominee Name</th>
+                                            <th>Relation</th>
+                                            <th>Status</th>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>Dakota Rice</td>
+                                                <td>$36,738</td>
+                                                <td>Niger</td>
+                                                <td>Policy Name</td>
+                                                <td>Policy Type</td>
+                                                <td>Provider</td>
+                                                <td>Nominee Name</td>
+                                                <td>Relation</td>
+                                                <td class="td-actions text-right">
+                                                    <button mat-raised-button type="button" matTooltip="Approve" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                                        <i class="material-icons">check</i>
+                                                    </button>
+                                                    <button mat-raised-button type="button" matTooltip="Reject" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                        <i class="material-icons">close</i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>2</td>
+                                                <td>Minerva Hooper</td>
+                                                <td>$23,789</td>
+                                                <td>Curaçao</td>
+                                                <td>Policy Name</td>
+                                                <td>Policy Type</td>
+                                                <td>Provider</td>
+                                                <td>Nominee Name</td>
+                                                <td>Relation</td>
+                                                <td class="td-actions text-right">
+                                                    <button mat-raised-button type="button" matTooltip="Approve" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                                        <i class="material-icons">check</i>
+                                                    </button>
+                                                    <button mat-raised-button type="button" matTooltip="Reject" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                        <i class="material-icons">close</i>
+                                                    </button>
+                                                </td>                                          
+                                            </tr>
+                                            <tr>
+                                                <td>3</td>
+                                                <td>Sage Rodriguez</td>
+                                                <td>$56,142</td>
+                                                <td>Netherlands</td>
+                                                <td>Policy Name</td>
+                                                <td>Policy Type</td>
+                                                <td>Provider</td>
+                                                <td>Nominee Name</td>
+                                                <td>Relation</td>
+                                                <td class="td-actions text-right">
+                                                    <button mat-raised-button type="button" matTooltip="Approve" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                                        <i class="material-icons">check</i>
+                                                    </button>
+                                                    <button mat-raised-button type="button" matTooltip="Reject" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                        <i class="material-icons">close</i>
+                                                    </button>
+                                                </td>                                        
+                                            </tr>
+                                            <tr>
+                                                <td>4</td>
+                                                <td>Philip Chaney</td>
+                                                <td>$38,735</td>
+                                                <td>Korea, South</td>
+                                                <td>Policy Name</td>
+                                                <td>Policy Type</td>
+                                                <td>Provider</td>
+                                                <td>Nominee Name</td>
+                                                <td>Relation</td>
+                                                <td class="td-actions text-right">
+                                                    <button mat-raised-button type="button" matTooltip="Approve" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                                        <i class="material-icons">check</i>
+                                                    </button>
+                                                    <button mat-raised-button type="button" matTooltip="Reject" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                        <i class="material-icons">close</i>
+                                                    </button>
+                                                </td>                                        
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="tab-pane" id="approval">
+                                    <table class="table table-hover">
+                                            <thead class="text-warning">
+                                                <th>Date</th>
+                                                <th>Username</th>
+                                                <th>Phone No.</th>
+                                                <th>Policy Name</th>
+                                                <th>Policy Type</th>
+                                                <th>Provider</th>
+                                                <th>Nominee Name</th>
+                                                <th>Relation</th>
+                                                <th>Status</th>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>Dakota Rice</td>
+                                                    <td>$36,738</td>
+                                                    <td>Niger</td>
+                                                    <th>Policy Name</th>
+                                                    <th>Policy Type</th>
+                                                    <th>Provider</th>
+                                                    <th>Nominee Name</th>
+                                                    <th>Relation</th>
+                                                    <td class="td-actions text-right">
+                                                        Approved
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>2</td>
+                                                    <td>Minerva Hooper</td>
+                                                    <td>$23,789</td>
+                                                    <td>Curaçao</td>
+                                                    <td class="td-actions text-right">
+                                                        Approved
+                                                    </td>                                        
+                                                </tr>
+                                                <tr>
+                                                    <td>3</td>
+                                                    <td>Sage Rodriguez</td>
+                                                    <td>$56,142</td>
+                                                    <td>Netherlands</td>
+                                                    <th>Policy Name</th>
+                                                    <th>Policy Type</th>
+                                                    <th>Provider</th>
+                                                    <th>Nominee Name</th>
+                                                    <th>Relation</th>
+                                                    <td class="td-actions text-right">
+                                                        Approved
+                                                    </td>                                        
+                                                </tr>
+                                                <tr>
+                                                    <td>4</td>
+                                                    <td>Philip Chaney</td>
+                                                    <td>$38,735</td>
+                                                    <td>Korea, South</td>
+                                                    <th>Policy Name</th>
+                                                    <th>Policy Type</th>
+                                                    <th>Provider</th>
+                                                    <th>Nominee Name</th>
+                                                    <th>Relation</th>                                                   
+                                                     <td class="td-actions text-right">
+                                                        Approved
+                                                    </td>                                        
+                                                </tr>
+                                            </tbody>
+                                    </table>
+                                </div>
+                                <div class="tab-pane" id="rejected">
+                                        <table class="table table-hover">
+                                                <thead class="text-warning">
+                                                    <th>Date</th>
+                                                    <th>Username</th>
+                                                    <th>Phone No.</th>
+                                                    <th>Policy Name</th>
+                                                    <th>Policy Type</th>
+                                                    <th>Provider</th>
+                                                    <th>Nominee Name</th>
+                                                    <th>Relation</th>
+                                                    <th>Status</th>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>1</td>
+                                                        <td>Dakota Rice</td>
+                                                        <td>$36,738</td>
+                                                        <td>Niger</td>
+                                                        <th>Policy Name</th>
+                                                        <th>Policy Type</th>
+                                                        <th>Provider</th>
+                                                        <th>Nominee Name</th>
+                                                        <th>Relation</th>
+                                                        
+                                                        <td class="td-actions text-right">
+                                                            Rejected
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>2</td>
+                                                        <td>Minerva Hooper</td>
+                                                        <td>$23,789</td>
+                                                        <td>Curaçao</td>
+                                                        <th>Policy Name</th>
+                                                        <th>Policy Type</th>
+                                                        <th>Provider</th>
+                                                        <th>Nominee Name</th>
+                                                        <th>Relation</th>                                                       
+                                                         <td class="td-actions text-right">
+                                                            Rejected
+                                                        </td>                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>3</td>
+                                                        <td>Sage Rodriguez</td>
+                                                        <td>$56,142</td>
+                                                        <td>Netherlands</td>
+                                                        <th>Policy Name</th>
+                                                        <th>Policy Type</th>
+                                                        <th>Provider</th>
+                                                        <th>Nominee Name</th>
+                                                        <th>Relation</th>
+                                                        <td class="td-actions text-right">
+                                                            Rejected
+                                                        </td>                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>4</td>
+                                                        <td>Philip Chaney</td>
+                                                        <td>$38,735</td>
+                                                        <td>Korea, South</td>
+                                                        <th>Policy Name</th>
+                                                        <th>Policy Type</th>
+                                                        <th>Provider</th>
+                                                        <th>Nominee Name</th>
+                                                        <th>Relation</th>                                                        
+                                                        <td class="td-actions text-right">
+                                                            Rejected
+                                                        </td>                                        
+                                                    </tr>
+                                                </tbody>
+                                        </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+</div>

@@ -1,0 +1,1705 @@
+<div class="main-content">
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header card-header-danger">
+          <h4 class="card-title ">Vehicle</h4>
+          <!-- <p class="card-category"></p> -->
+        </div>
+        <div class="card-body">
+
+          <mat-tab-group mat-stretch-tabs>
+            <mat-tab label="Private Vehicle Insurance">
+
+              <div class="row" *ngIf="update === 'true'">
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Select Policy Number</mat-label>
+                    <mat-select [(ngModel)]="selectedPolicyNumberPrivate">
+                      <mat-option *ngFor="let number of allPrivateVehicle; let i = index" [value]="number.policyNumber" (click)="privateVehicleSelected(i)">
+                        {{number.vehicleName}} - {{number.registration}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+
+
+              <div class="row mt-4">
+                <div class="col-md-12">
+                  <div class="d-flex align-items-center">
+                    <p class="font-weight-bold text-secondary ">Use Of Vehicle :-</p>
+                    <p class="text-primary font-weight-bold ml-2">Private
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row ">
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Vehicle Variant</mat-label>
+                    <mat-select [(ngModel)]="privateVehicle.vehicleVariant">
+                      <mat-option value="twoWheeler">
+                        Two Wheeler
+                      </mat-option>
+                      <mat-option value="fourWheeler">
+                        Four wheeler
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Vehicle in Name </mat-label>
+                    <mat-select [(ngModel)]="privateVehicle.nameVehicle">
+                      <mat-option value="company">
+                        Company 
+                      </mat-option>
+                      <mat-option value="individual">
+                        Individual
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4" *ngIf="privateVehicle.nameVehicle === 'company'">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Name of Company"
+                    type="text" [(ngModel)]="privateVehicle.companyName">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Name of Owner" type="text" [(ngModel)]="privateVehicle.ownerName">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Insurance Company Name" type="text" [(ngModel)]="privateVehicle.insuranceCompanyName">
+                  </mat-form-field>
+                </div>
+
+            <!--     <div class="col-md-4">
+                  <mat-form-field>
+                    <mat-label>CASHLESS/REIMBURSEMENT</mat-label>
+                    <mat-select [(ngModel)]="privateVehicle.cashlessReimbursemen0">
+                      <mat-option value="CASHLESS">
+                        CASHLESS
+                      </mat-option>
+                      <mat-option value="REIMBURSEMENT">
+                        REIMBURSEMENT
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div> -->
+
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Policy Number" type="text" [(ngModel)]="privateVehicle.policyNumber">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>D.O.C</mat-label>
+                    <input
+                      matInput
+                      [(ngModel)]="privateVehicle.doc"
+                      placeholder="D.O.C"
+                      [matDatepicker]="picker1"
+                    />
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="picker1"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Address as mention in RC Card"
+                    type="text" [(ngModel)]="privateVehicle.addressRcCard">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Policy Period</mat-label>
+                    <mat-select [(ngModel)]="privateVehicle.policyPeriod" (selectionChange)="setPackagePolicy(); calcLastPremiumPayYear()">
+                      <mat-option value="1">
+                       1 Year
+                     </mat-option>
+                     <mat-option value="2">
+                      2 Years
+                    </mat-option>
+                    <mat-option value="3">
+                     3 Years
+                   </mat-option>
+                   <mat-option value="5">
+                     5 Years
+                   </mat-option>
+                 </mat-select>
+               </mat-form-field>
+             </div>
+
+             <div class="col-md-4">
+              <mat-form-field class="example-full-width">
+                <mat-label>Package Policy Type</mat-label>
+                <mat-select [(ngModel)]="privateVehicle.packagePolicyType">
+                  <mat-option *ngFor="let policy of policyPackage" [value]="policy">
+                   {{policy.text}}
+                 </mat-option>
+               </mat-select> 
+             </mat-form-field>
+           </div>
+
+           <div class="col-md-4">
+            <mat-form-field class="example-full-width">
+              <mat-label>Geographical Area </mat-label>
+              <mat-select [(ngModel)]="privateVehicle.geographicalArea">
+                <mat-option value="city">
+                 City 
+               </mat-option>
+               <mat-option value="state">
+                State
+              </mat-option>
+              <mat-option value="allOverIndia">
+               All Over India
+             </mat-option>
+           </mat-select>
+         </mat-form-field>
+       </div>
+     </div>
+
+     <div class="row ">
+      <div class="col-md-4">
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Vehicle Name" type="text" [(ngModel)]="privateVehicle.vehicleName">
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Registration" type="text" [(ngModel)]="privateVehicle.registration">
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field class="example-full-width">
+          <mat-label>Date of registration of vehicle</mat-label>
+          <input
+            matInput
+            [(ngModel)]="privateVehicle.registrationDate"
+            placeholder="Date of registration of vehicle"
+            [matDatepicker]="picker2"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker2"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field class="example-full-width">
+          <mat-label>Registration Validity Till</mat-label>
+          <input
+            matInput
+            [(ngModel)]="privateVehicle.registrationValidityTill"
+            placeholder="Registration Validity Till"
+            [matDatepicker]="picker3"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker3"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker3></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Make/Model" type="text" [(ngModel)]="privateVehicle.makeModel">
+        </mat-form-field>
+      </div>
+
+
+      <div class="col-md-4">
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Model variant" type="text" [(ngModel)]="privateVehicle.modelVariant">
+        </mat-form-field>
+      </div>
+
+
+
+      <div class="col-md-4">
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Type of Body" type="text" [(ngModel)]="privateVehicle.bodyType">
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Year of Manufacture" type="tel" numbersOnly [(ngModel)]="privateVehicle.manufactureYear">
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Engine Number" type="text" [(ngModel)]="privateVehicle.engineNumber">
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Chassis Number" type="text" [(ngModel)]="privateVehicle.chassisNumber">
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Cubic Capacity" type="number" [(ngModel)]="privateVehicle.cubicCapacity">
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Seating Capacity" type="number" [(ngModel)]="privateVehicle.seatingCapacity">
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field class="example-full-width">
+          <mat-label>Fuel Type</mat-label>
+          <mat-select [(ngModel)]="privateVehicle.fuelType">
+            <mat-option value="petrol">
+              Petrol
+            </mat-option>
+            <mat-option value="diesel">
+              Diesel
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Vehicle IDV" type="number" (keyup)="calcTotalIDVPrivate()" [(ngModel)]="privateVehicle.vehicleIdv">
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Non Electrical Accessory" (keyup)="calcTotalIDVPrivate()" type="number" [(ngModel)]="privateVehicle.nonElectricalAccessory">
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Electrical Accessory" (keyup)="calcTotalIDVPrivate()" type="number" [(ngModel)]="privateVehicle.electricalAccessory">
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="CNG/LPG Kit" type="number" (keyup)="calcTotalIDVPrivate()" [(ngModel)]="privateVehicle.cngKit">
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Total IDV" type="number" [(ngModel)]="privateVehicle.totalIdv">
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Premium" type="number" [(ngModel)]="privateVehicle.premium">
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Claim Taken in Current Policy Year" type="number" [(ngModel)]="privateVehicle.claimTaken">
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field class="example-full-width">
+          <mat-label>Claim Details</mat-label>
+          <mat-select [(ngModel)]="privateVehicle.claimTaken" (selectionChange)="selectClaimsPrivateVehicle()">
+            <mat-option value="0">
+             0
+           </mat-option>
+           <mat-option value="1">
+             1 
+           </mat-option>
+           <mat-option value="2">
+            2
+          </mat-option>
+          <mat-option value="3">
+           3
+         </mat-option>
+         <mat-option value="4">
+           4
+         </mat-option>
+         <mat-option value="5">
+           5
+         </mat-option>
+       </mat-select>
+     </mat-form-field>
+   </div>
+ </div>
+
+
+ <div class="row" *ngFor ="let num of claimDetailsPrivateVehicle; let i = index">
+
+  <div class="col-md-4">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Name of workshop {{i + 1}}" type="text" [(ngModel)]="claimDetailsPrivateVehicle[i].workshop">
+    </mat-form-field>
+  </div>
+
+  <div class="col-md-4">
+    <mat-form-field class="example-full-width">
+      <mat-label>Date of Claim {{i + 1}}</mat-label>
+      <input
+        matInput
+        [(ngModel)]="claimDetailsPrivateVehicle[i].dateOfClaim"
+        placeholder="Date of Claim {{i + 1}}"
+        [matDatepicker]="picker19"
+      />
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="picker19"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #picker19>
+  </mat-datepicker>
+    </mat-form-field>
+  </div>
+
+  <div class="col-md-4">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Damage Occurred {{i + 1}}" type="text" [(ngModel)]="claimDetailsPrivateVehicle[i].damageOccurred">
+    </mat-form-field>
+  </div>
+
+
+  <div class="col-md-4">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Number of Claims in Workshop {{i + 1}}" type="text" [(ngModel)]="claimDetailsPrivateVehicle[i].numberOfClaims">
+    </mat-form-field>
+  </div>
+
+  <div class="col-md-4">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Claimed Amount {{i + 1}}" type="number" [(ngModel)]="claimDetailsPrivateVehicle[i].claimedAmount">
+    </mat-form-field>
+  </div>
+
+  <div class="col-md-4">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Approved Amount {{i + 1}}" type="number" [(ngModel)]="claimDetailsPrivateVehicle[i].approvedAmount">
+    </mat-form-field>
+  </div>
+
+  <div class="col-md-4">
+    <mat-label>Cashless/Reimbursement {{i + 1}}</mat-label>
+    <mat-form-field>
+      <mat-select [(ngModel)]="claimDetailsPrivateVehicle[i].cashlessReimbursement">
+        <mat-option value="cashless">Cashless</mat-option>
+        <mat-option value="reimbursement">Reimbursement</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="col-md-4">
+    <mat-form-field class="example-full-width">
+      <mat-label>Date of Payment {{i + 1}}</mat-label>
+      <input
+        matInput
+        [(ngModel)]="claimDetailsPrivateVehicle[i].dateOfPayment"
+        placeholder="Date of Payment {{i + 1}}"
+        [matDatepicker]="picker5"
+      />
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="picker5"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #picker5></mat-datepicker>
+    </mat-form-field>
+  </div>
+
+  <div class="col-md-4" *ngIf="claimDetailsPrivateVehicle[i].cashlessReimbursement === 'reimbursement'">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Bank Name {{i + 1}}" type="text" [(ngModel)]="claimDetailsPrivateVehicle[i].bankName">
+    </mat-form-field>
+  </div>
+
+  <div class="col-md-4" *ngIf="claimDetailsPrivateVehicle[i].cashlessReimbursement === 'reimbursement'">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Bank Account Number {{i + 1}}" type="tel" numbersOnly [(ngModel)]="claimDetailsPrivateVehicle[i].bankAccountNumber">
+    </mat-form-field>
+  </div>
+
+  <div class="col-md-4" *ngIf="claimDetailsPrivateVehicle[i].cashlessReimbursement === 'reimbursement'">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Account Holder {{i + 1}}" type="text" [(ngModel)]="claimDetailsPrivateVehicle[i].accountHolder">
+    </mat-form-field>
+  </div>
+
+</div>
+
+<div class="row">
+
+  <div class="col-md-4">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Current Year NCB (IN %)" type="text" [(ngModel)]="privateVehicle.currentYearNcb">
+    </mat-form-field>
+  </div>
+
+  <div class="col-md-4">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Last Year NCB (IN %)" type="number" [(ngModel)]="privateVehicle.lastYearNcb">
+    </mat-form-field>
+  </div>
+
+  <div class="col-md-4">
+    <mat-form-field>
+      <mat-label>Add on Coverage</mat-label>
+      <mat-select [(ngModel)]="privateVehicle.addOnCoverage" multiple>
+        <mat-option *ngFor="let add of addOnCoverages" [value]="add">{{add}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="col-md-4" *ngIf="privateVehicle.addOnCoverage">
+    <mat-form-field class="example-full-width" *ngIf="privateVehicle.addOnCoverage.includes('Zero Depth')">
+      <mat-label>Zero Dep</mat-label>
+      <mat-select [(ngModel)]="privateVehicle.zeroDep">
+        <mat-option value="yes">
+         Yes
+       </mat-option>
+       <mat-option value="no">
+         No
+       </mat-option>
+
+     </mat-select>
+   </mat-form-field>
+ </div>
+ 
+ <div class="col-md-4" *ngIf="privateVehicle.addOnCoverage">
+  <mat-form-field class="example-full-width" *ngIf="privateVehicle.addOnCoverage.includes('Consumable')">
+    <mat-label>Consumable</mat-label>
+    <mat-select [(ngModel)]="privateVehicle.consumable">
+      <mat-option value="yes">
+       Yes
+     </mat-option>
+     <mat-option value="no">
+       No
+     </mat-option>
+
+   </mat-select>
+ </mat-form-field>
+</div>
+
+<div class="col-md-4" *ngIf="privateVehicle.addOnCoverage">
+  <mat-form-field class="example-full-width" *ngIf="privateVehicle.addOnCoverage.includes('Retrun to Invoice')">
+    <mat-label>Retrun to Invoice</mat-label>
+    <mat-select [(ngModel)]="privateVehicle.invoiceReturn">
+      <mat-option value="yes">
+       Yes
+     </mat-option>
+     <mat-option value="no">
+       No
+     </mat-option>
+   </mat-select>
+ </mat-form-field>
+</div>
+
+<div class="col-md-4" *ngIf="privateVehicle.addOnCoverage">
+  <mat-form-field class="example-full-width" *ngIf="privateVehicle.addOnCoverage.includes('Engine Protection Cover')">
+    <mat-label>Engine Protection Cover</mat-label>
+    <mat-select [(ngModel)]="privateVehicle.engineProtectionCover">
+      <mat-option value="yes">
+       Yes
+     </mat-option>
+     <mat-option value="no">
+       No
+     </mat-option>
+   </mat-select>
+ </mat-form-field>
+</div>
+
+<div class="col-md-4" *ngIf="privateVehicle.addOnCoverage">
+  <mat-form-field class="example-full-width" *ngIf="privateVehicle.addOnCoverage.includes('NCB Protector')">
+    <mat-label>NCB Protector</mat-label>
+    <mat-select [(ngModel)]="privateVehicle.ncbProtector">
+      <mat-option value="yes">
+       Yes
+     </mat-option>
+     <mat-option value="no">
+       No
+     </mat-option>
+   </mat-select>
+ </mat-form-field>
+</div>
+
+<div class="col-md-4" *ngIf="privateVehicle.addOnCoverage">
+  <mat-form-field class="example-full-width" *ngIf="privateVehicle.addOnCoverage.includes('Key & Lock Replacement')">
+    <mat-label>Key & Lock Replacement</mat-label>
+    <input type="text" matInput placeholder="Feature" [(ngModel)]="privateVehicle.keyLockReplacement">
+  </mat-form-field>
+</div>
+<div class="col-md-4" *ngIf="privateVehicle.addOnCoverage">
+  <mat-form-field class="example-full-width" *ngIf="privateVehicle.addOnCoverage.includes('Daily Allowance')">
+    <mat-label>Daily Allowance</mat-label>
+    <input type="text" matInput placeholder="Feature" [(ngModel)]="privateVehicle.dailyAllowance">
+  </mat-form-field>
+</div>
+
+<div class="col-md-4" *ngIf="privateVehicle.addOnCoverage">
+  <mat-form-field class="example-full-width" *ngIf="privateVehicle.addOnCoverage.includes('Tyre Protector')">
+    <mat-label>Tyre Protector</mat-label>
+    <mat-select [(ngModel)]="privateVehicle.tyreProtector">
+      <mat-option value="yes">
+       Yes
+     </mat-option>
+     <mat-option value="no">
+       No
+     </mat-option>
+   </mat-select>
+ </mat-form-field>
+</div>
+
+<div class="col-md-4" *ngIf="privateVehicle.addOnCoverage">
+  <mat-form-field class="example-full-width" *ngIf="privateVehicle.addOnCoverage.includes('Rim Damage Cover')">
+    <mat-label>Rim Damage Cover</mat-label>
+    <mat-select [(ngModel)]="privateVehicle.rimDamageCover">
+      <mat-option value="yes">
+       Yes
+     </mat-option>
+     <mat-option value="no">
+       No
+     </mat-option>
+   </mat-select>
+ </mat-form-field>
+</div>
+
+<div class="col-md-4" *ngIf="privateVehicle.addOnCoverage">
+  <mat-form-field class="example-full-width" *ngIf="privateVehicle.addOnCoverage.includes('Loss of Personal Belongings')">
+    <input matInput placeholder="Loss of Personal Belongings" type="text" [(ngModel)]="privateVehicle.personalBelongingsLoss">
+  </mat-form-field>
+</div>
+<div class="col-md-4" *ngIf="privateVehicle.addOnCoverage">
+  <mat-form-field class="example-full-width" *ngIf="privateVehicle.addOnCoverage.includes('External Accessories - Electrical')">
+    <input matInput placeholder="External Accessories - Electrical" type="text" [(ngModel)]="privateVehicle.electricalExternalAccessory">
+  </mat-form-field>
+</div>
+<div class="col-md-4" *ngIf="privateVehicle.addOnCoverage">
+  <mat-form-field class="example-full-width" *ngIf="privateVehicle.addOnCoverage.includes('External Accessories - Non Electrical')">
+    <input matInput placeholder="External Accessories- Non-Electrical" type="text" [(ngModel)]="privateVehicle.nonElectricalExternalAccessory">
+  </mat-form-field>
+</div>
+
+<div class="col-md-4" *ngIf="privateVehicle.addOnCoverage">
+  <mat-form-field class="example-full-width" *ngIf="privateVehicle.addOnCoverage.includes('Other(if any)')">
+    <mat-label>Others (If any)</mat-label>
+    <input matInput placeholder="Name" type="text" [(ngModel)]="privateVehicle.othersName">
+  </mat-form-field>
+</div>
+
+<div class="col-md-4" *ngIf="privateVehicle.addOnCoverage">
+  <mat-form-field class="example-full-width" *ngIf="privateVehicle.addOnCoverage.includes('Other(if any)')">
+    <mat-label>Others (If any)</mat-label>
+    <input matInput placeholder="Feature" type="text" [(ngModel)]="privateVehicle.othersFeature">
+  </mat-form-field>
+</div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <mat-form-field>
+      <mat-label>IMT</mat-label>
+      <mat-select [(ngModel)]="privateVehicle.imt" multiple>
+        <mat-option *ngFor="let imt of IMT" [value]="imt">{{imt}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-4" *ngFor="let num of privateVehicle.imt; let i = index">
+    <mat-form-field class="example-full-width">
+      <mat-label>{{num}}</mat-label>
+      <input matInput placeholder="Remark {{num}}" type="text" [(ngModel)]="imtRemarkPrivate[i]">
+    </mat-form-field>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-4">
+    <mat-form-field class="example-full-width">
+      <mat-label>More IMT +</mat-label>
+      <mat-select [(ngModel)]="privateVehicle.moreIMT" (selectionChange)="moreIMTPrivateMethod()">
+        <mat-option value="1">
+          1
+        </mat-option>
+        <mat-option value="2">
+          2
+        </mat-option>
+        <mat-option value="3">
+          3
+        </mat-option>
+        <mat-option value="4">
+          4
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
+<div class="row" *ngFor="let other of otherIMTPrivate; let i = index">
+  <div class="col-md-4">
+    <mat-form-field class="example-full-width">
+      <input matInput type="text" placeholder="IMT Name" [(ngModel)]="otherIMTPrivate[i].name">
+    </mat-form-field>
+  </div>
+  <div class="col-md-4">
+    <mat-form-field class="example-full-width">
+      <input matInput type="text" placeholder="Remark" [(ngModel)]="otherIMTPrivate[i].remark">
+    </mat-form-field>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-4">
+    <mat-form-field class="example-full-width">
+      <mat-label>Valid Driving License</mat-label>
+      <mat-select [(ngModel)]="privateVehicle.validDrivingLicense">
+        <mat-option value="yes">
+          Yes
+        </mat-option>
+        <mat-option value="no">
+          No
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="col-md-4" *ngIf="privateVehicle.validDrivingLicense === 'yes'">
+    <p class="form-sub-heading font-weight-bold text-secondary">Upload Driving License</p>
+    <input type="file" accept="image/*, application/pdf"  (change)="uploadDrivingLicensePrivate($event)">
+  </div>
+
+  <div class="col-md-4" *ngIf="privateVehicle.validDrivingLicense === 'yes'">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Driving License Number" type="text" [(ngModel)]="privateVehicle.drivingLicenseNumber">
+    </mat-form-field>
+  </div>
+
+  <div class="col-md-4" *ngIf="privateVehicle.validDrivingLicense === 'yes'">
+    <mat-form-field class="example-full-width">
+      <mat-label>Validity of License</mat-label>
+      <input
+        matInput
+        [(ngModel)]="privateVehicle.licenseValidity"
+        placeholder="Validity of License"
+        [matDatepicker]="picker15"
+      />
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="picker15"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #picker15>
+  </mat-datepicker>
+    </mat-form-field>
+  </div>
+
+
+  <div class="col-md-4">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Voluntary Deductible Amount" type="number" [(ngModel)]="privateVehicle.voluntaryDeductibleAmount">
+    </mat-form-field>
+  </div>
+
+
+  <div class="col-md-4">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Compulsary Deductible amount" type="number" [(ngModel)]="privateVehicle.compulsaryDeductibleAmount">
+    </mat-form-field>
+  </div>
+
+  <div class="col-md-4">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="RTO (Registered City)" type="text" [(ngModel)]="privateVehicle.rto">
+    </mat-form-field>
+  </div>
+
+  <div class="col-md-4" *ngIf="privateVehicle.nameVehicle === 'company'">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="GST Number (If Applicable)" type="text" [(ngModel)]="privateVehicle.gstNumber">
+    </mat-form-field>
+  </div>
+
+  <div class="col-md-4">
+    <mat-form-field class="example-full-width">
+      <mat-label>Date Of Renewal</mat-label>
+      <input
+        matInput
+        [(ngModel)]="privateVehicle.renewalDate"
+        placeholder="Date Of Renewal"
+        [matDatepicker]="picker10"
+      />
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="picker10"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #picker10>
+  </mat-datepicker>
+    </mat-form-field>
+  </div>
+
+  <div class="col-md-4">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Cashless Garage" type="text" [(ngModel)]="privateVehicle.cashlessGarage">
+    </mat-form-field>
+  </div>
+  <div class="col-md-4">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Toll Free Number" type="text" [(ngModel)]="privateVehicle.companyContact">
+    </mat-form-field>
+  </div>
+
+  <div class="col-md-4">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Branch Locator" type="text" [(ngModel)]="privateVehicle.branchLocator">
+    </mat-form-field>
+  </div>
+  <div class="col-md-4">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Claim Procedure" type="text" [(ngModel)]="privateVehicle.claimProcedure">
+    </mat-form-field>
+  </div>
+
+  <div class="col-md-4">
+    <p class="form-sub-heading font-weight-bold text-secondary">Policy Upload"</p>
+    <input type="file" accept="pdf" (change)="policyUploadPrivate($event)">
+  </div>
+
+  <div class="col-md-4">
+    <mat-form-field class="example-full-width">
+      <mat-label>Status of Policy</mat-label>
+      <mat-select [(ngModel)]="privateVehicle.policyStatus">
+        <mat-option value="lapse">
+         Lapse
+       </mat-option>
+       <mat-option value="inforce">
+        Inforce
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<div class="col-md-4">
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Last Premium Pay Year" type="text" [(ngModel)]="privateVehicle.lastPremiumPayYear">
+  </mat-form-field>
+</div>
+
+<!-- <div class="col-md-4">
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Family Age At Last Premium Pay Year" type="text" [(ngModel)]="privateVehicle.familyAgePayYear">
+  </mat-form-field>
+</div> -->
+
+
+
+</div>
+<div class="text-center d-flex justify-content-center" *ngIf="update === 'false'">
+  <button mat-raised-button class="btn btn-danger pull-right" (click)="privateVehicleSubmit()">SAVE</button>
+</div>
+
+<div class="text-center d-flex justify-content-center" *ngIf="update === 'true'">
+  <button mat-raised-button class="btn btn-danger pull-right" (click)="editPrivateVehicle()">EDIT</button>
+</div>
+
+</mat-tab>
+<mat-tab label="Commercial Vehicle Insurance">
+
+  <div class="row" *ngIf="update === 'true'">
+    <div class="col-md-6">
+      <mat-form-field class="example-full-width">
+        <mat-label>Select Policy Number</mat-label>
+        <mat-select [(ngModel)]="selectedPolicyNumberCommercial">
+          <mat-option *ngFor="let number of allCommercialVehicle; let i = index" [value]="number.policyNumber" (click)="commercialVehicleSelected(i)">
+            {{number.vehicleName}} - {{number.registration}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-12">
+      <div class="d-flex align-items-center">
+        <p class="font-weight-bold text-secondary ">Use Of Vehicle :-</p>
+        <p class="text-primary font-weight-bold ml-2">Commercial
+        </p>
+      </div>
+    </div>
+
+
+
+  </div>
+
+  <div class="row ">
+
+    <div class="col-md-4">
+      <mat-form-field class="example-full-width">
+        <mat-label>Vehicle Variant</mat-label>
+        <mat-select [(ngModel)]="commercialVehicle.vehicleVariant">
+          <mat-option value="monthly">
+            Small Truck
+          </mat-option>
+          <mat-option value="quarterly">
+            Truck
+          </mat-option>
+          <mat-option value="monthly">
+            Crane
+          </mat-option>
+          <mat-option value="quarterly">
+            2 wheeler
+          </mat-option>
+          <mat-option value="quarterly">
+            4 wheeler
+          </mat-option>
+          <mat-option value="other">
+            Other (If any)
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-md-4" *ngIf="commercialVehicle.vehicleVariant === 'other'">
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Other Vehicle Variant" type="text" [(ngModel)]="commercialVehicle.otherVehicleVariant">
+      </mat-form-field>
+    </div>
+    <div class="col-md-4">
+      <mat-form-field class="example-full-width">
+        <mat-label>Public Carrier</mat-label>
+        <mat-select [(ngModel)]="commercialVehicle.publicCarrier">
+          <mat-option value="yes">
+            Yes
+          </mat-option>
+          <mat-option value="no">
+            No
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-6">
+      <mat-form-field class="example-full-width">
+        <mat-label>Vehicle Usage</mat-label>
+        <mat-select [(ngModel)]="commercialVehicle.vehicleUsage">
+          <mat-option value="agriculture">
+            Agriculture
+          </mat-option>
+          <mat-option value="construction">
+            Construction
+          </mat-option>
+          <mat-option value="compactor">
+            Compactor
+          </mat-option>
+          <mat-option value="emergencyServiceVan">
+            Emergency Service Van
+          </mat-option>
+          <mat-option value="specialityUtilityVehicle">
+            Speciality Utility Vehicle
+          </mat-option>
+          <mat-option value="garbageVan">
+            Garbage Van
+          </mat-option>
+          <mat-option value="other">
+            Other (If any)
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-4" *ngIf="commercialVehicle.publicCarrier === 'other'">
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Other Vehicle Variant" type="text" [(ngModel)]="commercialVehicle.otherVehicleVariant">
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-6">
+      <mat-form-field class="example-full-width">
+        <mat-label>Driven By</mat-label>
+        <mat-select [(ngModel)]="commercialVehicle.drivenBy">
+          <mat-option value="yes">
+            Self
+          </mat-option>
+          <mat-option value="no">
+            Contractual Basis
+          </mat-option>
+          <mat-option value="yes">
+            Paid Driver
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+
+    <div class="col-md-4">
+      <mat-form-field class="example-full-width">
+        <mat-label>Fitness of Vehicle Applicable Till</mat-label>
+        <input
+          matInput
+          [(ngModel)]="commercialVehicle.vehicleFitnessApplicability"
+          placeholder="Fitness of Vehicle Applicable Till"
+          [matDatepicker]="picker11"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="picker11"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #picker11>
+    </mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="col-md-4">
+      <mat-form-field class="example-full-width">
+        <mat-label>Tax of Vehicle Paid Till</mat-label>
+        <input
+          matInput
+          [(ngModel)]="commercialVehicle.vehicleTaxPaidTill"
+          placeholder="Tax of Vehicle Paid Till"
+          [matDatepicker]="picker12"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="picker12"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #picker12>
+    </mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="col-md-4">
+      <mat-form-field class="example-full-width">
+        <mat-label>Vehicle In Name Of</mat-label>
+        <mat-select [(ngModel)]="commercialVehicle.vehicleInNameOf">
+          <mat-option value="company">
+            Company
+          </mat-option>
+          <mat-option value="individual">
+            Individual
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-md-4" *ngIf="commercialVehicle.vehicleInNameOf === 'company'">
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Name Of Company"
+        type="text" [(ngModel)]="commercialVehicle.companyName">
+      </mat-form-field>
+    </div>
+    <div class="col-md-4">
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Name of Owner" type="text" [(ngModel)]="commercialVehicle.ownerName">
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-4">
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Insurance Company Name" type="text" [(ngModel)]="commercialVehicle.insuranceCompanyName">
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-4">
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Policy Number" type="text" [(ngModel)]="commercialVehicle.policyNumber">
+      </mat-form-field>
+    </div>
+    <div class="col-md-4">
+      <mat-form-field class="example-full-width">
+        <mat-label>D.O.C</mat-label>
+        <input
+          matInput
+          [(ngModel)]="commercialVehicle.doc"
+          placeholder="D.O.C"
+          [matDatepicker]="picker13"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="picker13"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #picker13>
+    </mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-4">
+      <mat-form-field class="example-full-width">
+        <mat-label>Policy Period</mat-label>
+        <mat-select [(ngModel)]="commercialVehicle.policyPeriod" (selectionChange)="setPackagePolicyCommercial(); calcLastPremiumPayYearCommercial()">
+          <mat-option value="1">
+           1 Year
+         </mat-option>
+         <mat-option value="2">
+          2 Years
+        </mat-option>
+        <mat-option value="3">
+         3 Years
+       </mat-option>
+       <mat-option value="5">
+         5 Years
+       </mat-option>
+     </mat-select>
+   </mat-form-field>
+ </div>
+
+ <div class="col-md-4">
+  <mat-form-field class="example-full-width">
+    <mat-label>Package Policy Type</mat-label>
+    <mat-select [(ngModel)]="commercialVehicle.packagePolicyType">
+      <mat-option *ngFor="let policy of policyPackageCommercial" [value]="policy.text">
+       {{policy.text}}
+     </mat-option>
+   </mat-select> 
+ </mat-form-field>
+</div>
+
+
+<div class="col-md-6">
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Address as mention in RC Card"
+    type="text" [(ngModel)]="commercialVehicle.addressRcCard">
+  </mat-form-field>
+</div>
+
+<div class="col-md-4">
+  <mat-form-field class="example-full-width">
+    <mat-label>Geographical Area </mat-label>
+    <mat-select [(ngModel)]="commercialVehicle.geographicalArea">
+      <mat-option value="city">
+       City 
+     </mat-option>
+     <mat-option value="state">
+      State
+    </mat-option>
+    <mat-option value="allOverIndia">
+     All Over India
+   </mat-option>
+ </mat-select>
+</mat-form-field>
+</div>
+</div>
+
+<div class="row ">
+  <div class="col-md-4">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Vehicle Name" type="text" [(ngModel)]="commercialVehicle.vehicleName">
+    </mat-form-field>
+  </div>
+  <div class="col-md-4">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Registration" type="text" [(ngModel)]="commercialVehicle.registration">
+    </mat-form-field>
+  </div>
+  <div class="col-md-4">
+    <mat-form-field class="example-full-width">
+      <mat-label>Date of Registration of Vehicle</mat-label>
+      <input
+        matInput
+        [(ngModel)]="commercialVehicle.registrationDate"
+        placeholder="Date of Registration of Vehicle"
+        [matDatepicker]="picker14"
+      />
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="picker14"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #picker14>
+  </mat-datepicker>
+    </mat-form-field>
+  </div>
+  <div class="col-md-4">
+    <mat-form-field class="example-full-width">
+      <mat-label>Registration Validity Till</mat-label>
+      <input
+        matInput
+        [(ngModel)]="commercialVehicle.registrationValidityTill"
+        placeholder="Registration Validity Till"
+        [matDatepicker]="picker21"
+      />
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="picker21"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #picker21>
+  </mat-datepicker>
+    </mat-form-field>
+  </div>
+  <div class="col-md-4">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Manufacturer" type="text" [(ngModel)]="commercialVehicle.manufacturer">
+    </mat-form-field>
+  </div>
+  <div class="col-md-4">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Vehicle Sub Class" type="text" [(ngModel)]="commercialVehicle.vehicleSubClass">
+    </mat-form-field>
+  </div>
+
+
+  <div class="col-md-4">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder=" Make/Model Variant" type="text" [(ngModel)]="commercialVehicle.makeModel">
+    </mat-form-field>
+  </div>
+
+  <div class="col-md-4">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder=" Type of Body" type="text" [(ngModel)]="commercialVehicle.bodyType">
+    </mat-form-field>
+  </div>
+  <div class="col-md-4">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder=" Year of Manufacture" type="tel" numbersOnly [(ngModel)]="commercialVehicle.manufactureYear">
+    </mat-form-field>
+  </div>
+  <div class="col-md-4">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder=" Engine Number" type="text" [(ngModel)]="commercialVehicle.engineNumber">
+    </mat-form-field>
+  </div>
+  <div class="col-md-4">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Chassis Number" type="text" [(ngModel)]="commercialVehicle.chassisNumber">
+    </mat-form-field>
+  </div>
+  <div class="col-md-4">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Cubic Capacity" type="number" [(ngModel)]="commercialVehicle.cubicCapacity">
+    </mat-form-field>
+  </div>
+
+  <div class="col-md-4">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Seating Capacity" type="number" [(ngModel)]="commercialVehicle.seatingCapacity">
+    </mat-form-field>
+  </div>
+  <div class="col-md-4">
+    <mat-form-field class="example-full-width">
+      <mat-label>Fuel Type</mat-label>
+      <mat-select [(ngModel)]="commercialVehicle.fuelType">
+        <mat-option value="petrol">
+          Petrol
+        </mat-option>
+        <mat-option value="diesel">
+          Diesel
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+<div class="col-md-4">
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="GVW" type="text" [(ngModel)]="commercialVehicle.gvw">
+  </mat-form-field>
+</div>
+<div class="col-md-4">
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Carrying Capacity" type="number" [(ngModel)]="commercialVehicle.carryingCapacity">
+  </mat-form-field>
+</div>
+<div class="col-md-4">
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Vehicle IDV" type="number" (keyup)="calcTotalIDVCommercial()" [(ngModel)]="commercialVehicle.vehicleIdv">
+  </mat-form-field>
+</div>
+<div class="col-md-4">
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Chassis IDV" type="number" [(ngModel)]="commercialVehicle.chassisIdv">
+  </mat-form-field>
+</div>
+<div class="col-md-4">
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Non Electrical Accessory" (keyup)="calcTotalIDVCommercial()" type="number" [(ngModel)]="commercialVehicle.nonElectricalAccessory">
+  </mat-form-field>
+</div>
+<div class="col-md-4">
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder=" Electrical Accessory" type="number" (keyup)="calcTotalIDVCommercial()" [(ngModel)]="commercialVehicle.electricalAccessory">
+  </mat-form-field>
+</div>
+<div class="col-md-4">
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="CNG/LPG Kit" type="text" (keyup)="calcTotalIDVCommercial()" [(ngModel)]="commercialVehicle.cngKit">
+  </mat-form-field>
+</div>
+<div class="col-md-4">
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Total IDV" type="number" [(ngModel)]="commercialVehicle.totalIdv">
+  </mat-form-field>
+</div>
+
+<div class="col-md-4">
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Premium" type="number" [(ngModel)]="commercialVehicle.premium">
+  </mat-form-field>
+</div>
+
+<div class="col-md-4">
+  <mat-form-field class="example-full-width">
+    <mat-label>Claim Details</mat-label>
+    <mat-select [(ngModel)]="commercialVehicle.claimTaken" (selectionChange)="selectClaimsCommercialVehicle()">
+      <mat-option value="1">
+       1 
+     </mat-option>
+     <mat-option value="2">
+      2
+    </mat-option>
+    <mat-option value="3">
+     3
+   </mat-option>
+   <mat-option value="4">
+     4
+   </mat-option>
+   <mat-option value="5">
+     5
+   </mat-option>
+ </mat-select>
+</mat-form-field>
+</div>
+</div>
+
+<div class="row" *ngFor ="let num of claimDetailsCommercialVehicle; let i = index">
+  <div class="col-md-4">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Name of workshop {{i + 1}}" type="text" [(ngModel)]="claimDetailsCommercialVehicle[i].workshop">
+    </mat-form-field>
+  </div>
+
+  <div class="col-md-4">
+    <mat-form-field class="example-full-width">
+      <mat-label>Date of Claim {{i + 1}}</mat-label>
+      <input
+        matInput
+        [(ngModel)]="claimDetailsCommercialVehicle[i].dateOfClaim"
+        placeholder="Date of Claim {{i + 1}}"
+        [matDatepicker]="picker22"
+      />
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="picker22"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #picker22>
+  </mat-datepicker>
+    </mat-form-field>
+  </div>
+  <div class="col-md-4">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Damage Occurred {{i + 1}}" type="text" [(ngModel)]="claimDetailsCommercialVehicle[i].damageOccurred">
+    </mat-form-field>
+  </div>
+
+  <div class="col-md-4">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Number of Claims in Workshop {{i + 1}}" type="text" [(ngModel)]="claimDetailsCommercialVehicle[i].numberOfClaims">
+    </mat-form-field>
+  </div>
+  <div class="col-md-4">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Claimed Amount {{i + 1}}" type="number" [(ngModel)]="claimDetailsCommercialVehicle[i].claimedAmount">
+    </mat-form-field>
+  </div>
+
+  <div class="col-md-4">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Approved Amount {{i + 1}}" type="number" [(ngModel)]="claimDetailsCommercialVehicle[i].approvedAmount">
+    </mat-form-field>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-4">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Current Year NCB (IN %)" type="text" [(ngModel)]="commercialVehicle.currentYearNcb">
+    </mat-form-field>
+  </div>
+
+  <div class="col-md-4">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Last Year NCB (IN %)" type="number" [(ngModel)]="commercialVehicle.lastYearNcb">
+    </mat-form-field>
+  </div>
+
+  <div class="col-md-4">
+    <mat-form-field>
+      <mat-label>Add on Coverage</mat-label>
+      <mat-select [(ngModel)]="commercialVehicle.addOnCoverage" multiple>
+        <mat-option *ngFor="let add of addOnCoverages" [value]="add">{{add}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="col-md-4" *ngIf="commercialVehicle.addOnCoverage && commercialVehicle.addOnCoverage.includes('Zero Depth')">
+    <mat-form-field class="example-full-width">
+      <mat-label>Zero Dep</mat-label>
+      <mat-select [(ngModel)]="commercialVehicle.zeroDep">
+        <mat-option value="yes">
+         Yes
+       </mat-option>
+       <mat-option value="no">
+         No
+       </mat-option>
+
+     </mat-select>
+   </mat-form-field>
+ </div>
+ <div class="col-md-4" *ngIf="commercialVehicle.addOnCoverage && commercialVehicle.addOnCoverage.includes('Consumable')">
+  <mat-form-field class="example-full-width">
+    <mat-label>Consumable</mat-label>
+    <mat-select [(ngModel)]="commercialVehicle.consumable">
+      <mat-option value="yes">
+       Yes
+     </mat-option>
+     <mat-option value="no">
+       No
+     </mat-option>
+
+   </mat-select>
+ </mat-form-field>
+</div>
+<div class="col-md-4" *ngIf="commercialVehicle.addOnCoverage && commercialVehicle.addOnCoverage.includes('Retrun to Invoice')">
+  <mat-form-field class="example-full-width">
+    <mat-label>Retrun to Invoice</mat-label>
+    <mat-select [(ngModel)]="commercialVehicle.invoiceReturn">
+      <mat-option value="yes">
+       Yes
+     </mat-option>
+     <mat-option value="no">
+       No
+     </mat-option>
+
+   </mat-select>
+ </mat-form-field>
+</div>
+<div class="col-md-4">
+
+  <mat-form-field class="example-full-width" *ngIf="commercialVehicle.addOnCoverage && commercialVehicle.addOnCoverage.includes('Engine Protection Cover')">
+    <mat-label>Engine Protection Cover</mat-label>
+    <mat-select [(ngModel)]="commercialVehicle.engineProtectionCover">
+      <mat-option value="yes">
+       Yes
+     </mat-option>
+     <mat-option value="no">
+       No
+     </mat-option>
+
+   </mat-select>
+ </mat-form-field>
+</div>
+
+<div class="col-md-4" *ngIf="commercialVehicle.addOnCoverage && commercialVehicle.addOnCoverage.includes('NCB Protector')">
+  <mat-form-field class="example-full-width">
+    <mat-label>NCB Protector</mat-label>
+    <mat-select [(ngModel)]="commercialVehicle.ncbProtector">
+      <mat-option value="yes">
+       Yes
+     </mat-option>
+     <mat-option value="no">
+       No
+     </mat-option>
+   </mat-select>
+ </mat-form-field>
+</div>
+
+<div class="col-md-4" *ngIf="commercialVehicle.addOnCoverage && commercialVehicle.addOnCoverage.includes('Key & Lock Replacement')">
+  <mat-form-field class="example-full-width">
+    <mat-label>Key & Lock Replacement</mat-label>
+    <input type="text" matInput placeholder="Feature" [(ngModel)]="commercialVehicle.keyLockReplacement">
+  </mat-form-field>
+</div>
+<div class="col-md-4" *ngIf="commercialVehicle.addOnCoverage && commercialVehicle.addOnCoverage.includes('Daily Allowance')">
+  <mat-form-field class="example-full-width">
+    <mat-label>Daily Allowance</mat-label>
+    <input type="text" matInput placeholder="Feature" [(ngModel)]="commercialVehicle.dailyAllowance">
+  </mat-form-field>
+</div>
+
+<div class="col-md-4" *ngIf="commercialVehicle.addOnCoverage && commercialVehicle.addOnCoverage.includes('Tyre Protector')">
+  <mat-form-field class="example-full-width">
+    <mat-label>Tyre Protector</mat-label>
+    <mat-select [(ngModel)]="commercialVehicle.tyreProtector">
+      <mat-option value="yes">
+       Yes
+     </mat-option>
+     <mat-option value="no">
+       No
+     </mat-option>
+   </mat-select>
+ </mat-form-field>
+</div>
+
+<div class="col-md-4" *ngIf="commercialVehicle.addOnCoverage && commercialVehicle.addOnCoverage.includes('Rim Damage Cover')">
+  <mat-form-field class="example-full-width">
+    <mat-label>Rim Damage Cover</mat-label>
+    <mat-select [(ngModel)]="commercialVehicle.rimDamageCover">
+      <mat-option value="yes">
+       Yes
+     </mat-option>
+     <mat-option value="no">
+       No
+     </mat-option>
+   </mat-select>
+ </mat-form-field>
+</div>
+
+<div class="col-md-4" *ngIf="commercialVehicle.addOnCoverage && commercialVehicle.addOnCoverage.includes('Loss of Personal Belongings')">
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Loss of Personal Belongings" type="text" [(ngModel)]="commercialVehicle.personalBelongingsLoss">
+  </mat-form-field>
+</div>
+<div class="col-md-4" *ngIf="commercialVehicle.addOnCoverage && commercialVehicle.addOnCoverage.includes('External Accessories - Electrical')">
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="External Accessories - Electrical" type="text" [(ngModel)]="commercialVehicle.electricalExternalAccessory">
+  </mat-form-field>
+</div>
+<div class="col-md-4" *ngIf="commercialVehicle.addOnCoverage && commercialVehicle.addOnCoverage.includes('External Accessories - Non Electrical')">
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="External Accessories- Non-Electrical" type="text" [(ngModel)]="commercialVehicle.nonElectricalExternalAccessory">
+  </mat-form-field>
+</div>
+
+<div class="col-md-4" *ngIf="commercialVehicle.addOnCoverage && commercialVehicle.addOnCoverage.includes('Other(if any)')">
+  <mat-form-field class="example-full-width">
+    <mat-label>Others (If any)</mat-label>
+    <input matInput placeholder="Name" type="text" [(ngModel)]="commercialVehicle.othersName">
+  </mat-form-field>
+</div>
+
+<div class="col-md-4" *ngIf="commercialVehicle.addOnCoverage && commercialVehicle.addOnCoverage.includes('Other(if any)')">
+  <mat-form-field class="example-full-width">
+    <mat-label>Others (If any)</mat-label>
+    <input matInput placeholder="Feature" type="text" [(ngModel)]="commercialVehicle.othersFeature">
+  </mat-form-field>
+</div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <mat-form-field>
+      <mat-label>IMT</mat-label>
+      <mat-select [(ngModel)]="commercialVehicle.imt" multiple>
+        <mat-option *ngFor="let imt of IMT" [value]="imt">{{imt}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-4" *ngFor="let num of commercialVehicle.imt; let i = index">
+    <mat-form-field class="example-full-width">
+      <mat-label>{{num}}</mat-label>
+      <input matInput placeholder="Remark {{num}}" type="text" [(ngModel)]="imtRemarkCommercial[i]">
+    </mat-form-field>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-4">
+    <mat-form-field class="example-full-width">
+      <mat-label>More IMT +</mat-label>
+      <mat-select [(ngModel)]="commercialVehicle.moreIMT" (selectionChange)="moreIMTCommercialMethod()">
+        <mat-option value="1">
+          1
+        </mat-option>
+        <mat-option value="2">
+          2
+        </mat-option>
+        <mat-option value="3">
+          3
+        </mat-option>
+        <mat-option value="4">
+          4
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
+<div class="row" *ngFor="let other of otherIMTCommercial; let i = index">
+  <div class="col-md-4">
+    <mat-form-field class="example-full-width">
+      <input matInput type="text" placeholder="IMT Name" [(ngModel)]="otherIMTCommercial[i].name">
+    </mat-form-field>
+  </div>
+  <div class="col-md-4">
+    <mat-form-field class="example-full-width">
+      <input matInput type="text" placeholder="Remark" [(ngModel)]="otherIMTCommercial[i].remark">
+    </mat-form-field>
+  </div>
+</div>
+
+<div class="row"> 
+  <div class="col-md-4">
+    <mat-form-field class="example-full-width">
+      <mat-label>Valid Driving License</mat-label>
+      <mat-select [(ngModel)]="commercialVehicle.validDrivingLicense">
+        <mat-option value="yes">
+          Yes
+        </mat-option>
+        <mat-option value="no">
+          No
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  </div>
+
+  <div class="col-md-4">
+    <p>Upload Driving License</p>
+    <input accept="application/pdf" type="file" (change)="uploadDrivingLicenseCommercial($event)">
+  </div>
+  <div class="col-md-4">
+    <mat-form-field class="example-full-width">
+      <mat-label>Driving License</mat-label>
+      <mat-select [(ngModel)]="commercialVehicle.drivingLicense">
+        <mat-option value="owner">
+         Owner
+       </mat-option>
+       <mat-option value="driver">
+         Driver
+       </mat-option>
+     </mat-select>
+   </mat-form-field>
+ </div>
+
+ <div class="col-md-4">
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Driving License Number" type="number" [(ngModel)]="commercialVehicle.drivingLicenseNumber">
+  </mat-form-field>
+</div>
+
+<div class="col-md-4">
+  <mat-form-field class="example-full-width">
+    <mat-label>Validity of License</mat-label>
+    <input
+      matInput
+      [(ngModel)]="commercialVehicle.licenseValiditym"
+      placeholder="Validity of License"
+      [matDatepicker]="picker23"
+    />
+    <mat-datepicker-toggle
+      matSuffix
+      [for]="picker23"
+    ></mat-datepicker-toggle>
+    <mat-datepicker #picker23>
+</mat-datepicker>
+  </mat-form-field>
+</div>
+
+
+<div class="col-md-4">
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Voluntary Deductible Amount"
+    type="number" [(ngModel)]="commercialVehicle.voluntaryDeductibleAmount">
+  </mat-form-field>
+</div>
+
+
+<div class="col-md-4">
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Compulsary Deductible Amount"
+    type="number" [(ngModel)]="commercialVehicle.compulsaryDeductibleAmount">
+  </mat-form-field>
+</div>
+
+<div class="col-md-4">
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="RTO (Registered City)" type="text" [(ngModel)]="commercialVehicle.rto">
+  </mat-form-field>
+</div>
+
+<div class="col-md-4" *ngIf="commercialVehicle.vehicleInNameOf === 'company'">
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="GST Number (If Applicable)"
+    type="text" [(ngModel)]="commercialVehicle.gstNumber">
+  </mat-form-field>
+</div>
+
+<div class="col-md-4">
+  <mat-form-field class="example-full-width">
+    <mat-label>Date Of Renewal</mat-label>
+    <input
+      matInput
+      [(ngModel)]="commercialVehicle.renewalDate"
+      placeholder="Date Of Renewal"
+      [matDatepicker]="picker18"
+    />
+    <mat-datepicker-toggle
+      matSuffix
+      [for]="picker18"
+    ></mat-datepicker-toggle>
+    <mat-datepicker #picker18>
+</mat-datepicker>
+  </mat-form-field>
+</div>
+
+<div class="col-md-4">
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Cashless Garage" type="text" [(ngModel)]="commercialVehicle.cashlessGarage">
+  </mat-form-field>
+</div>
+<div class="col-md-4">
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Toll free Number" type="text" [(ngModel)]="commercialVehicle.contactUs">
+  </mat-form-field>
+</div>
+
+<div class="col-md-4">
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Branch Locator" type="text" [(ngModel)]="commercialVehicle.branchLocator">
+  </mat-form-field>
+</div>
+<div class="col-md-4">
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Claim Procedure" type="text" [(ngModel)]="commercialVehicle.claimProcedure">
+  </mat-form-field>
+</div>
+
+<div class="col-md-4">
+  <mat-form-field class="example-full-width">
+    <mat-label>Status Of Policy</mat-label>
+    <mat-select [(ngModel)]="commercialVehicle.policyStatus">
+      <mat-option value="lapse">
+       Lapse
+     </mat-option>
+     <mat-option value="inforce">
+      Inforce
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+</div>
+
+<div class="col-md-4">
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Last Premium Pay Year" type="text" [(ngModel)]="commercialVehicle.lastPremiumPayYear">
+  </mat-form-field>
+</div>
+
+<!-- <div class="col-md-4">
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Family Age At Last Premium Pay Year"
+    type="text" [(ngModel)]="commercialVehicle.familyAgePayYear">
+  </mat-form-field>
+</div>
+-->
+
+
+</div>
+<div class="text-center d-flex justify-content-center" *ngIf="update === 'false'">
+  <button mat-raised-button class="btn btn-danger pull-right" (click)="commercialVehicleSubmit()">SAVE</button>
+</div>
+<div class="text-center d-flex justify-content-center" *ngIf="update === 'true'">
+  <button mat-raised-button class="btn btn-danger pull-right" (click)="editCommercialVehicel()">EDIT</button>
+</div>
+</mat-tab>
+</mat-tab-group>
+
+</div>
+</div>
+</div>
+
+</div>
+
+</div>
